@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lmusic</string>
+    <string name="accessibility_service_description">Lmusic uses this permission only to detect when you hold both volume buttons together. It does not read your screen or interact with other apps.</string>
+</resources>

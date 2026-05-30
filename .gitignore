@@ -1,0 +1,12 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+# yt-dlp binary is large — download separately per README
+app/src/main/jniLibs/arm64-v8a/libytdlp.so

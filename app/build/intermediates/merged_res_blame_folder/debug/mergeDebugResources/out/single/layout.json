@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.lmusic.app-mergeDebugResources-40:/layout/fragment_permission_wizard.xml",
+        "source": "com.lmusic.app-main-43:/layout/fragment_permission_wizard.xml"
+    },
+    {
+        "merged": "com.lmusic.app-mergeDebugResources-40:/layout/activity_main.xml",
+        "source": "com.lmusic.app-main-43:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.lmusic.app-mergeDebugResources-40:/layout/fragment_download_history.xml",
+        "source": "com.lmusic.app-main-43:/layout/fragment_download_history.xml"
+    },
+    {
+        "merged": "com.lmusic.app-mergeDebugResources-40:/layout/item_download.xml",
+        "source": "com.lmusic.app-main-43:/layout/item_download.xml"
+    }
+]

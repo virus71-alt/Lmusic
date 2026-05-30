@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "com.lmusic.app-debug-41:/layout_fragment_download_history.xml.flat",
+        "source": "com.lmusic.app-main-43:/layout/fragment_download_history.xml"
+    },
+    {
+        "merged": "com.lmusic.app-debug-41:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.lmusic.app-main-43:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.lmusic.app-debug-41:/drawable_ic_download.xml.flat",
+        "source": "com.lmusic.app-main-43:/drawable/ic_download.xml"
+    },
+    {
+        "merged": "com.lmusic.app-debug-41:/layout_fragment_permission_wizard.xml.flat",
+        "source": "com.lmusic.app-main-43:/layout/fragment_permission_wizard.xml"
+    },
+    {
+        "merged": "com.lmusic.app-debug-41:/layout_item_download.xml.flat",
+        "source": "com.lmusic.app-main-43:/layout/item_download.xml"
+    },
+    {
+        "merged": "com.lmusic.app-debug-41:/layout_activity_main.xml.flat",
+        "source": "com.lmusic.app-main-43:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.lmusic.app-debug-41:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.lmusic.app-main-43:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.lmusic.app-debug-41:/xml_accessibility_service_config.xml.flat",
+        "source": "com.lmusic.app-main-43:/xml/accessibility_service_config.xml"
+    },
+    {
+        "merged": "com.lmusic.app-debug-41:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.lmusic.app-main-43:/mipmap-anydpi-v26/ic_launcher.xml"
+    }
+]

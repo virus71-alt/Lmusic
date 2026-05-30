@@ -1,0 +1,44 @@
+com.lmusic.app-activity-1.8.0-0 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\07c0d3460ec4ebda275a0ed32dfb93a1\transformed\activity-1.8.0\res
+com.lmusic.app-work-runtime-ktx-2.9.0-1 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\0d8a6e3c28d967c2f414452c30e1a7da\transformed\work-runtime-ktx-2.9.0\res
+com.lmusic.app-coordinatorlayout-1.1.0-2 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\0e3a04435a49cfda3bad87436939802d\transformed\coordinatorlayout-1.1.0\res
+com.lmusic.app-lifecycle-livedata-core-ktx-2.8.3-3 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\11e572d60ceb2f4edfe45055191147e6\transformed\lifecycle-livedata-core-ktx-2.8.3\res
+com.lmusic.app-startup-runtime-1.1.1-4 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\13f34995c9837b770aac60b92ce8f975\transformed\startup-runtime-1.1.1\res
+com.lmusic.app-lifecycle-runtime-ktx-release-5 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\160e0832866be096caf0d8ef6f03ea51\transformed\lifecycle-runtime-ktx-release\res
+com.lmusic.app-work-runtime-2.9.0-6 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\1743e1481c7f8b6dc85919f57bd6a01d\transformed\work-runtime-2.9.0\res
+com.lmusic.app-viewpager2-1.0.0-7 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\318f4cd8663c2ee77481879cbf2e9c67\transformed\viewpager2-1.0.0\res
+com.lmusic.app-core-runtime-2.2.0-8 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\32ad5082699241717f0003ad76d0e0de\transformed\core-runtime-2.2.0\res
+com.lmusic.app-core-ktx-1.13.1-9 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\33b5f0ac9125fbb10d606c9db3502595\transformed\core-ktx-1.13.1\res
+com.lmusic.app-recyclerview-1.1.0-10 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\4087cef30b0b946bfd01e4f065a39e83\transformed\recyclerview-1.1.0\res
+com.lmusic.app-savedstate-1.2.1-11 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\47f50addd2bb9c2f9d630c1af1c8bc9c\transformed\savedstate-1.2.1\res
+com.lmusic.app-constraintlayout-2.0.1-12 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\4b3b4546da7021bf7e6a9059f26f4c92\transformed\constraintlayout-2.0.1\res
+com.lmusic.app-cardview-1.0.0-13 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\5d30d924357a5e94bce18e8780ef7221\transformed\cardview-1.0.0\res
+com.lmusic.app-lifecycle-process-2.8.3-14 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\6a8505f318ffa889b51465566976c24f\transformed\lifecycle-process-2.8.3\res
+com.lmusic.app-core-1.13.1-15 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\6e0bf371ef441a9baf55d4efdd795e30\transformed\core-1.13.1\res
+com.lmusic.app-transition-1.5.0-16 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\827348e321c2ab3b67e756a4a3ba6d7a\transformed\transition-1.5.0\res
+com.lmusic.app-annotation-experimental-1.4.0-17 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\88b93ceb49f93c57fcaae080facc29a4\transformed\annotation-experimental-1.4.0\res
+com.lmusic.app-appcompat-1.7.0-18 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\8b64ef5a4e2a8440c0963971275fe05e\transformed\appcompat-1.7.0\res
+com.lmusic.app-lifecycle-viewmodel-release-19 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\8b7a20dfb27eb1feb94968df433695b1\transformed\lifecycle-viewmodel-release\res
+com.lmusic.app-lifecycle-viewmodel-ktx-2.8.3-20 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\8b98b71a4a5918c699c09df7ee64d088\transformed\lifecycle-viewmodel-ktx-2.8.3\res
+com.lmusic.app-lifecycle-service-2.8.3-21 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\9114021beab78df15d88837a05a63ca7\transformed\lifecycle-service-2.8.3\res
+com.lmusic.app-drawerlayout-1.1.1-22 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\9325fe48716561d68473480cf505d362\transformed\drawerlayout-1.1.1\res
+com.lmusic.app-sqlite-framework-2.4.0-23 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\964f19e0f9fa2f1cd55a4d806895b0e1\transformed\sqlite-framework-2.4.0\res
+com.lmusic.app-fragment-1.5.4-24 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\9c92d2727401eceb532c569853aaf5c1\transformed\fragment-1.5.4\res
+com.lmusic.app-lifecycle-runtime-release-25 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\9caedd90368c332f99eeffa7dc6c9763\transformed\lifecycle-runtime-release\res
+com.lmusic.app-lifecycle-viewmodel-savedstate-2.8.3-26 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\9d8a3bb1d4a106c30430bf0fa8760f2a\transformed\lifecycle-viewmodel-savedstate-2.8.3\res
+com.lmusic.app-lifecycle-livedata-core-2.8.3-27 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\a814351ab2bbd22f956cf6c007295b4b\transformed\lifecycle-livedata-core-2.8.3\res
+com.lmusic.app-material-1.12.0-28 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\adee30fbdfc203eb667affe1e240cd42\transformed\material-1.12.0\res
+com.lmusic.app-room-ktx-2.6.1-29 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\bf49014f1289b69969bb1416ebbd5076\transformed\room-ktx-2.6.1\res
+com.lmusic.app-emoji2-views-helper-1.3.0-30 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\c9054a383a0e12fc4545b6bcb63b4fff\transformed\emoji2-views-helper-1.3.0\res
+com.lmusic.app-appcompat-resources-1.7.0-31 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\cd1bc8bcd3d5e1e4f6cd32b3485e45a1\transformed\appcompat-resources-1.7.0\res
+com.lmusic.app-room-runtime-2.6.1-32 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\e010c6fbacdd2beb452e188cf4a36978\transformed\room-runtime-2.6.1\res
+com.lmusic.app-lifecycle-livedata-2.8.3-33 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\e3207d2c7d9df11ef8adeaa7f023edb3\transformed\lifecycle-livedata-2.8.3\res
+com.lmusic.app-profileinstaller-1.3.1-34 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\e6be24623568e466966c4ab85f9cd8a1\transformed\profileinstaller-1.3.1\res
+com.lmusic.app-emoji2-1.3.0-35 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\ebd354aa7fa766bc605a809fa2c9a8da\transformed\emoji2-1.3.0\res
+com.lmusic.app-sqlite-2.4.0-36 C:\Users\Rahul Singh\.gradle\caches\8.9\transforms\ed067a18cc6d27555ab542e37a0de4d0\transformed\sqlite-2.4.0\res
+com.lmusic.app-pngs-37 C:\Users\Rahul Singh\Downloads\New folder\LMUSIC\app\build\generated\res\pngs\debug
+com.lmusic.app-resValues-38 C:\Users\Rahul Singh\Downloads\New folder\LMUSIC\app\build\generated\res\resValues\debug
+com.lmusic.app-packageDebugResources-39 C:\Users\Rahul Singh\Downloads\New folder\LMUSIC\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.lmusic.app-packageDebugResources-40 C:\Users\Rahul Singh\Downloads\New folder\LMUSIC\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.lmusic.app-debug-41 C:\Users\Rahul Singh\Downloads\New folder\LMUSIC\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.lmusic.app-debug-42 C:\Users\Rahul Singh\Downloads\New folder\LMUSIC\app\src\debug\res
+com.lmusic.app-main-43 C:\Users\Rahul Singh\Downloads\New folder\LMUSIC\app\src\main\res

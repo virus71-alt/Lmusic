@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#FF4B4B</color>
+    <color name="background">#0F0F0F</color>
+    <color name="card_bg">#1A1A1A</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorPrimary">#FF4B4B</color>
+    <color name="colorPrimaryVariant">#CC3A3A</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#888888</color>
+    <string name="accessibility_service_description">Lmusic uses this permission only to detect when you hold both volume buttons together. It does not read your screen or interact with other apps.</string>
+    <string name="app_name">Lmusic</string>
+    <style name="Theme.Lmusic" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+    </style>
+</resources>
