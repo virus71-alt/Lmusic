@@ -61,12 +61,16 @@ public final class FragmentPermissionWizardBinding implements ViewBinding {
   @NonNull
   public final TextView tvProgress;
 
+  @NonNull
+  public final TextView tvProgressCount;
+
   private FragmentPermissionWizardBinding(@NonNull ScrollView rootView,
       @NonNull Button btnAccessibility, @NonNull Button btnNotificationAccess,
       @NonNull Button btnNotifications, @NonNull Button btnStorage, @NonNull LinearLayout cardStep1,
       @NonNull LinearLayout cardStep2, @NonNull LinearLayout cardStep3,
       @NonNull LinearLayout cardStep4, @NonNull ImageView ivStep1, @NonNull ImageView ivStep2,
-      @NonNull ImageView ivStep3, @NonNull ImageView ivStep4, @NonNull TextView tvProgress) {
+      @NonNull ImageView ivStep3, @NonNull ImageView ivStep4, @NonNull TextView tvProgress,
+      @NonNull TextView tvProgressCount) {
     this.rootView = rootView;
     this.btnAccessibility = btnAccessibility;
     this.btnNotificationAccess = btnNotificationAccess;
@@ -81,6 +85,7 @@ public final class FragmentPermissionWizardBinding implements ViewBinding {
     this.ivStep3 = ivStep3;
     this.ivStep4 = ivStep4;
     this.tvProgress = tvProgress;
+    this.tvProgressCount = tvProgressCount;
   }
 
   @Override
@@ -188,9 +193,15 @@ public final class FragmentPermissionWizardBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tv_progress_count;
+      TextView tvProgressCount = ViewBindings.findChildViewById(rootView, id);
+      if (tvProgressCount == null) {
+        break missingId;
+      }
+
       return new FragmentPermissionWizardBinding((ScrollView) rootView, btnAccessibility,
           btnNotificationAccess, btnNotifications, btnStorage, cardStep1, cardStep2, cardStep3,
-          cardStep4, ivStep1, ivStep2, ivStep3, ivStep4, tvProgress);
+          cardStep4, ivStep1, ivStep2, ivStep3, ivStep4, tvProgress, tvProgressCount);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

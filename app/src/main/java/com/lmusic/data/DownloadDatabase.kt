@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [DownloadRecord::class], version = 1, exportSchema = false)
+@Database(entities = [DownloadRecord::class], version = 3, exportSchema = false)
 abstract class DownloadDatabase : RoomDatabase() {
     abstract fun downloadDao(): DownloadDao
 
@@ -19,7 +19,10 @@ abstract class DownloadDatabase : RoomDatabase() {
                     ctx.applicationContext,
                     DownloadDatabase::class.java,
                     "lmusic.db"
-                ).build().also { INSTANCE = it }
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+                    .also { INSTANCE = it }
             }
     }
 }

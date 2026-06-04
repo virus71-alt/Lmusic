@@ -4,6 +4,9 @@ package com.lmusic.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -20,20 +23,51 @@ public final class ItemDownloadBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
-  public final TextView tvDate;
+  public final ImageButton btnDelete;
+
+  @NonNull
+  public final ImageButton btnFav;
+
+  @NonNull
+  public final ImageButton btnPlay;
+
+  @NonNull
+  public final ImageButton btnRetry;
+
+  @NonNull
+  public final ImageView ivPlaceholderIcon;
+
+  @NonNull
+  public final ImageView ivThumbnail;
+
+  @NonNull
+  public final FrameLayout selectionOverlay;
+
+  @NonNull
+  public final TextView tvChannel;
+
+  @NonNull
+  public final TextView tvMeta;
 
   @NonNull
   public final TextView tvTitle;
 
-  @NonNull
-  public final TextView tvUrl;
-
-  private ItemDownloadBinding(@NonNull LinearLayout rootView, @NonNull TextView tvDate,
-      @NonNull TextView tvTitle, @NonNull TextView tvUrl) {
+  private ItemDownloadBinding(@NonNull LinearLayout rootView, @NonNull ImageButton btnDelete,
+      @NonNull ImageButton btnFav, @NonNull ImageButton btnPlay, @NonNull ImageButton btnRetry,
+      @NonNull ImageView ivPlaceholderIcon, @NonNull ImageView ivThumbnail,
+      @NonNull FrameLayout selectionOverlay, @NonNull TextView tvChannel, @NonNull TextView tvMeta,
+      @NonNull TextView tvTitle) {
     this.rootView = rootView;
-    this.tvDate = tvDate;
+    this.btnDelete = btnDelete;
+    this.btnFav = btnFav;
+    this.btnPlay = btnPlay;
+    this.btnRetry = btnRetry;
+    this.ivPlaceholderIcon = ivPlaceholderIcon;
+    this.ivThumbnail = ivThumbnail;
+    this.selectionOverlay = selectionOverlay;
+    this.tvChannel = tvChannel;
+    this.tvMeta = tvMeta;
     this.tvTitle = tvTitle;
-    this.tvUrl = tvUrl;
   }
 
   @Override
@@ -63,9 +97,57 @@ public final class ItemDownloadBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.tv_date;
-      TextView tvDate = ViewBindings.findChildViewById(rootView, id);
-      if (tvDate == null) {
+      id = R.id.btn_delete;
+      ImageButton btnDelete = ViewBindings.findChildViewById(rootView, id);
+      if (btnDelete == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_fav;
+      ImageButton btnFav = ViewBindings.findChildViewById(rootView, id);
+      if (btnFav == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_play;
+      ImageButton btnPlay = ViewBindings.findChildViewById(rootView, id);
+      if (btnPlay == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_retry;
+      ImageButton btnRetry = ViewBindings.findChildViewById(rootView, id);
+      if (btnRetry == null) {
+        break missingId;
+      }
+
+      id = R.id.iv_placeholder_icon;
+      ImageView ivPlaceholderIcon = ViewBindings.findChildViewById(rootView, id);
+      if (ivPlaceholderIcon == null) {
+        break missingId;
+      }
+
+      id = R.id.iv_thumbnail;
+      ImageView ivThumbnail = ViewBindings.findChildViewById(rootView, id);
+      if (ivThumbnail == null) {
+        break missingId;
+      }
+
+      id = R.id.selection_overlay;
+      FrameLayout selectionOverlay = ViewBindings.findChildViewById(rootView, id);
+      if (selectionOverlay == null) {
+        break missingId;
+      }
+
+      id = R.id.tv_channel;
+      TextView tvChannel = ViewBindings.findChildViewById(rootView, id);
+      if (tvChannel == null) {
+        break missingId;
+      }
+
+      id = R.id.tv_meta;
+      TextView tvMeta = ViewBindings.findChildViewById(rootView, id);
+      if (tvMeta == null) {
         break missingId;
       }
 
@@ -75,13 +157,8 @@ public final class ItemDownloadBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tv_url;
-      TextView tvUrl = ViewBindings.findChildViewById(rootView, id);
-      if (tvUrl == null) {
-        break missingId;
-      }
-
-      return new ItemDownloadBinding((LinearLayout) rootView, tvDate, tvTitle, tvUrl);
+      return new ItemDownloadBinding((LinearLayout) rootView, btnDelete, btnFav, btnPlay, btnRetry,
+          ivPlaceholderIcon, ivThumbnail, selectionOverlay, tvChannel, tvMeta, tvTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

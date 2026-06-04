@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -19,7 +20,11 @@
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <!-- Android 13+ scoped media read for the music library scan -->
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- Required on Android 11+ for PluginLoader to scan installed APKs for stream plugins -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
@@ -39,10 +44,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:testOnly="true"
         android:theme="@style/Theme.Lmusic" >
         <activity
             android:name="com.lmusic.MainActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/Theme.Lmusic.Splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -80,6 +87,67 @@
             android:exported="false"
             android:foregroundServiceType="dataSync" />
 
+        <!--
+            WorkManager uses its own SystemForegroundService to run expedited/foreground workers.
+            On Android 14+ (API 34+) the OS enforces that the type passed to startForeground()
+            is a subset of the type declared here. Our BatchRestoreWorker uses DATA_SYNC, so we
+            merge that type into WorkManager's service declaration via tools:node="merge".
+        -->
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:directBootAware="false"
+            android:enabled="@bool/enable_system_foreground_service_default"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!-- Media playback session — keeps music playing across app close, lock screen, Bluetooth -->
+        <service
+            android:name="com.lmusic.player.PlaybackService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback" >
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaSessionService" />
+            </intent-filter>
+        </service>
+
+        <!-- Share target: YouTube → Share → Lmusic -->
+        <activity
+            android:name="com.lmusic.ShareActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
+        <!-- FileProvider for playing locally-saved tracks (pre-Android 10 path) -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.lmusic.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- Home-screen widget: track info + transport controls -->
+        <receiver
+            android:name="com.lmusic.widget.LmusicWidget"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_info" />
+        </receiver>
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="com.lmusic.androidx-startup"
@@ -109,11 +177,6 @@
             android:enabled="@bool/enable_system_job_service_default"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
-            android:name="androidx.work.impl.foreground.SystemForegroundService"
-            android:directBootAware="false"
-            android:enabled="@bool/enable_system_foreground_service_default"
-            android:exported="false" />
 
         <receiver
             android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
@@ -189,6 +252,13 @@
                 <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
             </intent-filter>
         </receiver>
+
+        <uses-library
+            android:name="androidx.window.extensions"
+            android:required="false" />
+        <uses-library
+            android:name="androidx.window.sidecar"
+            android:required="false" />
 
         <service
             android:name="androidx.room.MultiInstanceInvalidationService"

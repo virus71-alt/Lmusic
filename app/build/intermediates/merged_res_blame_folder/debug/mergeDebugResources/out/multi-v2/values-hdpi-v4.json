@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.lmusic.app-mergeDebugResources-39:/values-hdpi-v4/values-hdpi-v4.xml",
+            "outputFile": "com.lmusic.app-mergeDebugResources-52:/values-hdpi-v4/values-hdpi-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Rahul Singh\\.gradle\\caches\\8.9\\transforms\\8b64ef5a4e2a8440c0963971275fe05e\\transformed\\appcompat-1.7.0\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "source": "C:\\Users\\Rahul Singh\\.gradle\\caches\\8.9\\transforms\\5d14d9be1c2dab7c9d02259bf233f2dd\\transformed\\appcompat-1.7.0\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

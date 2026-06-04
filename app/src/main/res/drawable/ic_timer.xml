@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Material-style timer / clock icon (24 × 24 dp) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorOnSurface">
+
+    <!-- Clock face outline -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="?attr/colorOnSurface"
+        android:strokeWidth="2"
+        android:pathData="M12,22C6.477,22 2,17.523 2,12C2,6.477 6.477,2 12,2C17.523,2 22,6.477 22,12C22,17.523 17.523,22 12,22Z" />
+
+    <!-- Hour hand pointing to 12 -->
+    <path
+        android:strokeColor="?attr/colorOnSurface"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M12,7 L12,12" />
+
+    <!-- Minute hand pointing to ~2 (25 minutes) -->
+    <path
+        android:strokeColor="?attr/colorOnSurface"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M12,12 L15.5,14.5" />
+
+    <!-- Centre dot -->
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:pathData="M12,11.25 C12.414,11.25 12.75,11.586 12.75,12 C12.75,12.414 12.414,12.75 12,12.75 C11.586,12.75 11.25,12.414 11.25,12 C11.25,11.586 11.586,11.25 12,11.25Z" />
+
+</vector>

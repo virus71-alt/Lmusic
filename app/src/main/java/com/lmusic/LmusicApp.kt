@@ -3,13 +3,25 @@ package com.lmusic
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import androidx.appcompat.app.AppCompatDelegate
+import com.lmusic.data.BackupManager
+import com.lmusic.data.Settings
+import com.lmusic.plugin.PluginManager
+import com.lmusic.util.CrashLogger
+import com.lmusic.worker.BatchRestoreWorker
 
 class LmusicApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        CrashLogger.install(this)
         createNotificationChannels()
-        // yt-dlp lives in nativeLibraryDir (auto-extracted by Android) — no install step needed
+        AppCompatDelegate.setDefaultNightMode(Settings(this).themeMode)
+        PluginManager.init(this)   // discovers built-in + any sideloaded plugin APKs
+        // Re-enqueue any restore that was interrupted by process death.
+        if (BackupManager.hasPendingRestore(this)) {
+            BatchRestoreWorker.enqueue(this)
+        }
     }
 
     private fun createNotificationChannels() {
@@ -19,7 +31,7 @@ class LmusicApp : Application() {
             NotificationChannel(
                 CHANNEL_DOWNLOAD,
                 "Downloads",
-                NotificationManager.IMPORTANCE_LOW
+                NotificationManager.IMPORTANCE_DEFAULT  // default so it shows in the shade without being missed
             ).apply { description = "Shows download progress" }
         )
 

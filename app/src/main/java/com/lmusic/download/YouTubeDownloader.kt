@@ -6,120 +6,179 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import com.lmusic.data.Settings
+import com.lmusic.plugin.AudioStream
+import com.lmusic.plugin.PluginManager
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.schabi.newpipe.extractor.NewPipe
-import org.schabi.newpipe.extractor.ServiceList
-import org.schabi.newpipe.extractor.stream.StreamInfo
-import org.schabi.newpipe.extractor.stream.StreamInfoItem
 import java.io.File
 import java.io.FileOutputStream
-import java.io.OutputStream
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
 
+/**
+ * Orchestrates a full download:
+ *   1. Delegate stream resolution to the appropriate [com.lmusic.plugin.StreamPlugin]
+ *      via [PluginManager].
+ *   2. Select the best audio stream based on user quality settings.
+ *   3. Fetch cover art.
+ *   4. Download the audio stream to the device cache.
+ *   5. Copy the file into the public Music/Lmusic MediaStore folder.
+ *
+ * This class contains NO YouTube-specific code.  All platform-specific extraction
+ * is encapsulated inside plugin implementations (e.g. NewPipePlugin).
+ */
 class YouTubeDownloader(private val ctx: Context) {
 
     companion object {
         private const val TAG = "YouTubeDownloader"
-        private val initialized = AtomicBoolean(false)
 
+        /** Shared OkHttp client — used only for thumbnail + CDN file downloads. */
         private val client = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .build()
     }
 
-    init {
-        if (initialized.compareAndSet(false, true)) {
-            NewPipe.init(NewPipeDownloaderImpl)
-        }
-    }
+    // ─────────────────────────────────────────────────────────────────────────
+    // Public entry point
+    // ─────────────────────────────────────────────────────────────────────────
 
-    fun download(input: String, onProgress: (Float) -> Unit): DownloadResult {
+    fun download(
+        input: String,
+        onProgress: (Float) -> Unit,
+        onStage: (String) -> Unit = {}
+    ): DownloadResult {
         return try {
-            // Resolve "ytsearch1:query" → real video URL via NewPipe search
-            val videoUrl = if (input.startsWith("ytsearch")) {
-                val query = input.substringAfter(":").trim()
-                Log.d(TAG, "Resolving search query: $query")
-                resolveSearchQuery(query)
-                    ?: return DownloadResult.Failure("No results for: $query")
-            } else input
-
-            Log.d(TAG, "Extracting stream info for: $videoUrl")
-            val info: StreamInfo = getStreamInfoWithRetry(videoUrl)
-
-            Log.d(TAG, "Streams available: audio=${info.audioStreams?.size ?: 0} " +
-                    "video=${info.videoStreams?.size ?: 0} " +
-                    "videoOnly=${info.videoOnlyStreams?.size ?: 0}")
-
-            // Prefer audio-only (smaller, better quality per byte).
-            // Fall back to progressive video (.mp4 with embedded audio) when audio-only fails —
-            // happens on some videos when nsig decryption can't handle the audio adaptive set.
-            val audioStreams = info.audioStreams.orEmpty()
-            val videoStreams = info.videoStreams.orEmpty()
-
-            val (streamUrl, ext) = when {
-                audioStreams.isNotEmpty() -> {
-                    val a = audioStreams.maxByOrNull {
-                        it.averageBitrate.takeIf { b -> b > 0 } ?: it.bitrate
-                    } ?: audioStreams.first()
-                    Log.d(TAG, "Selected audio-only: ${a.format?.name} ${a.averageBitrate}kbps")
-                    val url = a.content
-                        ?: return DownloadResult.Failure("Audio stream URL missing")
-                    url to (a.format?.suffix ?: "m4a")
-                }
-                videoStreams.isNotEmpty() -> {
-                    // Pick lowest-res progressive video (we only want audio anyway)
-                    val v = videoStreams.minByOrNull { it.height.takeIf { h -> h > 0 } ?: Int.MAX_VALUE }
-                        ?: videoStreams.first()
-                    Log.d(TAG, "Falling back to progressive video: ${v.format?.name} ${v.resolution}")
-                    val url = v.content
-                        ?: return DownloadResult.Failure("Video stream URL missing")
-                    url to (v.format?.suffix ?: "mp4")
-                }
-                else -> return DownloadResult.Failure(
-                    "No playable streams found. YouTube may have restricted this video."
+            // ── 1. Find a plugin ───────────────────────────────────────────
+            onStage("Resolving stream…")
+            val plugin = PluginManager.findFor(input)
+                ?: return DownloadResult.Failure(
+                    "No plugin can handle this URL.\n" +
+                    "Install a plugin from Settings → Plugins."
                 )
+
+            Log.d(TAG, "Using plugin '${plugin.name}' for: $input")
+
+            // ── 2. Extract streams + metadata ──────────────────────────────
+            val result = plugin.extract(input)   // blocking — must run on IO thread
+
+            if (result.streams.isEmpty()) {
+                return DownloadResult.Failure("Plugin '${plugin.name}' returned no streams.")
             }
 
-            val title = sanitizeFilename(info.name ?: "track")
-            downloadStream(streamUrl, title, ext, onProgress)
+            // ── 3. Quality selection ───────────────────────────────────────
+            val settings = Settings(ctx)
+            val preferSmallest = settings.audioQuality == Settings.Quality.SMALLER
+            val chosen: AudioStream = selectBest(result.streams, preferSmallest)
+                ?: return DownloadResult.Failure("No playable stream found.")
+
+            Log.d(TAG, "Chosen: ${chosen.extension} ~${chosen.bitrateKbps}kbps " +
+                    "audioOnly=${chosen.isAudioOnly}")
+
+            // ── 4. Prepare filenames ───────────────────────────────────────
+            val rawTitle    = result.title
+            val cleanTitle  = if (settings.stripTitleNoise) TitleCleaner.clean(rawTitle) else rawTitle
+            val cleanChan   = TitleCleaner.cleanChannel(result.channel)
+            val safeFile    = sanitizeFilename(cleanTitle)
+
+            Log.d(TAG, "Title: \"$rawTitle\" → \"$cleanTitle\"")
+
+            // ── 5. Cover art ───────────────────────────────────────────────
+            onStage("Fetching cover art…")
+            val thumbnailPath = result.thumbnailUrl?.let { downloadThumbnail(it) }
+
+            // ── 6. Audio download ──────────────────────────────────────────
+            onStage("Downloading audio…")
+            val cacheTemp = File(ctx.cacheDir, "lmusic_dl.${chosen.extension}")
+            cacheTemp.delete()
+            val downloadOk = downloadToFile(chosen.url, cacheTemp, chosen.headers) { p ->
+                onProgress(p * 0.90f)
+            }
+            if (!downloadOk) return DownloadResult.Failure("Download from CDN failed")
+
+            // ── 7. Save to Music folder ────────────────────────────────────
+            onStage("Saving to Music folder…")
+            onProgress(92f)
+            val outFilename = "$safeFile.${chosen.extension}"
+            val savedUri = saveToMusicFolder(cacheTemp, outFilename, chosen.mimeType)
+            cacheTemp.delete()
+            if (savedUri == null) return DownloadResult.Failure("Could not save to Music folder")
+            onProgress(100f)
+
+            DownloadResult.Success(
+                filename        = outFilename,
+                displayTitle    = cleanTitle,
+                channel         = cleanChan,
+                durationSeconds = result.durationSeconds,
+                thumbnailPath   = thumbnailPath,
+                fileUri         = savedUri
+            )
         } catch (e: Exception) {
             Log.e(TAG, "Download failed", e)
             DownloadResult.Failure(e.message ?: e::class.java.simpleName)
         }
     }
 
-    private fun downloadStream(
-        url: String,
-        title: String,
-        ext: String,
-        onProgress: (Float) -> Unit
-    ): DownloadResult {
-        val filename = "$title.$ext"
-        val mime = when (ext.lowercase()) {
-            "m4a", "mp4" -> "audio/mp4"
-            "webm" -> "audio/webm"
-            "opus" -> "audio/ogg"
-            else -> "audio/*"
+    // ─────────────────────────────────────────────────────────────────────────
+    // Stream selection
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Prefer audio-only streams; among those pick highest or lowest bitrate
+     * based on [preferSmallest].  Fall back to mixed streams if no audio-only available.
+     */
+    private fun selectBest(streams: List<AudioStream>, preferSmallest: Boolean): AudioStream? {
+        val pool = streams.filter { it.isAudioOnly }.ifEmpty { streams }
+        return if (preferSmallest) {
+            pool.minByOrNull { it.bitrateKbps.takeIf { b -> b > 0 } ?: Int.MAX_VALUE }
+        } else {
+            pool.maxByOrNull { it.bitrateKbps }
         }
+    }
 
-        val req = Request.Builder().url(url).build()
-        client.newCall(req).execute().use { response ->
-            if (!response.isSuccessful) {
-                return DownloadResult.Failure("HTTP ${response.code} from CDN")
+    // ─────────────────────────────────────────────────────────────────────────
+    // Thumbnail
+    // ─────────────────────────────────────────────────────────────────────────
+
+    private fun downloadThumbnail(url: String): String? {
+        return try {
+            val thumbDir = File(ctx.filesDir, "thumbnails").apply { mkdirs() }
+            val outFile  = File(thumbDir, "${url.hashCode()}.jpg")
+            if (outFile.exists()) return outFile.absolutePath
+            val req = Request.Builder().url(url).build()
+            client.newCall(req).execute().use { resp ->
+                if (!resp.isSuccessful) return null
+                val body = resp.body ?: return null
+                outFile.outputStream().use { body.byteStream().copyTo(it) }
             }
-            val body = response.body ?: return DownloadResult.Failure("Empty response body")
+            outFile.absolutePath
+        } catch (e: Exception) { null }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // File download with progress (supports plugin-supplied custom headers)
+    // ─────────────────────────────────────────────────────────────────────────
+
+    private fun downloadToFile(
+        url: String,
+        dest: File,
+        extraHeaders: Map<String, String>,
+        onProgress: (Float) -> Unit
+    ): Boolean {
+        val reqBuilder = Request.Builder().url(url)
+        extraHeaders.forEach { (k, v) -> reqBuilder.addHeader(k, v) }
+
+        client.newCall(reqBuilder.build()).execute().use { response ->
+            if (!response.isSuccessful) {
+                Log.e(TAG, "HTTP ${response.code} from CDN")
+                return false
+            }
+            val body       = response.body ?: return false
             val totalBytes = body.contentLength().coerceAtLeast(1L)
-
-            val out = openOutputStream(filename, mime)
-                ?: return DownloadResult.Failure("Could not open output file")
-
-            out.use { sink ->
+            dest.outputStream().use { sink ->
                 body.byteStream().use { source ->
-                    val buf = ByteArray(64 * 1024)
-                    var read = 0
+                    val buf       = ByteArray(64 * 1024)
+                    var read: Int
                     var totalRead = 0L
                     var lastReport = 0L
                     while (source.read(buf).also { read = it } != -1) {
@@ -135,17 +194,15 @@ class YouTubeDownloader(private val ctx: Context) {
                 }
             }
         }
-
-        onProgress(100f)
-        return DownloadResult.Success(filename)
+        return true
     }
 
-    /**
-     * On Android 10+, write through MediaStore (no MANAGE_EXTERNAL_STORAGE needed).
-     * On older Android, write directly to the public Music directory.
-     */
-    private fun openOutputStream(filename: String, mime: String): OutputStream? {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+    // ─────────────────────────────────────────────────────────────────────────
+    // MediaStore / filesystem save
+    // ─────────────────────────────────────────────────────────────────────────
+
+    private fun saveToMusicFolder(src: File, filename: String, mime: String): String? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val values = ContentValues().apply {
                 put(MediaStore.Audio.Media.DISPLAY_NAME, filename)
                 put(MediaStore.Audio.Media.MIME_TYPE, mime)
@@ -154,58 +211,39 @@ class YouTubeDownloader(private val ctx: Context) {
             val resolver = ctx.contentResolver
             val uri = resolver.insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values)
                 ?: return null
-            return resolver.openOutputStream(uri)
+            val ok = resolver.openOutputStream(uri)?.use { sink ->
+                src.inputStream().use { it.copyTo(sink) }; true
+            } ?: false
+            if (ok) uri.toString() else null
         } else {
             val dir = File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC),
                 "Lmusic"
             )
             dir.mkdirs()
-            return FileOutputStream(File(dir, filename))
+            val file = File(dir, filename)
+            FileOutputStream(file).use { sink -> src.inputStream().use { it.copyTo(sink) } }
+            file.absolutePath
         }
     }
 
     private fun sanitizeFilename(s: String): String =
         s.replace(Regex("""[\\/:*?"<>|]"""), "_").trim().take(120)
-
-    private fun getStreamInfoWithRetry(url: String, attempts: Int = 3): StreamInfo {
-        var lastError: Exception? = null
-        repeat(attempts) { attempt ->
-            try {
-                return StreamInfo.getInfo(ServiceList.YouTube, url)
-            } catch (e: Exception) {
-                lastError = e
-                Log.w(TAG, "Attempt ${attempt + 1}/$attempts failed: ${e.message}")
-                if (attempt < attempts - 1) {
-                    Thread.sleep(1000L * (attempt + 1))  // 1s, 2s backoff
-                }
-            }
-        }
-        throw lastError ?: RuntimeException("Stream extraction failed")
-    }
-
-    private fun resolveSearchQuery(query: String): String? {
-        return try {
-            val service = ServiceList.YouTube
-            val handler = service.searchQHFactory.fromQuery(
-                query,
-                listOf("videos"),
-                ""
-            )
-            val extractor = service.getSearchExtractor(handler)
-            extractor.fetchPage()
-            val firstStream = extractor.initialPage.items
-                .filterIsInstance<StreamInfoItem>()
-                .firstOrNull()
-            firstStream?.url.also { Log.d(TAG, "Search '$query' → $it") }
-        } catch (e: Exception) {
-            Log.e(TAG, "Search failed for '$query'", e)
-            null
-        }
-    }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Result type
+// ─────────────────────────────────────────────────────────────────────────────
+
 sealed class DownloadResult {
-    data class Success(val filename: String) : DownloadResult()
+    data class Success(
+        val filename: String,
+        val displayTitle: String = filename,
+        val channel: String? = null,
+        val durationSeconds: Long = 0L,
+        val thumbnailPath: String? = null,
+        val fileUri: String? = null
+    ) : DownloadResult()
+
     data class Failure(val error: String) : DownloadResult()
 }

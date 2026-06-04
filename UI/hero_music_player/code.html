@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&amp;family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        @keyframes slow-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulse-wave {
+            0%, 100% { height: 8px; }
+            50% { height: 32px; }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-slow-rotate { animation: slow-rotate 20s linear infinite; }
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid #2D2D2D;
+        }
+        .doodle-border {
+            border: 1.5px solid #2D2D2D;
+            box-shadow: 4px 4px 0px 0px #F6C7A8;
+        }
+        .waveform-bar {
+            width: 4px;
+            background-color: #7a573e;
+            border-radius: 99px;
+            margin: 0 2px;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-container": "#764e52",
+                    "on-tertiary-fixed-variant": "#623c40",
+                    "surface": "#fcf9f8",
+                    "secondary": "#356668",
+                    "outline-variant": "#d4c3ba",
+                    "primary-fixed": "#ffdcc5",
+                    "secondary-container": "#b9ecee",
+                    "surface-container-high": "#eae7e7",
+                    "primary-container": "#f6c7a8",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#604028",
+                    "on-surface-variant": "#50453d",
+                    "surface-tint": "#7a573e",
+                    "secondary-fixed-dim": "#9ecfd1",
+                    "surface-container-highest": "#e4e2e1",
+                    "surface-container": "#f0eded",
+                    "tertiary-fixed": "#ffdadc",
+                    "surface-variant": "#e4e2e1",
+                    "background": "#fcf9f8",
+                    "on-secondary-fixed": "#002021",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#dcd9d9",
+                    "inverse-primary": "#ebbd9f",
+                    "on-secondary-container": "#3c6c6e",
+                    "inverse-on-surface": "#f3f0f0",
+                    "on-primary-fixed": "#2e1503",
+                    "tertiary": "#7c5357",
+                    "on-error-container": "#93000a",
+                    "primary": "#7a573e",
+                    "on-background": "#1b1c1c",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#eeb9bd",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "on-surface": "#1b1c1c",
+                    "on-secondary": "#ffffff",
+                    "outline": "#82746c",
+                    "primary-fixed-dim": "#ebbd9f",
+                    "tertiary-container": "#f9c3c7",
+                    "secondary-fixed": "#b9ecee",
+                    "on-secondary-fixed-variant": "#1a4e50",
+                    "on-primary-container": "#745139",
+                    "surface-bright": "#fcf9f8",
+                    "on-tertiary-fixed": "#301216",
+                    "surface-container-low": "#f6f3f2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "container-margin": "20px",
+                    "xs": "4px",
+                    "sm": "12px",
+                    "xl": "64px",
+                    "gutter": "16px",
+                    "base": "8px",
+                    "lg": "40px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Bricolage Grotesque"],
+                    "doodle-accent": ["Bricolage Grotesque"],
+                    "label-caps": ["JetBrains Mono"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Bricolage Grotesque"],
+                    "body-sm": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg-mobile": ["Bricolage Grotesque"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "doodle-accent": ["20px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-lg overflow-x-hidden min-h-screen">
+<!-- Top AppBar (Injected from JSON structure) -->
+<header class="flex justify-between items-center px-container-margin py-base w-full fixed top-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden p-0.5">
+<img alt="User Profile" class="w-full h-full object-cover rounded-full" data-alt="A close-up photographic portrait of a stylish young person with soft, warm studio lighting. The aesthetic is modern and youthful, mirroring the brand's creative energy. Subtle hand-drawn doodle circles in soft peach and charcoal swirl around the head like an artistic halo. The background is a clean, neutral off-white surface." src="https://lh3.googleusercontent.com/aida/AP1WRLux4kX4TE-JK4iZEeA3KHUWSeowwa2l8lKWjqZ9a_JTRQ8QTrSCRPOyrI2VAFZ0EH4I_YbOclBjgzCeBkTWR998pcE4l3yCyRmFH4B_tSx7HuguDDvkJgRjWrffng2-UliboExITWLaWhxvq6I6Mb0t-p9J1LBP8QlmdTkr2TcDdD4i-i6L4NOYkAsjAHLG7Uar7qytSBFvkkoQY4jcie42preXRM2uaAiIlN_rQ_bzC6iH08pEqGp4YZle"/>
+</div>
+<h1 class="font-doodle-accent text-doodle-accent text-primary">LMusic</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-primary active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="music_note">music_note</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-container-margin flex flex-col items-center min-h-screen relative overflow-hidden">
+<!-- Floating Doodles -->
+<div class="absolute top-32 left-8 text-primary/20 animate-float" style="animation-delay: 0s;">
+<span class="material-symbols-outlined text-4xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="absolute top-48 right-12 text-secondary/20 animate-float" style="animation-delay: 2s;">
+<span class="material-symbols-outlined text-5xl" data-icon="star_half">star_half</span>
+</div>
+<div class="absolute bottom-64 left-10 text-tertiary/20 animate-float" style="animation-delay: 4s;">
+<span class="material-symbols-outlined text-3xl" data-icon="notes">notes</span>
+</div>
+<!-- Album Art Showcase (Hero) -->
+<div class="relative mt-8 group">
+<!-- Asymmetric Frame -->
+<div class="absolute -inset-4 border-2 border-on-surface-variant rounded-3xl -rotate-2 opacity-30"></div>
+<div class="absolute -inset-2 border-2 border-primary rotate-1 opacity-20"></div>
+<!-- Rotating Vinyl/Artwork -->
+<div class="w-72 h-72 md:w-96 md:h-96 rounded-full p-2 bg-on-surface-variant/5 liquid-glass flex items-center justify-center animate-slow-rotate relative z-10">
+<div class="w-full h-full rounded-full overflow-hidden border-2 border-on-surface">
+<img alt="Album Artwork" class="w-full h-full object-cover" data-alt="Abstract album artwork featuring fluid, organic shapes in a palette of sunset orange, deep teal, and cream. The style is painterly and expressive, with visible brushstrokes and ink splatters. The overall mood is melancholic yet cozy, fitting a 'lo-fi study beats' aesthetic. Soft particles of light drift across the image like dust motes in sunlight." src="https://lh3.googleusercontent.com/aida/ADBb0ujjqDfRQdPWDxSy7pMK_98JZGDah6e3lbTGJb6W9WwzrGyBdkGT7ckk1Mv3R3XXi-vCVYfmctKt0xQ8C6W6krb8IGTsYkv3EvrmQGk82OK3zu6_oGdHMGH8ye9YwwuGG8Zb-kHwMSZPiKBrB2OJcW-KJPpYTJcFjhFpQ1_XCL1yGTKV0tFl0Ndj7Geblz7dvopIbbDYtQtn1riskxlF35EipzVQGBleMsq_LiUhibEv7G-MMS0oeobtjHs"/>
+</div>
+<!-- Center Hole Doodle -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-16 h-16 bg-surface rounded-full border-2 border-on-surface flex items-center justify-center shadow-inner">
+<div class="w-4 h-4 bg-primary-container rounded-full border border-on-surface"></div>
+</div>
+</div>
+</div>
+<!-- Floating Decoration Stars -->
+<div class="absolute -top-4 -right-4 w-12 h-12 bg-primary-fixed text-on-primary-fixed-variant rounded-full flex items-center justify-center border-1.5 border-on-surface shadow-lg animate-bounce" style="animation-duration: 3s">
+<span class="material-symbols-outlined" data-icon="celebration">celebration</span>
+</div>
+</div>
+<!-- Track Info -->
+<div class="text-center mt-lg z-20">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">Midnight Sketches</h2>
+<p class="font-body-lg text-on-surface-variant">Arlo &amp; The Dreamers</p>
+</div>
+<!-- Waveform Visualizer -->
+<div class="w-full h-16 mt-md flex items-end justify-center gap-1 overflow-hidden" id="waveform">
+<!-- JS will populate these -->
+</div>
+<!-- Custom Scrubber/Slider -->
+<div class="w-full mt-lg px-4">
+<div class="relative h-2 bg-surface-container-highest rounded-full border border-outline-variant/30">
+<!-- Progress -->
+<div class="absolute h-full bg-primary-container rounded-full w-2/3"></div>
+<!-- Handle (Doodle Character) -->
+<div class="absolute left-2/3 top-1/2 -translate-y-1/2 -translate-x-1/2 group">
+<div class="w-10 h-10 bg-on-tertiary border-2 border-on-surface-variant rounded-lg flex items-center justify-center rotate-3 group-active:scale-90 transition-transform shadow-md">
+<span class="material-symbols-outlined text-primary" data-icon="face_6">face_6</span>
+</div>
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs px-2 py-1 rounded font-label-caps opacity-0 group-hover:opacity-100 transition-opacity">
+                        02:45
+                    </div>
+</div>
+</div>
+<div class="flex justify-between mt-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant">02:45</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">04:12</span>
+</div>
+</div>
+<!-- Controls Area -->
+<div class="flex items-center justify-between w-full max-w-sm mt-lg mb-12">
+<button class="w-12 h-12 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="shuffle">shuffle</span>
+</button>
+<div class="flex items-center gap-md">
+<button class="w-14 h-14 liquid-glass rounded-full flex items-center justify-center hover:bg-surface-container-high active:scale-90 transition-all">
+<span class="material-symbols-outlined text-4xl" data-icon="skip_previous">skip_previous</span>
+</button>
+<button class="w-24 h-24 bg-primary-container doodle-border rounded-full flex items-center justify-center active:scale-95 transition-all shadow-xl">
+<span class="material-symbols-outlined text-6xl text-on-primary-container" data-icon="pause">pause</span>
+</button>
+<button class="w-14 h-14 liquid-glass rounded-full flex items-center justify-center hover:bg-surface-container-high active:scale-90 transition-all">
+<span class="material-symbols-outlined text-4xl" data-icon="skip_next">skip_next</span>
+</button>
+</div>
+<button class="w-12 h-12 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="repeat">repeat</span>
+</button>
+</div>
+<!-- Secondary Actions (Glass Panel) -->
+<div class="w-full grid grid-cols-4 gap-sm liquid-glass rounded-2xl p-sm border-dashed">
+<button class="flex flex-col items-center gap-xs">
+<div class="w-10 h-10 rounded-full border border-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<span class="font-label-caps text-[10px] uppercase">Like</span>
+</button>
+<button class="flex flex-col items-center gap-xs">
+<div class="w-10 h-10 rounded-full border border-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" data-icon="queue_music">queue_music</span>
+</div>
+<span class="font-label-caps text-[10px] uppercase">Queue</span>
+</button>
+<button class="flex flex-col items-center gap-xs">
+<div class="w-10 h-10 rounded-full border border-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" data-icon="share">share</span>
+</div>
+<span class="font-label-caps text-[10px] uppercase">Share</span>
+</button>
+<button class="flex flex-col items-center gap-xs">
+<div class="w-10 h-10 rounded-full border border-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-xl" data-icon="cast">cast</span>
+</div>
+<span class="font-label-caps text-[10px] uppercase">Device</span>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation (Injected from JSON structure) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface/40 backdrop-blur-2xl border-t border-outline-variant/50 rounded-t-xl shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-caps text-label-caps">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 animate-pulse scale-90 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="library_music">library_music</span>
+<span class="font-label-caps text-label-caps">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-caps text-label-caps">Favs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+<script>
+        // Generate Waveform Bars
+        const waveform = document.getElementById('waveform');
+        const barCount = 40;
+        
+        for (let i = 0; i < barCount; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'waveform-bar';
+            const randomHeight = Math.floor(Math.random() * 32) + 8;
+            bar.style.height = `${randomHeight}px`;
+            
+            // Random animation delay for pulsing effect
+            const delay = Math.random() * 2;
+            const duration = 0.5 + Math.random();
+            bar.style.animation = `pulse-wave ${duration}s ease-in-out ${delay}s infinite`;
+            
+            waveform.appendChild(bar);
+        }
+
+        // Particle Effect
+        const createParticle = () => {
+            const particle = document.createElement('div');
+            const size = Math.random() * 4 + 2;
+            particle.className = 'fixed bg-primary/10 rounded-full pointer-events-none z-0';
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.top = `${Math.random() * 100}vh`;
+            document.body.appendChild(particle);
+
+            const duration = Math.random() * 10 + 5;
+            particle.animate([
+                { opacity: 0, transform: 'translateY(0) scale(1)' },
+                { opacity: 0.5, transform: `translateY(-50px) scale(1.5)` },
+                { opacity: 0, transform: `translateY(-100px) scale(1)` }
+            ], {
+                duration: duration * 1000,
+                easing: 'ease-in-out',
+                iterations: Infinity
+            });
+
+            setTimeout(() => {
+                particle.remove();
+            }, duration * 1000);
+        };
+
+        setInterval(createParticle, 2000);
+    </script>
+</body></html>

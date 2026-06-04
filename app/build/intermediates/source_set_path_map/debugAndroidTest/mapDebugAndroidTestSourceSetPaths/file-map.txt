@@ -1,4 +1,0 @@
-com.lmusic.test.app-androidTest-0 C:\Users\Rahul Singh\Downloads\New folder\LMUSIC\app\build\generated\res\resValues\androidTest\debug
-com.lmusic.test.app-mergeDebugAndroidTestResources-1 C:\Users\Rahul Singh\Downloads\New folder\LMUSIC\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.lmusic.test.app-mergeDebugAndroidTestResources-2 C:\Users\Rahul Singh\Downloads\New folder\LMUSIC\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.lmusic.test.app-debugAndroidTest-3 C:\Users\Rahul Singh\Downloads\New folder\LMUSIC\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

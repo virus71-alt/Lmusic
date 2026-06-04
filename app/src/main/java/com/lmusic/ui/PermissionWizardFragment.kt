@@ -8,15 +8,17 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.lmusic.R
 import com.lmusic.databinding.FragmentPermissionWizardBinding
 
 class PermissionWizardFragment : Fragment() {
@@ -46,15 +48,20 @@ class PermissionWizardFragment : Fragment() {
             return enabled.contains(component, ignoreCase = true)
         }
 
-        fun isStorageGranted(ctx: Context): Boolean =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                // Android 10+ uses MediaStore — no user-granted permission needed
-                true
-            } else {
+        fun isStorageGranted(ctx: Context): Boolean = when {
+            // Android 13+: need READ_MEDIA_AUDIO to scan the music library.
+            // Writes go through MediaStore (no permission needed).
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
                 ContextCompat.checkSelfPermission(
-                    ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ctx, Manifest.permission.READ_MEDIA_AUDIO
                 ) == PackageManager.PERMISSION_GRANTED
-            }
+            // Android 10–12: no permission required for app-scoped MediaStore writes.
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> true
+            // Android 9 and below: legacy storage permission.
+            else -> ContextCompat.checkSelfPermission(
+                ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        }
 
         fun isPostNotificationsGranted(ctx: Context): Boolean =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -81,18 +88,19 @@ class PermissionWizardFragment : Fragment() {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
         }
         binding.btnStorage.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                startActivity(
-                    Intent(
-                        Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                        Uri.parse("package:${requireContext().packageName}")
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> {
+                    ActivityCompat.requestPermissions(
+                        requireActivity(),
+                        arrayOf(Manifest.permission.READ_MEDIA_AUDIO), 100
                     )
-                )
-            } else {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 100
-                )
+                }
+                else -> {
+                    ActivityCompat.requestPermissions(
+                        requireActivity(),
+                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 100
+                    )
+                }
             }
         }
         binding.btnNotifications.setOnClickListener {
@@ -112,23 +120,35 @@ class PermissionWizardFragment : Fragment() {
 
     private fun updateUI() {
         val ctx = requireContext()
-        val notifListener = isNotificationListenerEnabled(ctx)
-        val accessibility = isAccessibilityEnabled(ctx)
+        val notif = isNotificationListenerEnabled(ctx)
+        val a11y = isAccessibilityEnabled(ctx)
         val storage = isStorageGranted(ctx)
         val postNotif = isPostNotificationsGranted(ctx)
 
-        val count = listOf(notifListener, accessibility, storage, postNotif).count { it }
-        binding.tvProgress.text = "$count / 4 permissions granted"
+        val count = listOf(notif, a11y, storage, postNotif).count { it }
+        binding.tvProgressCount.text = "$count / 4"
+        binding.tvProgress.text = when (count) {
+            0 -> "Grant permissions to begin"
+            4 -> "All set! Opening app…"
+            else -> "${4 - count} more to go"
+        }
 
-        applyStepState(binding.ivStep1, binding.btnNotificationAccess, notifListener)
-        applyStepState(binding.ivStep2, binding.btnAccessibility, accessibility)
-        applyStepState(binding.ivStep3, binding.btnStorage, storage)
-        applyStepState(binding.ivStep4, binding.btnNotifications, postNotif)
+        applyStep(binding.ivStep1, binding.btnNotificationAccess, notif)
+        applyStep(binding.ivStep2, binding.btnAccessibility, a11y)
+        applyStep(binding.ivStep3, binding.btnStorage, storage)
+        applyStep(binding.ivStep4, binding.btnNotifications, postNotif)
     }
 
-    private fun applyStepState(icon: View, button: View, granted: Boolean) {
-        icon.alpha = if (granted) 1f else 0.35f
-        button.visibility = if (granted) View.GONE else View.VISIBLE
+    private fun applyStep(icon: ImageView, button: View, granted: Boolean) {
+        if (granted) {
+            icon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.success))
+            icon.alpha = 1f
+            button.isVisible = false
+        } else {
+            icon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.text_tertiary))
+            icon.alpha = 0.6f
+            button.isVisible = true
+        }
     }
 
     override fun onDestroyView() {

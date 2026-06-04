@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_bottom_nav"
+    android:elevation="8dp"
+    android:visibility="gone">
+
+    <SeekBar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:progressTint="@color/accent"
+        android:thumbTint="@color/accent"
+        android:progressBackgroundTint="@color/divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/mp_thumbnail"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_thumbnail_placeholder"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
+            android:contentDescription="Cover art" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingHorizontal="14dp">
+
+            <TextView
+                android:id="@+id/mp_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
+
+            <TextView
+                android:id="@+id/mp_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/mp_prev"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_skip_prev"
+            android:background="@null"
+            android:padding="6dp"
+            android:contentDescription="Previous" />
+
+        <ImageButton
+            android:id="@+id/mp_play_pause"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_play"
+            android:background="@drawable/bg_play_button"
+            android:padding="11dp"
+            android:contentDescription="Play or pause"
+            android:layout_marginHorizontal="6dp" />
+
+        <ImageButton
+            android:id="@+id/mp_next"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_skip_next"
+            android:background="@null"
+            android:padding="6dp"
+            android:contentDescription="Next" />
+
+        <ImageButton
+            android:id="@+id/mp_close"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_close"
+            android:background="@null"
+            android:padding="6dp"
+            android:contentDescription="Close player"
+            android:layout_marginStart="4dp"
+            android:alpha="0.6" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -31,12 +31,12 @@ public final class DownloadDatabase_Impl extends DownloadDatabase {
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(1) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(3) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS `downloads` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `youtubeUrl` TEXT NOT NULL, `title` TEXT NOT NULL, `downloadedAt` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `downloads` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `youtubeUrl` TEXT NOT NULL, `title` TEXT NOT NULL, `channel` TEXT, `durationSeconds` INTEGER NOT NULL, `thumbnailPath` TEXT, `fileUri` TEXT, `status` TEXT NOT NULL, `errorMessage` TEXT, `downloadedAt` INTEGER NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2c2e4d8e1176a5221389da7775f44212')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '51f7acd94eeb7ca406869bd1a46d99bc')");
       }
 
       @Override
@@ -85,10 +85,16 @@ public final class DownloadDatabase_Impl extends DownloadDatabase {
       @NonNull
       public RoomOpenHelper.ValidationResult onValidateSchema(
           @NonNull final SupportSQLiteDatabase db) {
-        final HashMap<String, TableInfo.Column> _columnsDownloads = new HashMap<String, TableInfo.Column>(4);
+        final HashMap<String, TableInfo.Column> _columnsDownloads = new HashMap<String, TableInfo.Column>(10);
         _columnsDownloads.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsDownloads.put("youtubeUrl", new TableInfo.Column("youtubeUrl", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsDownloads.put("title", new TableInfo.Column("title", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsDownloads.put("channel", new TableInfo.Column("channel", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsDownloads.put("durationSeconds", new TableInfo.Column("durationSeconds", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsDownloads.put("thumbnailPath", new TableInfo.Column("thumbnailPath", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsDownloads.put("fileUri", new TableInfo.Column("fileUri", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsDownloads.put("status", new TableInfo.Column("status", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsDownloads.put("errorMessage", new TableInfo.Column("errorMessage", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsDownloads.put("downloadedAt", new TableInfo.Column("downloadedAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysDownloads = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesDownloads = new HashSet<TableInfo.Index>(0);
@@ -101,7 +107,7 @@ public final class DownloadDatabase_Impl extends DownloadDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "2c2e4d8e1176a5221389da7775f44212", "217048f15ec509baae954e26f074b6ae");
+    }, "51f7acd94eeb7ca406869bd1a46d99bc", "1294dae42b62e0587f50736b7ef44391");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;

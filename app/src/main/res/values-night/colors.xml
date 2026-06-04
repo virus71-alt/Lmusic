@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Premium Doodle — warm dark palette.
+    Designed to preserve the peach/brown/cream "notebook" character of the UI
+    folder mockups on a dark background instead of generic gray dark-mode.
+-->
+<resources>
+    <!-- Surfaces — deep warm browns instead of charcoal -->
+    <color name="background">#15110D</color>
+    <color name="surface">#1F1813</color>
+    <color name="surface_variant">#2A211B</color>
+    <color name="surface_elevated">#332921</color>
+    <color name="divider">#4D3D31</color>
+
+    <!-- Text — warm cream hierarchy -->
+    <color name="text_primary">#F3E8DD</color>
+    <color name="text_secondary">#C5B5A6</color>
+    <color name="text_tertiary">#8A7B6E</color>
+
+    <!-- Accent — peach so links / icons pop against the warm brown -->
+    <color name="accent">#EBBD9F</color>
+    <color name="accent_dim">#D4A684</color>
+    <color name="accent_soft">#3D2A1C</color>
+
+    <color name="success">#9ECFD1</color>
+    <color name="error">#FFB4AB</color>
+    <color name="card_bg">#1F1813</color>
+
+    <color name="colorPrimary">#EBBD9F</color>
+    <color name="colorPrimaryVariant">#D4A684</color>
+    <color name="colorOnPrimary">#2E1503</color>
+
+    <!-- ── Doodle tokens ───────────────────────────────────────────────── -->
+    <!-- Cream "ink" for borders — readable against the dark background -->
+    <color name="doodle_ink">#E4E2E1</color>
+
+    <!-- Peach button fill — deeper than light mode so cream text reads well -->
+    <color name="doodle_peach">#C99372</color>
+    <color name="on_doodle_peach">#2E1503</color>
+    <color name="doodle_peach_fixed">#A87553</color>
+
+    <!-- Powder blue / soft rose tints — kept dim on dark -->
+    <color name="doodle_blue">#1A4E50</color>
+    <color name="on_doodle_blue">#B9ECEE</color>
+
+    <color name="doodle_rose">#623C40</color>
+    <color name="on_doodle_rose">#F9C3C7</color>
+
+    <!-- Hard "sticker" offset shadow behind buttons -->
+    <color name="doodle_shadow">#A87553</color>
+</resources>

@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <string-array name="exo_controls_playback_speeds">
+    <item>0,25x</item>
+    <item>0,5x</item>
+    <item>0,75x</item>
+    <item>Normaal</item>
+    <item>1,25x</item>
+    <item>1,5x</item>
+    <item>2x</item>
+  </string-array>
+    <plurals name="exo_controls_fastforward_by_amount_description">
+    <item quantity="one">%d seconde vooruitspoelen</item>
+    <item quantity="other">%d seconden vooruitspoelen</item>
+  </plurals>
+    <plurals name="exo_controls_rewind_by_amount_description">
+    <item quantity="one">%d seconde terugspoelen</item>
+    <item quantity="other">%d seconden terugspoelen</item>
+  </plurals>
     <plurals name="mtrl_badge_content_description">
     <item quantity="one">%d nieuwe melding</item>
     <item quantity="other">%d nieuwe meldingen</item>
@@ -31,6 +48,7 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Delen met"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Delen met <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Samenvouwen"</string>
+    <string name="authentication_required">Verificatie vereist</string>
     <string name="bottomsheet_action_collapse">Het blad onderaan samenvouwen</string>
     <string name="bottomsheet_action_expand">Het blad onderaan uitvouwen</string>
     <string name="bottomsheet_action_expand_halfway">Half uitvouwen</string>
@@ -46,8 +64,63 @@
     <string name="character_counter_content_description">%1$d van %2$d tekens opgegeven</string>
     <string name="character_counter_overflowed_content_description">Tekenlimiet heeft %1$d van %2$d overschreden</string>
     <string name="clear_text_end_icon_content_description">Tekst wissen</string>
+    <string msgid="6083905920877235314" name="copy">"Kopiëren"</string>
+    <string name="default_notification_channel_name">Wordt nu afgespeeld</string>
     <string name="error_a11y_label">Fout: ongeldig</string>
     <string name="error_icon_content_description">Fout</string>
+    <string name="exo_controls_cc_disabled_description">Ondertiteling aanzetten</string>
+    <string name="exo_controls_cc_enabled_description">Ondertiteling uitzetten</string>
+    <string name="exo_controls_fastforward_description">Vooruitspoelen</string>
+    <string name="exo_controls_fullscreen_enter_description">Volledig scherm openen</string>
+    <string name="exo_controls_fullscreen_exit_description">Volledig scherm sluiten</string>
+    <string name="exo_controls_hide">Afspeelbediening verbergen</string>
+    <string name="exo_controls_next_description">Volgende</string>
+    <string name="exo_controls_overflow_hide_description">Aanvullende instellingen verbergen</string>
+    <string name="exo_controls_overflow_show_description">Aanvullende instellingen tonen</string>
+    <string name="exo_controls_pause_description">Pauzeren</string>
+    <string name="exo_controls_play_description">Afspelen</string>
+    <string name="exo_controls_playback_speed">Snelheid</string>
+    <string name="exo_controls_previous_description">Vorige</string>
+    <string name="exo_controls_repeat_all_description">Huidige modus: Alles herhalen. Herhaalmodus schakelen.</string>
+    <string name="exo_controls_repeat_off_description">Huidige modus: Niets herhalen. Herhaalmodus schakelen.</string>
+    <string name="exo_controls_repeat_one_description">Huidige modus: 1 herhalen. Herhaalmodus schakelen.</string>
+    <string name="exo_controls_rewind_description">Terugspoelen</string>
+    <string name="exo_controls_seek_bar_description">Afspeelvoortgang</string>
+    <string name="exo_controls_settings_description">Instellingen</string>
+    <string name="exo_controls_show">Afspeelbediening tonen</string>
+    <string name="exo_controls_shuffle_off_description">Shuffle aanzetten</string>
+    <string name="exo_controls_shuffle_on_description">Shuffle uitzetten</string>
+    <string name="exo_controls_stop_description">Stoppen</string>
+    <string name="exo_controls_vr_description">VR-modus</string>
+    <string name="exo_download_completed">Downloaden voltooid</string>
+    <string name="exo_download_description">Downloaden</string>
+    <string name="exo_download_downloading">Downloaden</string>
+    <string name="exo_download_failed">Downloaden mislukt</string>
+    <string name="exo_download_notification_channel_name">Downloads</string>
+    <string name="exo_download_paused">Downloads gepauzeerd</string>
+    <string name="exo_download_paused_for_network">Downloads wachten op netwerk</string>
+    <string name="exo_download_paused_for_wifi">Downloads wachten op wifi</string>
+    <string name="exo_download_removing">Downloads verwijderen</string>
+    <string name="exo_item_list">%1$s, %2$s</string>
+    <string name="exo_track_bitrate">%1$.2f Mbps</string>
+    <string name="exo_track_mono">Mono</string>
+    <string name="exo_track_resolution">%1$d × %2$d</string>
+    <string name="exo_track_role_alternate">Alternatief</string>
+    <string name="exo_track_role_closed_captions">CC</string>
+    <string name="exo_track_role_commentary">Commentaar</string>
+    <string name="exo_track_role_supplementary">Aanvullend</string>
+    <string name="exo_track_selection_auto">Auto</string>
+    <string name="exo_track_selection_none">Geen</string>
+    <string name="exo_track_selection_title_audio">Audio</string>
+    <string name="exo_track_selection_title_text">Tekst</string>
+    <string name="exo_track_selection_title_video">Video</string>
+    <string name="exo_track_stereo">Stereo</string>
+    <string name="exo_track_surround">Surround sound</string>
+    <string name="exo_track_surround_5_point_1">5.1 surroundgeluid</string>
+    <string name="exo_track_surround_7_point_1">7.1 surroundgeluid</string>
+    <string name="exo_track_unknown">Onbekend</string>
+    <string name="exo_track_unknown_name">Onbekend (%1$s)</string>
+    <string msgid="2427401033573778270" name="expand_button_title">"Geavanceerd"</string>
     <string name="exposed_dropdown_menu_content_description">Dropdownmenu tonen</string>
     <string name="icon_content_description">Icoon voor dialoogvenster</string>
     <string name="item_view_role_description">Tabblad</string>
@@ -64,6 +137,12 @@
     <string name="material_timepicker_pm">p.m.</string>
     <string name="material_timepicker_select_time">Tijd selecteren</string>
     <string name="material_timepicker_text_input_mode_description">Schakel naar de tekstinvoermodus om de tijd in te voeren.</string>
+    <string name="media3_controls_pause_description">Pauzeren</string>
+    <string name="media3_controls_play_description">Afspelen</string>
+    <string name="media3_controls_seek_back_description">Achteruit springen</string>
+    <string name="media3_controls_seek_forward_description">Vooruit springen</string>
+    <string name="media3_controls_seek_to_next_description">Naar volgende item springen</string>
+    <string name="media3_controls_seek_to_previous_description">Naar vorige item springen</string>
     <string name="mtrl_badge_numberless_content_description">Nieuwe melding</string>
     <string name="mtrl_checkbox_state_description_checked">Aangevinkt</string>
     <string name="mtrl_checkbox_state_description_indeterminate">Gedeeltelijk aangevinkt</string>
@@ -109,10 +188,15 @@
     <string name="mtrl_picker_toggle_to_year_selection">Tik om over te schakelen naar de jaarweergave</string>
     <string name="mtrl_timepicker_cancel">Annuleren</string>
     <string name="mtrl_timepicker_confirm">OK</string>
+    <string msgid="6573031135582639649" name="not_set">"Niet ingesteld"</string>
     <string name="password_toggle_content_description">Wachtwoord tonen</string>
+    <string msgid="6685851473431805375" name="preference_copied">"\'<ns1:g id="SUMMARY">%1$s</ns1:g>\' is gekopieerd naar het klembord."</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Zoeken"</string>
     <string name="searchview_clear_text_content_description">Tekst wissen</string>
     <string name="searchview_navigation_content_description">Terug</string>
     <string name="side_sheet_accessibility_pane_title">Zijblad</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="9167775378838880170" name="summary_collapsed_preference_list">"<ns1:g id="CURRENT_ITEMS">%1$s</ns1:g>, <ns1:g id="ADDED_ITEMS">%2$s</ns1:g>"</string>
+    <string msgid="3140233346420563315" name="v7_preference_off">"UIT"</string>
+    <string msgid="89551595707643515" name="v7_preference_on">"AAN"</string>
 </resources>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&amp;family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-container": "#764e52",
+                    "on-tertiary-fixed-variant": "#623c40",
+                    "surface": "#fcf9f8",
+                    "secondary": "#356668",
+                    "outline-variant": "#d4c3ba",
+                    "primary-fixed": "#ffdcc5",
+                    "secondary-container": "#b9ecee",
+                    "surface-container-high": "#eae7e7",
+                    "primary-container": "#f6c7a8",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#604028",
+                    "on-surface-variant": "#50453d",
+                    "surface-tint": "#7a573e",
+                    "secondary-fixed-dim": "#9ecfd1",
+                    "surface-container-highest": "#e4e2e1",
+                    "surface-container": "#f0eded",
+                    "tertiary-fixed": "#ffdadc",
+                    "surface-variant": "#e4e2e1",
+                    "background": "#fcf9f8",
+                    "on-secondary-fixed": "#002021",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#dcd9d9",
+                    "inverse-primary": "#ebbd9f",
+                    "on-secondary-container": "#3c6c6e",
+                    "inverse-on-surface": "#f3f0f0",
+                    "on-primary-fixed": "#2e1503",
+                    "tertiary": "#7c5357",
+                    "on-error-container": "#93000a",
+                    "primary": "#7a573e",
+                    "on-background": "#1b1c1c",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#eeb9bd",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "on-surface": "#1b1c1c",
+                    "on-secondary": "#ffffff",
+                    "outline": "#82746c",
+                    "primary-fixed-dim": "#ebbd9f",
+                    "tertiary-container": "#f9c3c7",
+                    "secondary-fixed": "#b9ecee",
+                    "on-secondary-fixed-variant": "#1a4e50",
+                    "on-primary-container": "#745139",
+                    "surface-bright": "#fcf9f8",
+                    "on-tertiary-fixed": "#301216",
+                    "surface-container-low": "#f6f3f2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "container-margin": "20px",
+                    "xs": "4px",
+                    "sm": "12px",
+                    "xl": "64px",
+                    "gutter": "16px",
+                    "base": "8px",
+                    "lg": "40px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Bricolage Grotesque"],
+                    "doodle-accent": ["Bricolage Grotesque"],
+                    "label-caps": ["JetBrains Mono"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Bricolage Grotesque"],
+                    "body-sm": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg-mobile": ["Bricolage Grotesque"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "doodle-accent": ["20px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid #2D2D2D;
+        }
+        .sketch-border {
+            border: 1.5pt solid #2D2D2D;
+            box-shadow: 4px 4px 0px rgba(122, 87, 62, 0.2);
+        }
+        .scribble-underline {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='10' viewBox='0 0 100 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 25 0, 50 5 T 100 5' stroke='%237a573e' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: 100% 8px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .doodle-crown {
+            filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.1));
+        }
+        .chart-bar {
+            transition: height 1s ease-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-lg min-h-screen pb-32">
+<!-- Top Navigation Bar -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl text-primary dark:text-primary-fixed-dim border-b border-outline-variant/30 flex justify-between items-center px-container-margin py-base w-full fixed top-0 z-50">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden sketch-border">
+<img alt="User" class="w-full h-full object-cover" data-alt="A stylized portrait of a trendy individual with an artistic aesthetic, captured in a warm, low-fidelity photography style. The image has soft lighting and a grain filter, reflecting a cozy lo-fi study beats atmosphere. The person has a creative, approachable expression, set against a minimalist peach and cream background." src="https://lh3.googleusercontent.com/aida/AP1WRLua0r-dS1qeuPZh87xu40XT5RrCIXYiMYrh2VVVtGAoNEm018Ew-Gby8jFAUVXw6CteuqGBwYKYGGu6-zgQaHiPyT-WEhowLUpX5gf0J4nyvxL5CZiFY5Y9_DD59NzTECMFHlS-pL0-NmVrZ-wf7quC_AxYZV9ai0m0h9GpnTbscL8GrLPoi3JkE_702u6dKEO-g_tP71Kzvo6xG26D3zGPpl-RqN50LBe5sS5q8BYwQzsm9gmxHzfpg_Fj"/>
+</div>
+<span class="font-doodle-accent text-doodle-accent text-primary dark:text-primary-fixed-dim">LMusic</span>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="music_note">music_note</span>
+</header>
+<main class="pt-24 px-container-margin max-w-2xl mx-auto space-y-lg">
+<!-- SECTION: FAVORITES -->
+<section id="favorites-section">
+<div class="flex items-center justify-between mb-md">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Your Favs</h1>
+<span class="material-symbols-outlined text-error animate-pulse" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<!-- Bento Grid Favorites -->
+<div class="grid grid-cols-2 gap-md">
+<!-- Large Featured Card -->
+<div class="col-span-2 liquid-glass rounded-xl p-md sketch-border relative overflow-hidden group">
+<div class="absolute top-4 right-4 z-10">
+<span class="material-symbols-outlined text-error" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="flex gap-md items-center">
+<div class="w-32 h-32 rounded-lg overflow-hidden flex-shrink-0 sketch-border">
+<img class="w-full h-full object-cover" data-alt="Vibrant album cover art with a liquid-inspired abstract painting style. Swirls of sunset orange, deep charcoal, and soft cream melt into each other. The composition is balanced and modern, featuring hand-drawn ink splatters and star doodles that reflect a sophisticated yet organic Gen Z music aesthetic." src="https://lh3.googleusercontent.com/aida/AP1WRLuSVomFv_k84_UuB2oEexD1T0vce6hRo-sOocST1WN0X14z9_vo7hy2oRatzDe3dVnMJL5aRl7PEz0FeXZz2g2paJw7SWeTjTJvOgeO0euDgHy9bk2o4b36vVt25gbmW2wdav5McN3-DncSiX-rX4I3hbqkO0VglcooTpgfKN02__z4uKA3Ay0ZWEufZqVNilIUWUJUuHLujmOoRtwExNX5TazADw0bWsAClxdue3PACqQNbtaD0gU8rvc"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-title-md text-title-md">Midnight Sketches</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The Lo-Fi Collective</p>
+<div class="mt-base flex items-center gap-xs">
+<span class="text-label-caps font-label-caps bg-primary-container/30 px-2 py-0.5 rounded-full">Album</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant">24 Songs</span>
+</div>
+</div>
+</div>
+<div class="absolute -bottom-2 -right-2 opacity-20 transform rotate-12">
+<span class="material-symbols-outlined text-6xl" data-icon="draw">draw</span>
+</div>
+</div>
+<!-- Artist Card 1 -->
+<div class="liquid-glass rounded-xl p-sm sketch-border flex flex-col items-center text-center group hover:scale-[1.02] transition-transform">
+<div class="w-20 h-20 rounded-full border-2 border-secondary overflow-hidden mb-sm relative">
+<img class="w-full h-full object-cover" data-alt="A close-up artistic portrait of a musician with a soulful expression, rendered in a high-contrast, moody lighting style. The background is a soft blur of warm studio lights. The aesthetic is clean and editorial, emphasizing the human connection and creative spirit found in acoustic jazz and lo-fi music cultures." src="https://lh3.googleusercontent.com/aida/AP1WRLu7JI5ws4XMoDfS4oM4PzL01UF8hy3ul99erPMS3PGHmUlai0X-7HflygVS3cNr5q6yZEMmkJxGo13KB5POHiECovfsqt81unQgAAW1S5NSf0aL__CeaZMS3hTjECo-N5qHKoXjc2OQPIF2g2KN8Ko4t8zosyMpL0lekLxYswhRqHUWBY4pk2sxbyQBeySMYWko7SjeT0mwOFVBbJ8Nwc9PU4URADM-p8aB4pnVr9WIJYQ-Mrx1POQ_1T6S"/>
+<div class="absolute bottom-0 right-0 bg-surface rounded-full p-0.5 flex">
+<span class="material-symbols-outlined text-error text-sm" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<h4 class="font-title-md text-title-md leading-tight">Avery Moon</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Pop-Jazz</p>
+</div>
+<!-- Artist Card 2 -->
+<div class="liquid-glass rounded-xl p-sm sketch-border flex flex-col items-center text-center group hover:scale-[1.02] transition-transform">
+<div class="w-20 h-20 rounded-full border-2 border-secondary overflow-hidden mb-sm relative">
+<img class="w-full h-full object-cover" data-alt="An atmospheric image of vintage recording equipment and a single microphone standing in a cozy, sun-drenched attic studio. Dust motes dance in the soft golden light, creating a nostalgic and authentic vibe. The color palette consists of rich ambers, deep browns, and soft creams, embodying a high-end vintage music production aesthetic." src="https://lh3.googleusercontent.com/aida/AP1WRLsBhXoGN3NJGibSkFa-CrVg5lPa8kZOVHwldcdWqooCsZdWrxJxQk5fUjRim9jxTAeN16YT785teCBYkKFDyLizI-3Ql8JJ9RX3VuyheQT9InpUxV_jy_zNy01TKuFHYBRe3UKnwSNNhqK-6AhYy0tlwKhwcji0PEsKV5c4GH0QExA1RKRQ0g9YGku09VxeL6OThBQ_ewv3DKtSAB56IydxgTKNutGobgfRVU01zNqrAooSu6eWevlfX183"/>
+<div class="absolute bottom-0 right-0 bg-surface rounded-full p-0.5 flex">
+<span class="material-symbols-outlined text-error text-sm" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<h4 class="font-title-md text-title-md leading-tight">Luna Keys</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Piano Chill</p>
+</div>
+</div>
+</section>
+<!-- SECTION: PROFILE & STATS -->
+<section class="space-y-md" id="profile-section">
+<!-- Header with Premium Badge -->
+<div class="flex items-start gap-md">
+<div class="relative">
+<div class="w-24 h-24 rounded-2xl border-2 border-primary-container overflow-hidden sketch-border rotate-3">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A vibrant and creative profile avatar placeholder featuring hand-drawn brush strokes and a whimsical artistic style. The character represented is a digital creator with a warm smile, wearing oversized headphones and surrounded by small, floating musical note icons. The color palette is composed of soft peach, terracotta, and charcoal ink." src="https://lh3.googleusercontent.com/aida/AP1WRLvH6bhYJ5KuUhDcAaeOfJgVtqm4gznPf5uy8dbnWl-V7ntR6oHezLJNvRgX5UvizDlzKYWQtovDuTgriOxCavjMOKagxo3fLcYcIjtbAWFo1bVsXEV6ekGi1XYNySjZw1z3EKjwApgrIfBQHFT9wDmebnTj_7NbSdq9AlakWSd8HpWzW1SAooVDbUnoNDAZv_n2m9pWrhDmZESLJ5BzUY1ge1gyeT4oDD2_K-47PAt_nENnCI4ckH3CLAM"/>
+</div>
+<!-- Golden Doodle Crown -->
+<div class="absolute -top-4 -right-4 animate-float">
+<span class="material-symbols-outlined text-secondary-container bg-primary p-2 rounded-full sketch-border text-2xl doodle-crown" data-icon="workspace_premium">workspace_premium</span>
+</div>
+</div>
+<div class="flex-grow pt-2">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile leading-none">Alex Rivera</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant scribble-underline inline-block pb-1">Gold Listener</p>
+<div class="flex gap-md mt-sm">
+<div class="text-center">
+<p class="font-title-md text-title-md">1.2k</p>
+<p class="font-label-caps text-label-caps opacity-60">Hours</p>
+</div>
+<div class="text-center">
+<p class="font-title-md text-title-md">482</p>
+<p class="font-label-caps text-label-caps opacity-60">Artists</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Listening Stats Dashboard -->
+<div class="liquid-glass rounded-xl p-md sketch-border space-y-md">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md">Weekly Rhythm</h3>
+<span class="material-symbols-outlined text-primary" data-icon="insights">insights</span>
+</div>
+<!-- Hand-drawn Bar Chart -->
+<div class="flex items-end justify-between h-32 px-2 border-b-2 border-outline-variant/30">
+<div class="flex flex-col items-center w-8">
+<div class="chart-bar w-full bg-primary-container border-t-2 border-x-2 border-primary sketch-border" style="height: 60%"></div>
+<span class="font-label-caps text-[10px] mt-1">M</span>
+</div>
+<div class="flex flex-col items-center w-8">
+<div class="chart-bar w-full bg-secondary-container border-t-2 border-x-2 border-primary sketch-border" style="height: 40%"></div>
+<span class="font-label-caps text-[10px] mt-1">T</span>
+</div>
+<div class="flex flex-col items-center w-8">
+<div class="chart-bar w-full bg-primary border-t-2 border-x-2 border-primary sketch-border" style="height: 90%"></div>
+<span class="font-label-caps text-[10px] mt-1">W</span>
+</div>
+<div class="flex flex-col items-center w-8">
+<div class="chart-bar w-full bg-primary-container border-t-2 border-x-2 border-primary sketch-border" style="height: 75%"></div>
+<span class="font-label-caps text-[10px] mt-1">T</span>
+</div>
+<div class="flex flex-col items-center w-8">
+<div class="chart-bar w-full bg-secondary-container border-t-2 border-x-2 border-primary sketch-border" style="height: 55%"></div>
+<span class="font-label-caps text-[10px] mt-1">F</span>
+</div>
+<div class="flex flex-col items-center w-8">
+<div class="chart-bar w-full bg-primary-container border-t-2 border-x-2 border-primary sketch-border" style="height: 85%"></div>
+<span class="font-label-caps text-[10px] mt-1">S</span>
+</div>
+<div class="flex flex-col items-center w-8">
+<div class="chart-bar w-full bg-primary-container border-t-2 border-x-2 border-primary sketch-border" style="height: 30%"></div>
+<span class="font-label-caps text-[10px] mt-1">S</span>
+</div>
+</div>
+<!-- Hand-drawn Pie Chart / Legend Hybrid -->
+<div class="flex items-center gap-md">
+<div class="relative w-20 h-20">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#f6c7a8" stroke-dasharray="60, 100" stroke-width="4"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#356668" stroke-dasharray="25, 100" stroke-dashoffset="-60" stroke-width="4"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#7a573e" stroke-dasharray="15, 100" stroke-dashoffset="-85" stroke-width="4"></path>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="album">album</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-caps text-[10px]">60% Lo-fi Beats</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-caps text-[10px]">25% Jazz Fusion</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-caps text-[10px]">15% Ambient</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Settings List -->
+<div class="space-y-base">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest pl-2">General Settings</h3>
+<div class="space-y-2">
+<button class="w-full flex items-center justify-between p-md bg-white/40 border border-outline-variant/30 rounded-xl hover:bg-white/60 transition-colors">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="account_circle">account_circle</span>
+<span class="font-title-md text-title-md">Account Details</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-md bg-white/40 border border-outline-variant/30 rounded-xl hover:bg-white/60 transition-colors">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+<span class="font-title-md text-title-md">Notifications</span>
+</div>
+<div class="w-12 h-6 bg-primary-container/40 rounded-full border border-primary relative">
+<div class="absolute right-1 top-1 w-4 h-4 bg-primary rounded-full"></div>
+</div>
+</button>
+<button class="w-full flex items-center justify-between p-md bg-white/40 border border-outline-variant/30 rounded-xl hover:bg-white/60 transition-colors">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="palette">palette</span>
+<span class="font-title-md text-title-md">App Aesthetic</span>
+</div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Liquid Sketch</span>
+</button>
+<button class="w-full flex items-center justify-center p-md text-error font-title-md gap-sm mt-lg">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                        Sign Out
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface/40 dark:bg-surface-container-highest/40 backdrop-blur-2xl border-t border-outline-variant/50 shadow-lg rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-caps text-label-caps">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="library_music">library_music</span>
+<span class="font-label-caps text-label-caps">Library</span>
+</div>
+<!-- Active Tab: Favs/Profile depending on scroll position, but Profile is chosen as it's the secondary focus here -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-caps text-label-caps">Favs</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-primary-fixed rounded-full px-4 py-1 animate-pulse active:scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</div>
+</nav>
+<script>
+        // Simple Interaction logic for bar chart animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const bars = document.querySelectorAll('.chart-bar');
+            bars.forEach(bar => {
+                const finalHeight = bar.style.height;
+                bar.style.height = '0%';
+                setTimeout(() => {
+                    bar.style.height = finalHeight;
+                }, 500);
+            });
+        });
+
+        // Floating elements toggle interaction
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+    </script>
+</body></html>

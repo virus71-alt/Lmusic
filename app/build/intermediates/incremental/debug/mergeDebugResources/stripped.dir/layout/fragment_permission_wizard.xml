@@ -2,86 +2,162 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:paddingHorizontal="20dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="32dp">
 
-        <TextView
+        <!-- Header with icon -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lmusic"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:textColor="@color/accent"
-            android:layout_marginBottom="4dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <FrameLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_icon_circle"
+                android:layout_marginEnd="14dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_music_note"
+                    android:contentDescription="Lmusic" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lmusic"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hold Vol-Up + Vol-Down → download from YouTube"
+            android:text="Hold both volume buttons to grab any song from YouTube."
             android:textSize="14sp"
             android:textColor="@color/text_secondary"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginTop="14dp"
+            android:lineSpacingExtra="2dp" />
+
+        <!-- Progress -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_card"
+            android:padding="14dp"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:id="@+id/tv_progress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Grant permissions to begin"
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary" />
+
+            <TextView
+                android:id="@+id/tv_progress_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 / 4"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/accent" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 / 4 permissions granted"
-            android:textSize="13sp"
-            android:textColor="@color/text_secondary"
-            android:layout_marginBottom="20dp" />
+            android:text="REQUIRED PERMISSIONS"
+            android:textSize="11sp"
+            android:textColor="@color/text_tertiary"
+            android:letterSpacing="0.1"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="10dp" />
 
         <!-- Step 1: Notification Listener -->
         <LinearLayout
             android:id="@+id/card_step1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/card_bg"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
             android:padding="16dp"
-            android:layout_marginBottom="12dp">
-
-            <ImageView
-                android:id="@+id/iv_step1"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_download"
-                android:layout_marginEnd="16dp"
-                android:layout_gravity="center_vertical" />
+            android:layout_marginBottom="10dp"
+            android:stateListAnimator="@animator/card_press">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Notification Access"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary" />
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_circle"
+                    android:layout_marginEnd="14dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Detects which YouTube video is playing"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="8dp" />
+                    <ImageView
+                        android:id="@+id/iv_step1"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_check"
+                        android:contentDescription="Status" />
+                </FrameLayout>
 
-                <Button
-                    android:id="@+id/btn_notification_access"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Open Settings"
-                    style="@style/Widget.Material3.Button.OutlinedButton" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Notification Access"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Detects what's playing on YouTube"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_notification_access"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:text="Open Settings"
+                android:textColor="@color/text_primary"
+                android:backgroundTint="@color/surface_elevated"
+                android:layout_marginTop="12dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                style="?attr/materialButtonStyle" />
         </LinearLayout>
 
         <!-- Step 2: Accessibility -->
@@ -89,47 +165,68 @@
             android:id="@+id/card_step2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/card_bg"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
             android:padding="16dp"
-            android:layout_marginBottom="12dp">
-
-            <ImageView
-                android:id="@+id/iv_step2"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_download"
-                android:layout_marginEnd="16dp"
-                android:layout_gravity="center_vertical" />
+            android:layout_marginBottom="10dp"
+            android:stateListAnimator="@animator/card_press">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Accessibility Service"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary" />
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_circle"
+                    android:layout_marginEnd="14dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Detects when both volume keys are held together. Only reads key events."
-                    android:textSize="12sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="8dp" />
+                    <ImageView
+                        android:id="@+id/iv_step2"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_check"
+                        android:contentDescription="Status" />
+                </FrameLayout>
 
-                <Button
-                    android:id="@+id/btn_accessibility"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Open Settings"
-                    style="@style/Widget.Material3.Button.OutlinedButton" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Accessibility Service"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Listens for Vol-Up + Vol-Down held together"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_accessibility"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:text="Open Settings"
+                android:textColor="@color/text_primary"
+                android:backgroundTint="@color/surface_elevated"
+                android:layout_marginTop="12dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                style="?attr/materialButtonStyle" />
         </LinearLayout>
 
         <!-- Step 3: Storage -->
@@ -137,47 +234,68 @@
             android:id="@+id/card_step3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/card_bg"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
             android:padding="16dp"
-            android:layout_marginBottom="12dp">
-
-            <ImageView
-                android:id="@+id/iv_step3"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_download"
-                android:layout_marginEnd="16dp"
-                android:layout_gravity="center_vertical" />
+            android:layout_marginBottom="10dp"
+            android:stateListAnimator="@animator/card_press">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Storage Access"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary" />
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_circle"
+                    android:layout_marginEnd="14dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Saves MP3 files to your Music folder"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="8dp" />
+                    <ImageView
+                        android:id="@+id/iv_step3"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_check"
+                        android:contentDescription="Status" />
+                </FrameLayout>
 
-                <Button
-                    android:id="@+id/btn_storage"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Grant Access"
-                    style="@style/Widget.Material3.Button.OutlinedButton" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Storage"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Access your music library on this device"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_storage"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:text="Grant Access"
+                android:textColor="@color/text_primary"
+                android:backgroundTint="@color/surface_elevated"
+                android:layout_marginTop="12dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                style="?attr/materialButtonStyle" />
         </LinearLayout>
 
         <!-- Step 4: Notifications -->
@@ -185,47 +303,68 @@
             android:id="@+id/card_step4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/card_bg"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
             android:padding="16dp"
-            android:layout_marginBottom="12dp">
-
-            <ImageView
-                android:id="@+id/iv_step4"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_download"
-                android:layout_marginEnd="16dp"
-                android:layout_gravity="center_vertical" />
+            android:layout_marginBottom="10dp"
+            android:stateListAnimator="@animator/card_press">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Show Notifications"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary" />
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_circle"
+                    android:layout_marginEnd="14dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Shows download progress and completion alerts"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="8dp" />
+                    <ImageView
+                        android:id="@+id/iv_step4"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_check"
+                        android:contentDescription="Status" />
+                </FrameLayout>
 
-                <Button
-                    android:id="@+id/btn_notifications"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Allow"
-                    style="@style/Widget.Material3.Button.OutlinedButton" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Notifications"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Show download progress and completion"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:text="Allow"
+                android:textColor="@color/text_primary"
+                android:backgroundTint="@color/surface_elevated"
+                android:layout_marginTop="12dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                style="?attr/materialButtonStyle" />
         </LinearLayout>
 
     </LinearLayout>

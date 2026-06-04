@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&amp;family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@100..900&amp;family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#ffffff",
+            "on-tertiary-container": "#764e52",
+            "on-tertiary-fixed-variant": "#623c40",
+            "surface": "#fcf9f8",
+            "secondary": "#356668",
+            "outline-variant": "#d4c3ba",
+            "primary-fixed": "#ffdcc5",
+            "secondary-container": "#b9ecee",
+            "surface-container-high": "#eae7e7",
+            "primary-container": "#f6c7a8",
+            "on-error": "#ffffff",
+            "on-primary-fixed-variant": "#604028",
+            "on-surface-variant": "#50453d",
+            "surface-tint": "#7a573e",
+            "secondary-fixed-dim": "#9ecfd1",
+            "surface-container-highest": "#e4e2e1",
+            "surface-container": "#f0eded",
+            "tertiary-fixed": "#ffdadc",
+            "surface-variant": "#e4e2e1",
+            "background": "#fcf9f8",
+            "on-secondary-fixed": "#002021",
+            "error-container": "#ffdad6",
+            "surface-dim": "#dcd9d9",
+            "inverse-primary": "#ebbd9f",
+            "on-secondary-container": "#3c6c6e",
+            "inverse-on-surface": "#f3f0f0",
+            "on-primary-fixed": "#2e1503",
+            "tertiary": "#7c5357",
+            "on-error-container": "#93000a",
+            "primary": "#7a573e",
+            "on-background": "#1b1c1c",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed-dim": "#eeb9bd",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "inverse-surface": "#303030",
+            "on-surface": "#1b1c1c",
+            "on-secondary": "#ffffff",
+            "outline": "#82746c",
+            "primary-fixed-dim": "#ebbd9f",
+            "tertiary-container": "#f9c3c7",
+            "secondary-fixed": "#b9ecee",
+            "on-secondary-fixed-variant": "#1a4e50",
+            "on-primary-container": "#745139",
+            "surface-bright": "#fcf9f8",
+            "on-tertiary-fixed": "#301216",
+            "surface-container-low": "#f6f3f2"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "md": "24px",
+            "container-margin": "20px",
+            "xs": "4px",
+            "sm": "12px",
+            "xl": "64px",
+            "gutter": "16px",
+            "base": "8px",
+            "lg": "40px"
+          },
+          "fontFamily": {
+            "display-lg": ["Bricolage Grotesque"],
+            "doodle-accent": ["Bricolage Grotesque"],
+            "label-caps": ["JetBrains Mono"],
+            "body-lg": ["Inter"],
+            "headline-lg": ["Bricolage Grotesque"],
+            "body-sm": ["Inter"],
+            "title-md": ["Inter"],
+            "headline-lg-mobile": ["Bricolage Grotesque"]
+          },
+          "fontSize": {
+            "display-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "doodle-accent": ["20px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .glass-card {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid #2D2D2D;
+    }
+    .sketch-outline {
+      border: 1.5pt solid #2D2D2D;
+    }
+    .floating-doodle {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+    .pulse-glow {
+      box-shadow: 0 0 15px rgba(122, 87, 62, 0.2);
+    }
+    .scribble-underline:focus {
+      outline: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 25 0, 50 5 T 100 5' stroke='%237a573e' fill='transparent' stroke-width='2'/%3E%3C/svg%3E");
+      background-position: bottom;
+      background-repeat: no-repeat;
+      background-size: 100% 8px;
+    }
+    body::-webkit-scrollbar { display: none; }
+    body { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-lg min-h-screen pb-32">
+<!-- Top Navigation Shell -->
+<nav class="flex justify-between items-center px-container-margin py-base w-full fixed top-0 z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-outline-variant/30">
+<div class="flex items-center gap-sm">
+<div class="relative w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A close-up portrait of a stylish young person with a creative flair, looking directly at the camera with a gentle smile. The background is a soft-focus studio setting with warm, ambient lighting that matches a lo-fi aesthetic. The person wears a minimalist beige linen shirt, blending seamlessly into the organic, earthy color palette of the application design." src="https://lh3.googleusercontent.com/aida/ADBb0uhOcCheTj6PpWpvRJ5Yk62mY8aTt82v1Ill0PCy2QOg_Lmv6DpQBAdhi6q8Pdd5zChnni9RmU5douMo1hoKQzuZuPQDvBP6KoMjCWSsviJGxMq-V9et74jCKyVrS3ZvSrC6MpckS4iXRXJ3I9batUC7TC1jrUmRGPNrgC7YnKqDIWt7qnemFy_J-x7KYmUqccd34jtlcjGzrbvp7B2uJqHlmQVR944M7FsEi1FD_o_XYPQUH1JlBArbjhNn"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-sm text-on-surface-variant text-[10px] uppercase tracking-widest">Welcome back,</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary leading-tight">Alex</span>
+</div>
+</div>
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="music_note">music_note</span>
+</div>
+</nav>
+<main class="mt-20 px-container-margin space-y-lg relative overflow-hidden">
+<!-- Decorative Sketches -->
+<div class="absolute top-10 right-0 opacity-20 floating-doodle" style="animation-delay: 1s;">
+<span class="material-symbols-outlined text-6xl text-primary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="absolute top-80 -left-4 opacity-10 floating-doodle" style="animation-delay: 2.5s;">
+<span class="material-symbols-outlined text-8xl text-secondary" data-icon="vibration">vibration</span>
+</div>
+<!-- Search Bar -->
+<section class="relative z-10">
+<div class="relative group">
+<input class="w-full h-14 pl-14 pr-6 rounded-xl sketch-outline bg-surface-container-lowest font-body-lg placeholder:text-outline/60 focus:ring-0 focus:border-primary transition-all duration-300 scribble-underline" placeholder="Search your vibe..." type="text"/>
+<span class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-primary" data-icon="search">search</span>
+<!-- Doodle Sparkle -->
+<span class="material-symbols-outlined absolute -right-2 -top-2 text-primary-container drop-shadow-sm text-xl floating-doodle" data-icon="sparkle" style="font-variation-settings: 'FILL' 1;">spark</span>
+</div>
+</section>
+<!-- Moods (Pills) -->
+<section class="space-y-sm">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Your Moods</h2>
+<div class="flex gap-sm overflow-x-auto pb-2 scrollbar-hide no-scrollbar">
+<button class="flex-none px-6 py-2 rounded-full sketch-outline bg-primary-container text-on-primary-container font-label-caps text-label-caps active:scale-95 transition-transform">CHILL</button>
+<button class="flex-none px-6 py-2 rounded-full sketch-outline bg-surface-container text-on-surface-variant font-label-caps text-label-caps hover:bg-primary-fixed/20 transition-colors">FOCUS</button>
+<button class="flex-none px-6 py-2 rounded-full sketch-outline bg-surface-container text-on-surface-variant font-label-caps text-label-caps hover:bg-primary-fixed/20 transition-colors">WORKOUT</button>
+<button class="flex-none px-6 py-2 rounded-full sketch-outline bg-surface-container text-on-surface-variant font-label-caps text-label-caps hover:bg-primary-fixed/20 transition-colors">SLEEP</button>
+<button class="flex-none px-6 py-2 rounded-full sketch-outline bg-surface-container text-on-surface-variant font-label-caps text-label-caps hover:bg-primary-fixed/20 transition-colors">PARTY</button>
+</div>
+</section>
+<!-- Recently Played (Horizontal Cards) -->
+<section class="space-y-sm">
+<div class="flex justify-between items-end">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Recently Played</h2>
+<a class="font-label-caps text-label-caps text-primary mb-1" href="#">VIEW ALL</a>
+</div>
+<div class="flex gap-md overflow-x-auto pb-4 no-scrollbar">
+<!-- Card 1 -->
+<div class="flex-none w-40 space-y-xs group">
+<div class="relative aspect-square rounded-xl overflow-hidden glass-card p-1 shadow-sm transition-transform group-hover:scale-[1.02]">
+<img alt="Album Art" class="w-full h-full object-cover rounded-lg" data-alt="An abstract album cover featuring organic, flowing shapes in soft terracotta and muted sage green colors. The lighting is ethereal and diffused, creating a dreamlike, high-fidelity atmosphere. The design is minimalist yet detailed, reflecting a lo-fi study beats aesthetic that is both calming and sophisticated, perfectly matching the liquid sketch UI style." src="https://lh3.googleusercontent.com/aida/AP1WRLsO7MJ1wBQ4hT8NsToTnQQiLhOENiKeNe09s3um9tvUnxZpWuRPiqq6gcfBtVRgyhikXRwa1KWywLP5bZnK965gqtFFfgSAizfbxjjs3VTCGNKOYvpr4myi-hZX8fb3sl_hqzciy2lXlFGC07wH0htV0_JrRvcH8RUftFjNWWx6dKfu7CMJ5NU5V5LzcU7yM3tqHPZ_0ozMLX_vb_h0xOpupSgmpFhDWRL7am7oJySmp6Lyv7xuuAVenEus"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+<span class="material-symbols-outlined text-surface text-4xl" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+</div>
+<p class="font-title-md text-title-md truncate">Midnight Lo-fi</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sleepy Fish</p>
+</div>
+<!-- Card 2 -->
+<div class="flex-none w-40 space-y-xs group">
+<div class="relative aspect-square rounded-xl overflow-hidden glass-card p-1 shadow-sm transition-transform group-hover:scale-[1.02]">
+<img alt="Album Art" class="w-full h-full object-cover rounded-lg" data-alt="A macro photography shot of an old vinyl record spinning, with warm sunlight catching the grooves and dust particles in the air. The colors are predominantly deep browns and golden ambers, evoking a sense of nostalgic warmth and high-quality craftsmanship. The mood is tranquil and focused, echoing the artisan notebook style of the application's overall design." src="https://lh3.googleusercontent.com/aida/AP1WRLshiZNgLru9tNZHHmnEfv9hH6p6VJGSdJGWMVVhdXtjfXl-jDauBPdRlepFgH9A7gEuwmncbH40Eaw_eHJ6PGBqYRH12DnEfhuQMUP5rAkfnvKuquQTZjDFqFTPqKjI22_GJmYrjT22P3_cYL5XD99zEaoHvSAE4ySug9fXe6HVdy-7dUzjyApFD0xijzXf7uEIEY1bmYtkG0XrL_bl5zCpnj5P2nNpL1WM5SzSmIUbtdmXFnsF_oOq1xeN"/>
+</div>
+<p class="font-title-md text-title-md truncate">Oceanic Drift</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tidal Waves</p>
+</div>
+<!-- Card 3 -->
+<div class="flex-none w-40 space-y-xs group">
+<div class="relative aspect-square rounded-xl overflow-hidden glass-card p-1 shadow-sm transition-transform group-hover:scale-[1.02]">
+<img alt="Album Art" class="w-full h-full object-cover rounded-lg" data-alt="A vibrant digital illustration of a cityscape at dusk, rendered in a hand-drawn liquid sketch style. The palette includes soft purples, warm peaches, and charcoal outlines. Tiny glowing lights dot the buildings, creating a sense of quiet urban life. The lighting is high-key yet cozy, mirroring the creative and approachable identity of the music application." src="https://lh3.googleusercontent.com/aida/AP1WRLv_Eyd3tKHnqC81OPu_InaLPD4XJrSKt-qHrNk6mwyNrijzDA4ucNx_Q8rxxVUe0wi4TrwWJqx4IIjPROoLxRKr0LiCyDKGaAT2SZ1-Lw3sQwaIRRbJHtd51v3yxxv8XYXT_Z7r5uqsAFDk-9a-KCQ4EMwQ_xIjuIIlS3XyaF6K-UstIY5L1fSs9tLJk4MXF5fLTq8A0bXm90Pn5K8AQFf0kkb9j2ZaTRCHTZzwNHZQzDMSL_QzkeywjAl3"/>
+</div>
+<p class="font-title-md text-title-md truncate">Golden Hour</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Lumiere</p>
+</div>
+</div>
+</section>
+<!-- Trending Now (Large Hero Cards) -->
+<section class="space-y-sm">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Trending Now</h2>
+<div class="relative h-64 w-full rounded-2xl overflow-hidden sketch-outline group">
+<img alt="Trending Artist" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A cinematic, low-angle shot of a performer on stage under a single, dramatic spotlight that creates long, artistic shadows. The lighting is a warm, golden hue that contrasts beautifully with a dark charcoal background. The atmosphere is filled with a fine mist or haze, adding depth and a sense of high-end digital precision. The overall aesthetic is sophisticated and evocative." src="https://lh3.googleusercontent.com/aida/AP1WRLv5IvQ8nKhuCef-_APsE7wQviRP2ZB65vbdCcvZtEpgB08_YtgqdhczSa0cusIiFnIOoRyozdUVcUERj5LVXXpS_X49hhJBjnyZmWORCQ8uvMYLLqN-GVc9sSJzf8k6uQo5bT5fG83zjT8yju_B2FzzKu6Z3SKiQoqha9a35zpqcdpQM6dvOZ5TBI3gmwHKO2qP1piKMXzfgbIfqh3PzyBYVQL7iKrqonn8jWh8lxWlwIeyF5QmHwu05Sc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md w-full flex justify-between items-end">
+<div class="text-white">
+<span class="font-label-caps text-label-caps text-primary-container bg-on-primary-fixed-variant px-2 py-1 rounded mb-2 inline-block">FEATURED ARTIST</span>
+<h3 class="font-display-lg text-[28px] leading-none mb-1">Celestial Beats</h3>
+<p class="font-body-sm opacity-80">Over 2M listeners this week</p>
+</div>
+<button class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center sketch-outline active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Recommended (Grid Layout) -->
+<section class="space-y-sm">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Recommended for You</h2>
+<div class="grid grid-cols-2 gap-md">
+<!-- Grid Item 1 -->
+<div class="space-y-sm">
+<div class="aspect-video rounded-xl overflow-hidden glass-card p-1">
+<img alt="Playlist" class="w-full h-full object-cover rounded-lg" data-alt="A minimalist interior scene featuring a vintage record player on a light wooden table, surrounded by lush green house plants. Soft, morning sunlight streams through a nearby window, casting delicate leaf shadows on the surface. The color palette is composed of creamy whites, warm wood tones, and vibrant greens, creating a calm and creative environment that feels like a premium digital notebook." src="https://lh3.googleusercontent.com/aida/AP1WRLvGceMURvgIpbacDLToDDrYtaUcESnnW0UhcMDc9GJHqllH6meC7YVrLFbsZoVmoN5mkMTmEIt-4z5NUGz6tDmHLacHbKXhlxZwhL76vWOnvgu0DxHZVx3-jmTV9RTtYZzGz8S3UHBHWDd_BMVvLYrY017jfI8VI8eJw9OufMJp2udiFVVDYPHXTlTk3s5g7hwGZtTvMugfMSpgEcMPHFSOWKPkIijdF6Ls0j9rG6_Xe9bwnJZ8tRely8t4"/>
+</div>
+<div class="px-xs">
+<p class="font-title-md text-title-md">Morning Dew</p>
+<p class="font-body-sm text-on-surface-variant">Acoustic Mix</p>
+</div>
+</div>
+<!-- Grid Item 2 -->
+<div class="space-y-sm">
+<div class="aspect-video rounded-xl overflow-hidden glass-card p-1">
+<img alt="Playlist" class="w-full h-full object-cover rounded-lg" data-alt="A close-up of a hand sketching musical notes into a leather-bound journal with a fountain pen. The ink is a deep charcoal, and the paper has a textured, ivory finish. The scene is lit by a warm desk lamp, creating a cozy and artisanal atmosphere. This visual perfectly encapsulates the liquid sketch brand identity, bridging the gap between tactile analog and high-end digital." src="https://lh3.googleusercontent.com/aida/AP1WRLtaHADyJZyDJi2pciwcnuO-LmVEdyzujZWTxnzXaH7NBg6VeYZQg7JIcuRL8Q9xfgSDlda0WzweaYHGYzLdnCfz-izlZPldptY1rGohnp_mWEXilfPRhDXPxbXCvM2vs-LkhoXDcvU3nEsAIqqSoTcw8eIsaWuWPql7Pxb1fzp_lGKEWWJkfIWs29I2ufs5R3Kk_SjX-1N-Y5B5zFd3RZaUIa8VRy04RK7UrD438aOrYZyQM1_mtOft0RYl"/>
+</div>
+<div class="px-xs">
+<p class="font-title-md text-title-md">Deep Focus</p>
+<p class="font-body-sm text-on-surface-variant">Deep House</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Persistent Mini-Player -->
+<div class="fixed bottom-[88px] left-container-margin right-container-margin z-50 glass-card rounded-2xl h-16 flex items-center px-sm gap-sm shadow-2xl pulse-glow animate-bounce" style="animation-duration: 4s;">
+<div class="w-12 h-12 rounded-lg overflow-hidden flex-none">
+<img alt="Playing" class="w-full h-full object-cover" data-alt="Small thumbnail of an abstract album cover with floating terracotta shapes." src="https://lh3.googleusercontent.com/aida/AP1WRLtu6PLUrHMVTB-CdwJDMkkqhH4QWciuqhqDQ7Je7Rt_EdbHc6M90GLtA6RE9VCGwfkbotB8fy51l7ytKgiW5UQZgPwtoa82iorb_Bv6cho1KbWdi4NsMFvtnbNj1e4hSIncm0VPXHKTsLjfjiiQdc5IAfE1zK0ynMYW-HOAJuOiiE2atwPkcJNjmVArl7Lgb2pg1G3ASr5hXRa2R-O5sO928VwhDeYJZBxrYo5tIKANDZiAxSN-59ibFXMB"/>
+</div>
+<div class="flex-grow min-w-0">
+<p class="font-title-md text-sm truncate leading-tight">Midnight Lo-fi</p>
+<p class="font-body-sm text-xs text-on-surface-variant truncate">Sleepy Fish</p>
+</div>
+<div class="flex items-center gap-base">
+<button class="material-symbols-outlined text-on-surface" data-icon="skip_previous">skip_previous</button>
+<button class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center sketch-outline active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="pause" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button class="material-symbols-outlined text-on-surface" data-icon="skip_next">skip_next</button>
+</div>
+<!-- Mini Progress Bar -->
+<div class="absolute bottom-0 left-4 right-4 h-0.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-1/3"></div>
+</div>
+</div>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface/40 dark:bg-surface-container-highest/40 backdrop-blur-2xl border-t border-outline-variant/50 rounded-t-xl shadow-lg">
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-primary-fixed rounded-full px-4 py-1 animate-pulse transition-all duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-caps text-[10px] mt-0.5">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-caps text-[10px] mt-0.5">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="library_music">library_music</span>
+<span class="font-label-caps text-[10px] mt-0.5">Library</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-caps text-[10px] mt-0.5">Favs</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all duration-300 ease-out active:scale-90">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-[10px] mt-0.5">Profile</span>
+</div>
+</nav>
+<script>
+    // Micro-interaction: Play button toggle
+    document.querySelectorAll('.material-symbols-outlined[data-icon="pause"], .material-symbols-outlined[data-icon="play_arrow"]').forEach(btn => {
+      btn.parentElement.addEventListener('click', function() {
+        const icon = this.querySelector('.material-symbols-outlined');
+        if(icon.getAttribute('data-icon') === 'pause') {
+          icon.textContent = 'play_arrow';
+          icon.setAttribute('data-icon', 'play_arrow');
+        } else {
+          icon.textContent = 'pause';
+          icon.setAttribute('data-icon', 'pause');
+        }
+      });
+    });
+
+    // Parallax effect for floating doodles
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      document.querySelectorAll('.floating-doodle').forEach((doodle, index) => {
+        const speed = 0.05 * (index + 1);
+        doodle.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+  </script>
+</body></html>

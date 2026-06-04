@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- A tappable link row on the Profile screen: doodle card + label + chevron -->
+    <style name="ProfileLinkRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_card</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">16dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="ProfileLinkLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ProfileLinkChevron">
+        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">22dp</item>
+        <item name="android:src">@drawable/ic_chevron_right</item>
+        <item name="android:contentDescription">@null</item>
+    </style>
+
+    <!-- AlertDialog theme that uses the warm doodle palette instead of the
+         default gray system dialog.  Used by the About + sign-in dialogs. -->
+    <style name="LmusicDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/surface_elevated</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorPrimary">@color/accent</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/LmusicDialog.Title</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/LmusicDialog.Body</item>
+        <item name="buttonBarPositiveButtonStyle">@style/LmusicDialog.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/LmusicDialog.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/LmusicDialog.Button</item>
+        <item name="shapeAppearanceOverlay">@style/LmusicDialog.Shape</item>
+    </style>
+
+    <style name="LmusicDialog.Title" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="LmusicDialog.Body" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="LmusicDialog.Button" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="LmusicDialog.Shape">
+        <item name="cornerSize">18dp</item>
+    </style>
+
+    <!-- One row in the sleep-timer bottom sheet -->
+    <style name="SleepTimerRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/bg_card</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="SleepTimerLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="SleepTimerSub">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- One letter (M T W T F S S) under the weekly-rhythm chart on Profile. -->
+    <style name="WeekdayLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textColor">@color/text_tertiary</item>
+    </style>
+
+</resources>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LMusic - Search</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&amp;family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid #2D2D2D;
+        }
+        .doodle-border {
+            border: 1.5px solid #2D2D2D;
+            box-shadow: 4px 4px 0px 0px #7a573e20;
+        }
+        .sketch-underline {
+            background-image: linear-gradient(to right, #7a573e 100%, transparent 0%);
+            background-position: 0 100%;
+            background-repeat: repeat-x;
+            background-size: 100% 2px;
+            transition: background-size 0.3s ease;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .category-card:active {
+            transform: scale(0.96);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#764e52",
+                        "on-tertiary-fixed-variant": "#623c40",
+                        "surface": "#fcf9f8",
+                        "secondary": "#356668",
+                        "outline-variant": "#d4c3ba",
+                        "primary-fixed": "#ffdcc5",
+                        "secondary-container": "#b9ecee",
+                        "surface-container-high": "#eae7e7",
+                        "primary-container": "#f6c7a8",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#604028",
+                        "on-surface-variant": "#50453d",
+                        "surface-tint": "#7a573e",
+                        "secondary-fixed-dim": "#9ecfd1",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-container": "#f0eded",
+                        "tertiary-fixed": "#ffdadc",
+                        "surface-variant": "#e4e2e1",
+                        "background": "#fcf9f8",
+                        "on-secondary-fixed": "#002021",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dcd9d9",
+                        "inverse-primary": "#ebbd9f",
+                        "on-secondary-container": "#3c6c6e",
+                        "inverse-on-surface": "#f3f0f0",
+                        "on-primary-fixed": "#2e1503",
+                        "tertiary": "#7c5357",
+                        "on-error-container": "#93000a",
+                        "primary": "#7a573e",
+                        "on-background": "#1b1c1c",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#eeb9bd",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "on-surface": "#1b1c1c",
+                        "on-secondary": "#ffffff",
+                        "outline": "#82746c",
+                        "primary-fixed-dim": "#ebbd9f",
+                        "tertiary-container": "#f9c3c7",
+                        "secondary-fixed": "#b9ecee",
+                        "on-secondary-fixed-variant": "#1a4e50",
+                        "on-primary-container": "#745139",
+                        "surface-bright": "#fcf9f8",
+                        "on-tertiary-fixed": "#301216",
+                        "surface-container-low": "#f6f3f2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "container-margin": "20px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "xl": "64px",
+                        "gutter": "16px",
+                        "base": "8px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Bricolage Grotesque"],
+                        "doodle-accent": ["Bricolage Grotesque"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Bricolage Grotesque"],
+                        "body-sm": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg-mobile": ["Bricolage Grotesque"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "doodle-accent": ["20px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-lg min-h-screen pb-40">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-container-margin py-base w-full fixed top-0 z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-outline-variant/30">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden doodle-border">
+<img alt="User" class="w-full h-full object-cover" data-alt="A stylized portrait of a creative individual with glasses and curly hair, rendered in a soft-focus digital painting style. The lighting is warm and organic, echoing a cozy study atmosphere. The background is a cream-colored textured paper with subtle hand-drawn geometric patterns in earthy peach and charcoal tones." src="https://lh3.googleusercontent.com/aida/AP1WRLshxrG6A-C1nWk5VuvIGiznW3ll1wnWl5TNTNw-WlI5gVDpuRb2ge36R3a6QJ-_CTdaffvWtQelIYcRuAaFEdmNllHO_NXAyVQgmLDZRTkVRygM-LQyaQeaIQDZBhbUfY4RKyyyJPcYQedLH6pN71RobJRMBTpjzpKEIYZ93s__osv9nCjJUoa5XjFJULSWTM7JGMvNGVZmtQV2an_BLrke6lRaTmsIK7AWOAor1BmfzQmKqlxmbr9VaPnI"/>
+</div>
+<span class="font-doodle-accent text-doodle-accent text-primary">LMusic</span>
+</div>
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="music_note">music_note</span>
+</header>
+<main class="pt-24 px-container-margin">
+<!-- Search Input -->
+<div class="relative mb-lg group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+</div>
+<input class="w-full pl-12 pr-12 py-4 bg-surface-container-low border-2 border-primary/20 rounded-xl font-body-lg focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-outline/60 doodle-border" placeholder="Artists, songs, or podcasts" type="text"/>
+<div class="absolute inset-y-0 right-4 flex items-center">
+<button class="p-2 hover:bg-primary-container/20 rounded-full transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="mic">mic</span>
+</button>
+</div>
+<!-- Decorative Doodle -->
+<div class="absolute -top-6 -right-2 text-primary/40 animate-float opacity-0 group-focus-within:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-4xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+</div>
+<!-- Trending Searches -->
+<section class="mb-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile mb-md flex items-center gap-xs">
+                Trending
+                <span class="material-symbols-outlined text-primary" data-icon="trending_up">trending_up</span>
+</h2>
+<div class="flex flex-wrap gap-sm">
+<div class="flex items-center gap-xs px-4 py-2 bg-surface-container-high rounded-full border border-outline-variant hover:bg-primary-container transition-colors cursor-pointer group">
+<span class="font-label-caps text-label-caps">Lofi Hip Hop 2024</span>
+<span class="material-symbols-outlined text-sm transform group-hover:translate-x-1 transition-transform" data-icon="north_east">north_east</span>
+</div>
+<div class="flex items-center gap-xs px-4 py-2 bg-surface-container-high rounded-full border border-outline-variant hover:bg-primary-container transition-colors cursor-pointer group">
+<span class="font-label-caps text-label-caps">Indie Folk</span>
+<span class="material-symbols-outlined text-sm transform group-hover:translate-x-1 transition-transform" data-icon="north_east">north_east</span>
+</div>
+<div class="flex items-center gap-xs px-4 py-2 bg-surface-container-high rounded-full border border-outline-variant hover:bg-primary-container transition-colors cursor-pointer group">
+<span class="font-label-caps text-label-caps">Chill Beats</span>
+<span class="material-symbols-outlined text-sm transform group-hover:translate-x-1 transition-transform" data-icon="north_east">north_east</span>
+</div>
+</div>
+</section>
+<!-- Category Grid (Asymmetric Bento-ish) -->
+<section class="mb-xl">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile mb-md">Browse Categories</h2>
+<div class="grid grid-cols-2 gap-md">
+<!-- Pop -->
+<div class="category-card relative h-40 liquid-glass rounded-xl overflow-hidden doodle-border flex items-end p-4 transition-transform duration-300">
+<div class="absolute top-2 right-2 text-primary opacity-20">
+<span class="material-symbols-outlined text-6xl rotate-12" data-icon="star">star</span>
+</div>
+<span class="font-title-md text-title-md relative z-10">Pop</span>
+<div class="absolute -bottom-4 -right-4 w-24 h-24 bg-primary-container/30 rounded-full blur-2xl"></div>
+</div>
+<!-- Lo-Fi -->
+<div class="category-card relative h-48 liquid-glass rounded-xl overflow-hidden doodle-border flex items-end p-4 transition-transform duration-300 row-span-2">
+<div class="absolute top-4 left-4 text-secondary opacity-30">
+<span class="material-symbols-outlined text-7xl -rotate-12" data-icon="coffee">coffee</span>
+</div>
+<span class="font-title-md text-title-md relative z-10">Lo-Fi Study</span>
+<div class="absolute top-10 right-0 w-32 h-32 bg-secondary-container/20 rounded-full blur-3xl"></div>
+</div>
+<!-- Indie -->
+<div class="category-card relative h-40 liquid-glass rounded-xl overflow-hidden doodle-border flex items-end p-4 transition-transform duration-300">
+<div class="absolute top-2 right-2 text-tertiary opacity-20">
+<span class="material-symbols-outlined text-6xl" data-icon="nature">nature</span>
+</div>
+<span class="font-title-md text-title-md relative z-10">Indie Folk</span>
+</div>
+<!-- Jazz -->
+<div class="category-card relative h-40 liquid-glass rounded-xl overflow-hidden doodle-border flex items-end p-4 transition-transform duration-300">
+<div class="absolute top-4 left-4 text-primary opacity-20">
+<span class="material-symbols-outlined text-6xl rotate-45" data-icon="sax">fax</span>
+</div>
+<span class="font-title-md text-title-md relative z-10">Jazz Cafe</span>
+</div>
+<!-- Electronic -->
+<div class="category-card relative h-40 liquid-glass rounded-xl overflow-hidden doodle-border flex items-end p-4 transition-transform duration-300">
+<div class="absolute bottom-4 right-4 text-secondary opacity-20">
+<span class="material-symbols-outlined text-6xl" data-icon="bolt">bolt</span>
+</div>
+<span class="font-title-md text-title-md relative z-10">Electronic</span>
+</div>
+</div>
+</section>
+<!-- Suggested Results (Appears on focus/scroll) -->
+<section class="mb-lg opacity-90" id="results">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile mb-md">Quick Results</h2>
+<div class="space-y-sm">
+<div class="flex items-center gap-md p-sm bg-surface-container-low rounded-xl hover:bg-primary-container/10 transition-colors cursor-pointer doodle-border">
+<div class="w-14 h-14 rounded-lg bg-primary-fixed overflow-hidden relative">
+<img alt="Album" class="w-full h-full object-cover" data-alt="A soft-focus artistic album cover for a lo-fi hip hop track. The image depicts a rainy window overlooking a blurred cityscape at twilight. Hand-drawn white stars and subtle ink scribbles are layered over the glass. The palette is dominated by deep violets, charcoal, and warm amber lights." src="https://lh3.googleusercontent.com/aida/ADBb0ujfnd9CHzLFg_melN7TXYN34FxPZSakTnOtQBvIh8vyaWPd821H1aD5-9_fNF7rK7Vfz6wClinlYxHh39IfD0mdmC0FaLFPI12OdO9NC-XZBQ-on_sYp_GpcIsPZN_Bsge11ZQI8nL14emSzsIE19nAembqpddd2z877zqWZSnar85Fyw7IVYTtQo79FJHhwJ1dl4gX5f5_Lv2wgfuqyg3N8OklXHq3DVv4BMJX9-W38FhZV47wwK2kfyx1"/>
+</div>
+<div class="flex-1">
+<h3 class="font-title-md text-title-md">Midnight Scribbles</h3>
+<p class="font-body-sm text-on-surface-variant">Arlo Sketch</p>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</span>
+</div>
+<div class="flex items-center gap-md p-sm bg-surface-container-low rounded-xl hover:bg-primary-container/10 transition-colors cursor-pointer doodle-border">
+<div class="w-14 h-14 rounded-lg bg-secondary-fixed overflow-hidden relative">
+<img alt="Album" class="w-full h-full object-cover" data-alt="Minimalist indie music cover art with a central hand-drawn illustration of a vintage analog synthesizer. The illustration is a simple charcoal linework on a textured cream paper background. Soft peach and sage green watercolor washes bleed from the edges of the drawing. Atmospheric and calm." src="https://lh3.googleusercontent.com/aida/AP1WRLsramX2RIcVJ_E6w9LUonKbK1SDAVWLGhWFh2wM9d_RiYkouqdHeH55troaukhpq3xJVRBEnooIDnmlvJhvUUCZvmjFBgLbSvAqSxg9BeVo0_JwJ3EEoP5X7w6YEDFVT3Trc81vxCz705HNF9W8wkIWLMfwun7rvwRu_QmH25K8wQCovw8yzzGzsyKsWFdtETauARJFkNkZ2xHHDgPc-xUx1pkmKZojgewpUXhTMWx1BaHRo75g_-tBvjsh"/>
+</div>
+<div class="flex-1">
+<h3 class="font-title-md text-title-md">Paper Towns</h3>
+<p class="font-body-sm text-on-surface-variant">The Notebooks</p>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Mini Player -->
+<div class="fixed bottom-24 left-container-margin right-container-margin z-40">
+<div class="liquid-glass rounded-2xl p-sm doodle-border flex items-center gap-sm shadow-xl">
+<div class="w-12 h-12 rounded-lg bg-primary overflow-hidden animate-pulse">
+<img alt="Now Playing" class="w-full h-full object-cover" data-alt="A macro photograph of a vinyl record spinning on a wooden turntable. The lighting is low-key and intimate, highlighting the texture of the vinyl grooves. A single warm highlight catches the needle as it rests on the record. The style is nostalgic and high-fidelity lo-fi." src="https://lh3.googleusercontent.com/aida/ADBb0ug2kqRXhiXuiIucRgvTYzvTwr-7MKttJXoyGHMIsk2DRJAulyRVvXC83ey_oMYIqswmXUVeQZ44N_HRT5Fp4YG8fUWD4s0fmLj3w0rd6ZCvCsBOxwIF_m4PpWtt77FdGHq7zyfejCkwurPZTPzJ5CHQTNzrP1IAE-DdGoRc3a7fIcVwEGpcEGYGGPYrD0QXz3SxGHhrS6F0pYDpBBQq3AKVolqIq-hnS_Ze8vWzg4RV3-8j331Z2ViHQhaC"/>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-body-sm font-bold truncate">Rainy Day Notebook</h4>
+<p class="font-label-caps text-[10px] text-on-surface-variant truncate">Ethereal Echoes</p>
+</div>
+<div class="flex items-center gap-xs">
+<button class="p-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="skip_previous">skip_previous</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-primary-container border border-primary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="p-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="skip_next">skip_next</span>
+</button>
+</div>
+<!-- Progress Scribble -->
+<div class="absolute bottom-0 left-4 right-4 h-1">
+<div class="w-2/3 h-full bg-primary rounded-full relative">
+<div class="absolute -right-1 -top-1 w-3 h-3 bg-primary-container border border-primary rounded-full shadow-sm"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface/40 dark:bg-surface-container-highest/40 backdrop-blur-2xl border-t border-outline-variant/50 shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-primary-fixed rounded-full px-4 py-1 animate-pulse active:scale-90 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="search" style="font-variation-settings: 'FILL' 1;">search</span>
+<span class="font-label-caps text-label-caps">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="library_music">library_music</span>
+<span class="font-label-caps text-label-caps mt-1">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-caps text-label-caps mt-1">Favs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for search input focus
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-[1.02]');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-[1.02]');
+        });
+
+        // Simple observer for result cards fade-in
+        const results = document.getElementById('results');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100');
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        results.style.transition = 'all 0.8s ease-out';
+        results.style.transform = 'translateY(20px)';
+        observer.observe(results);
+    </script>
+</body></html>

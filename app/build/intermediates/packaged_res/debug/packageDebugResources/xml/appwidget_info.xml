@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Lmusic home-screen widget metadata.
+
+    Sizes target a 4x1 grid (about 250dp × 60dp on most launchers) and the
+    user can drag-resize horizontally to 5x1 if they want longer titles.
+
+    updatePeriodMillis = 0 because we push refreshes manually from
+    PlaybackService whenever the player state changes — periodic polling
+    isn't useful for this widget.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="250dp"
+    android:minHeight="60dp"
+    android:targetCellWidth="4"
+    android:targetCellHeight="1"
+    android:updatePeriodMillis="0"
+    android:initialLayout="@layout/widget_player"
+    android:previewLayout="@layout/widget_player"
+    android:resizeMode="horizontal"
+    android:widgetCategory="home_screen"
+    android:description="@string/widget_description" />

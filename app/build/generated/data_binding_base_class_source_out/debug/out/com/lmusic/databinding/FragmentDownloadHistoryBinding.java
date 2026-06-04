@@ -4,10 +4,13 @@ package com.lmusic.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
@@ -18,24 +21,92 @@ import java.lang.String;
 
 public final class FragmentDownloadHistoryBinding implements ViewBinding {
   @NonNull
-  private final FrameLayout rootView;
+  private final CoordinatorLayout rootView;
+
+  @NonNull
+  public final LinearLayout appBar;
+
+  @NonNull
+  public final ImageButton btnSelectionClose;
+
+  @NonNull
+  public final ImageButton btnSelectionDelete;
+
+  @NonNull
+  public final ImageButton btnSelectionSelectAll;
+
+  @NonNull
+  public final ImageButton btnSettings;
+
+  @NonNull
+  public final ImageButton btnSort;
+
+  @NonNull
+  public final LinearLayout emptyState;
+
+  @NonNull
+  public final EditText etSearch;
+
+  @NonNull
+  public final LinearLayout libraryChipRow;
+
+  @NonNull
+  public final LinearLayout mainContainer;
+
+  @NonNull
+  public final LayoutMiniPlayerBinding miniPlayer;
 
   @NonNull
   public final RecyclerView recyclerView;
 
   @NonNull
-  public final TextView tvEmpty;
+  public final LinearLayout selectionToolbar;
 
-  private FragmentDownloadHistoryBinding(@NonNull FrameLayout rootView,
-      @NonNull RecyclerView recyclerView, @NonNull TextView tvEmpty) {
+  @NonNull
+  public final TextView tvEmptySubtitle;
+
+  @NonNull
+  public final TextView tvEmptyTitle;
+
+  @NonNull
+  public final TextView tvSelectionCount;
+
+  @NonNull
+  public final TextView tvSubtitle;
+
+  private FragmentDownloadHistoryBinding(@NonNull CoordinatorLayout rootView,
+      @NonNull LinearLayout appBar, @NonNull ImageButton btnSelectionClose,
+      @NonNull ImageButton btnSelectionDelete, @NonNull ImageButton btnSelectionSelectAll,
+      @NonNull ImageButton btnSettings, @NonNull ImageButton btnSort,
+      @NonNull LinearLayout emptyState, @NonNull EditText etSearch,
+      @NonNull LinearLayout libraryChipRow, @NonNull LinearLayout mainContainer,
+      @NonNull LayoutMiniPlayerBinding miniPlayer, @NonNull RecyclerView recyclerView,
+      @NonNull LinearLayout selectionToolbar, @NonNull TextView tvEmptySubtitle,
+      @NonNull TextView tvEmptyTitle, @NonNull TextView tvSelectionCount,
+      @NonNull TextView tvSubtitle) {
     this.rootView = rootView;
+    this.appBar = appBar;
+    this.btnSelectionClose = btnSelectionClose;
+    this.btnSelectionDelete = btnSelectionDelete;
+    this.btnSelectionSelectAll = btnSelectionSelectAll;
+    this.btnSettings = btnSettings;
+    this.btnSort = btnSort;
+    this.emptyState = emptyState;
+    this.etSearch = etSearch;
+    this.libraryChipRow = libraryChipRow;
+    this.mainContainer = mainContainer;
+    this.miniPlayer = miniPlayer;
     this.recyclerView = recyclerView;
-    this.tvEmpty = tvEmpty;
+    this.selectionToolbar = selectionToolbar;
+    this.tvEmptySubtitle = tvEmptySubtitle;
+    this.tvEmptyTitle = tvEmptyTitle;
+    this.tvSelectionCount = tvSelectionCount;
+    this.tvSubtitle = tvSubtitle;
   }
 
   @Override
   @NonNull
-  public FrameLayout getRoot() {
+  public CoordinatorLayout getRoot() {
     return rootView;
   }
 
@@ -60,19 +131,113 @@ public final class FragmentDownloadHistoryBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.app_bar;
+      LinearLayout appBar = ViewBindings.findChildViewById(rootView, id);
+      if (appBar == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_selection_close;
+      ImageButton btnSelectionClose = ViewBindings.findChildViewById(rootView, id);
+      if (btnSelectionClose == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_selection_delete;
+      ImageButton btnSelectionDelete = ViewBindings.findChildViewById(rootView, id);
+      if (btnSelectionDelete == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_selection_select_all;
+      ImageButton btnSelectionSelectAll = ViewBindings.findChildViewById(rootView, id);
+      if (btnSelectionSelectAll == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_settings;
+      ImageButton btnSettings = ViewBindings.findChildViewById(rootView, id);
+      if (btnSettings == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_sort;
+      ImageButton btnSort = ViewBindings.findChildViewById(rootView, id);
+      if (btnSort == null) {
+        break missingId;
+      }
+
+      id = R.id.empty_state;
+      LinearLayout emptyState = ViewBindings.findChildViewById(rootView, id);
+      if (emptyState == null) {
+        break missingId;
+      }
+
+      id = R.id.et_search;
+      EditText etSearch = ViewBindings.findChildViewById(rootView, id);
+      if (etSearch == null) {
+        break missingId;
+      }
+
+      id = R.id.library_chip_row;
+      LinearLayout libraryChipRow = ViewBindings.findChildViewById(rootView, id);
+      if (libraryChipRow == null) {
+        break missingId;
+      }
+
+      id = R.id.main_container;
+      LinearLayout mainContainer = ViewBindings.findChildViewById(rootView, id);
+      if (mainContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.mini_player;
+      View miniPlayer = ViewBindings.findChildViewById(rootView, id);
+      if (miniPlayer == null) {
+        break missingId;
+      }
+      LayoutMiniPlayerBinding binding_miniPlayer = LayoutMiniPlayerBinding.bind(miniPlayer);
+
       id = R.id.recycler_view;
       RecyclerView recyclerView = ViewBindings.findChildViewById(rootView, id);
       if (recyclerView == null) {
         break missingId;
       }
 
-      id = R.id.tv_empty;
-      TextView tvEmpty = ViewBindings.findChildViewById(rootView, id);
-      if (tvEmpty == null) {
+      id = R.id.selection_toolbar;
+      LinearLayout selectionToolbar = ViewBindings.findChildViewById(rootView, id);
+      if (selectionToolbar == null) {
         break missingId;
       }
 
-      return new FragmentDownloadHistoryBinding((FrameLayout) rootView, recyclerView, tvEmpty);
+      id = R.id.tv_empty_subtitle;
+      TextView tvEmptySubtitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvEmptySubtitle == null) {
+        break missingId;
+      }
+
+      id = R.id.tv_empty_title;
+      TextView tvEmptyTitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvEmptyTitle == null) {
+        break missingId;
+      }
+
+      id = R.id.tv_selection_count;
+      TextView tvSelectionCount = ViewBindings.findChildViewById(rootView, id);
+      if (tvSelectionCount == null) {
+        break missingId;
+      }
+
+      id = R.id.tv_subtitle;
+      TextView tvSubtitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvSubtitle == null) {
+        break missingId;
+      }
+
+      return new FragmentDownloadHistoryBinding((CoordinatorLayout) rootView, appBar,
+          btnSelectionClose, btnSelectionDelete, btnSelectionSelectAll, btnSettings, btnSort,
+          emptyState, etSearch, libraryChipRow, mainContainer, binding_miniPlayer, recyclerView,
+          selectionToolbar, tvEmptySubtitle, tvEmptyTitle, tvSelectionCount, tvSubtitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

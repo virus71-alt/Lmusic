@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LMusic - Playlist Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&amp;family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-tertiary": "#ffffff",
+                "on-tertiary-container": "#764e52",
+                "on-tertiary-fixed-variant": "#623c40",
+                "surface": "#fcf9f8",
+                "secondary": "#356668",
+                "outline-variant": "#d4c3ba",
+                "primary-fixed": "#ffdcc5",
+                "secondary-container": "#b9ecee",
+                "surface-container-high": "#eae7e7",
+                "primary-container": "#f6c7a8",
+                "on-error": "#ffffff",
+                "on-primary-fixed-variant": "#604028",
+                "on-surface-variant": "#50453d",
+                "surface-tint": "#7a573e",
+                "secondary-fixed-dim": "#9ecfd1",
+                "surface-container-highest": "#e4e2e1",
+                "surface-container": "#f0eded",
+                "tertiary-fixed": "#ffdadc",
+                "surface-variant": "#e4e2e1",
+                "background": "#fcf9f8",
+                "on-secondary-fixed": "#002021",
+                "error-container": "#ffdad6",
+                "surface-dim": "#dcd9d9",
+                "inverse-primary": "#ebbd9f",
+                "on-secondary-container": "#3c6c6e",
+                "inverse-on-surface": "#f3f0f0",
+                "on-primary-fixed": "#2e1503",
+                "tertiary": "#7c5357",
+                "on-error-container": "#93000a",
+                "primary": "#7a573e",
+                "on-background": "#1b1c1c",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-fixed-dim": "#eeb9bd",
+                "error": "#ba1a1a",
+                "on-primary": "#ffffff",
+                "inverse-surface": "#303030",
+                "on-surface": "#1b1c1c",
+                "on-secondary": "#ffffff",
+                "outline": "#82746c",
+                "primary-fixed-dim": "#ebbd9f",
+                "tertiary-container": "#f9c3c7",
+                "secondary-fixed": "#b9ecee",
+                "on-secondary-fixed-variant": "#1a4e50",
+                "on-primary-container": "#745139",
+                "surface-bright": "#fcf9f8",
+                "on-tertiary-fixed": "#301216",
+                "surface-container-low": "#f6f3f2"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "md": "24px",
+                "container-margin": "20px",
+                "xs": "4px",
+                "sm": "12px",
+                "xl": "64px",
+                "gutter": "16px",
+                "base": "8px",
+                "lg": "40px"
+            },
+            "fontFamily": {
+                "display-lg": ["Bricolage Grotesque"],
+                "doodle-accent": ["Bricolage Grotesque"],
+                "label-caps": ["JetBrains Mono"],
+                "body-lg": ["Inter"],
+                "headline-lg": ["Bricolage Grotesque"],
+                "body-sm": ["Inter"],
+                "title-md": ["Inter"],
+                "headline-lg-mobile": ["Bricolage Grotesque"]
+            },
+            "fontSize": {
+                "display-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "doodle-accent": ["20px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .liquid-glass {
+            background: rgba(255, 248, 240, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid #2D2D2D;
+        }
+        .sketch-border {
+            border: 1.5px solid #2D2D2D;
+            box-shadow: 2px 2px 0px 0px #2D2D2D;
+        }
+        .sketch-border-hover:active {
+            transform: translate(1px, 1px);
+            box-shadow: 0px 0px 0px 0px #2D2D2D;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d4c3ba;
+            border-radius: 10px;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .sticky-header-shadow {
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-lg overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center px-container-margin py-base w-full fixed top-0 z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-outline-variant/30 transition-all duration-300" id="top-bar">
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden border border-outline/20">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLvP0LSYnusN4moD0IAdtik189_k2V-rC59Px13FH7fzloGxH-YvhnSrZdbrDlMOtItgsVbZ5K4KyCWfQJ0jkj5MvUUbZcXPTnBLusMy7racdQl36YU9HLYU74ot5DvnUNIObjJ11P0U3yfaIWcP3ZKUVsRt-qBxNNDNXNfEDHBuxKH8miax-2mQUMLU46NxzYewuVhihgbBWJyZQR9HtKCej3K1PCbnhs4ETHDtk8BH-2n3M8VaV8lZmA23"/>
+</button>
+<span class="font-doodle-accent text-doodle-accent text-primary">LMusic</span>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="music_note">music_note</span>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="pt-16 pb-32">
+<!-- Playlist Header -->
+<section class="px-container-margin pt-base pb-lg relative" id="playlist-header">
+<div class="relative w-full aspect-square max-w-md mx-auto mb-md group">
+<!-- Decorative Doodles -->
+<div class="absolute -top-4 -right-4 animate-float">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="star">star</span>
+</div>
+<div class="absolute -bottom-2 -left-4 animate-float" style="animation-delay: 1s">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="cloud">cloud</span>
+</div>
+<!-- Main Artwork -->
+<div class="w-full h-full rounded-xl overflow-hidden liquid-glass relative">
+<img class="w-full h-full object-cover mix-blend-multiply opacity-90" data-alt="A hand-drawn editorial style illustration of a person sitting by a window with headphones on, overlooking a dreamy sunset cityscape. The style is lo-fi sketch with soft peach and teal watercolor washes. Tiny sparkles and musical notes float in the air. High-end glassmorphism borders with charcoal pen-stroke outlines surround the image." src="https://lh3.googleusercontent.com/aida/AP1WRLvt3MwToKqoI_qzSmY-P2Cbx9Peoz4fuBcXONSgXKlv6m-sZR4wEmnSpndDGPjOR2qkGP4vKBBmCbGEfKDlfKwewj9hpE6GNtYU1gPViOoX4F09s34iBSGGOrZ2kCa6ucQijCPEqPYAs26uw-cky8yZXRumpY_9RheTaZX9-1DbpOnG48grjs25qBZNuswXIkF79kxgeYAbd1UqfnXqpc4IC86nzbdojQnfe8YnZ6Z66hbRIHzsjH4KLEz_"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface/40 to-transparent"></div>
+<!-- Corner Brackets -->
+<div class="absolute top-4 left-4 border-t-2 border-l-2 border-primary w-8 h-8 rounded-tl-lg"></div>
+<div class="absolute bottom-4 right-4 border-b-2 border-r-2 border-primary w-8 h-8 rounded-br-lg"></div>
+</div>
+</div>
+<!-- Stats & Titles -->
+<div class="text-center">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile mb-xs">Late Night Sketches</h1>
+<p class="font-body-sm text-on-surface-variant flex items-center justify-center gap-xs">
+                    Curated by <span class="font-semibold text-primary">Avery Bloom</span> • 42 Songs • 2h 15m
+                </p>
+</div>
+<!-- Actions Bar -->
+<div class="flex items-center justify-center gap-md mt-lg">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors p-2" data-icon="favorite">favorite</button>
+<button class="bg-primary-container text-on-primary-container px-lg py-sm rounded-full sketch-border font-title-md sketch-border-hover flex items-center gap-sm">
+<span class="material-symbols-outlined" data-icon="play_arrow" data-weight="fill">play_arrow</span>
+                    Play
+                </button>
+<button class="p-3 rounded-full border-1.5 border-outline hover:bg-surface-container transition-colors flex items-center justify-center" style="border-width: 1.5px">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="shuffle">shuffle</span>
+</button>
+</div>
+</section>
+<!-- Song List -->
+<section class="bg-surface-container-low rounded-t-3xl min-h-[442px] px-container-margin py-lg -mt-4 shadow-2xl relative z-10">
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-title-md text-title-md">Up Next</h2>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer" data-icon="sort">sort</span>
+</div>
+<div class="space-y-sm">
+<!-- Song Row 1 -->
+<div class="flex items-center gap-md p-sm bg-surface rounded-xl hover:shadow-sm transition-all group active:scale-[0.98]">
+<span class="material-symbols-outlined text-outline-variant cursor-grab active:cursor-grabbing" data-icon="drag_indicator">drag_indicator</span>
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container-high border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="Minimalist abstract album art with a single hand-drawn circle and a soft peach smudge on a cream paper texture background. High-quality digital lo-fi aesthetic." src="https://lh3.googleusercontent.com/aida/AP1WRLut6jyrJ-_GSPQQ9h8U60Kq4opMDNoGQvKAFJeZIk_s8-BE8rVE-BCqpDuOE6I8EFoKYdN_cPgUSOKPIFs5Cuz3Gyl-H-t4DoY1M7ptTPCwBaG5_x4KY0h-XiGWlVy6rKXY1Qn7nJ51KTJkAlZXRz9pbnbxAXUnwm48glqBR5mZ9rgl8hwANblRPGvgfCw9XnNEBLodip-_NorVJhWZEFRLG4ujM8nOJ7E0TkbVS5sThLZGDS14K52FAxPm"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<h4 class="font-title-md text-body-lg truncate">Paper Planes</h4>
+<p class="font-body-sm text-on-surface-variant truncate">The Origami Collective</p>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">3:42</span>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="more_vert">more_vert</span>
+</div>
+<!-- Song Row 2 -->
+<div class="flex items-center gap-md p-sm bg-primary-container/20 border-l-4 border-primary rounded-xl hover:shadow-sm transition-all group active:scale-[0.98]">
+<span class="material-symbols-outlined text-primary cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container-high relative">
+<img class="w-full h-full object-cover" data-alt="Abstract musical concept with glowing bokeh lights in teal and gold against a dark, textured background. Lo-fi vibe, liquid sketch style." src="https://lh3.googleusercontent.com/aida/ADBb0ui0-YN5pZEu4QW5648mO1zhe7MCkjdJMdhMZ_XimgIO4G8ofzkeg1pw_B5WXHXptd6TnaY7hv9CJ4mRplB6w0_60cN4cg_BvFeKdqUacoXpTlMLDDxEH2fQu4cWZyLlBxVCF0NIvpDyc-Tz7wW_vmzc69T9TI3HY6g5vIgkuji8rSsElt8v7iCLld2ZtYQ3Ipz1kGBATnaaDW3rC1L94GlME_u1riN2iLVjQLrWYbUnuNGMmfyMQSFeqGfw"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/20">
+<span class="material-symbols-outlined text-white animate-pulse" data-icon="equalizer">equalizer</span>
+</div>
+</div>
+<div class="flex-1 overflow-hidden">
+<h4 class="font-title-md text-body-lg text-primary truncate">Midnight Scribbles</h4>
+<p class="font-body-sm text-on-surface-variant truncate">Lo-Fi Dreamer</p>
+</div>
+<span class="font-label-caps text-label-caps text-primary">2:15</span>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="more_vert">more_vert</span>
+</div>
+<!-- Song Row 3 -->
+<div class="flex items-center gap-md p-sm bg-surface rounded-xl hover:shadow-sm transition-all group active:scale-[0.98]">
+<span class="material-symbols-outlined text-outline-variant cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container-high border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="Digital illustration of a vintage vinyl record spinning, with colorful hand-drawn sound waves emitting from the needle. Peach and charcoal theme." src="https://lh3.googleusercontent.com/aida/ADBb0ui3xLudX9ENj1DIZel52A_SfmVLEkZjdTuqUqXcu6BZABzGuWxKaSO0tZLkKh-hLKfj03TEZf4pmyf3LzCMf9YjaY-1Dq2OhKqRlVcnxCih8oPq8j06Ud-3ad66La4CWZcDEFo7Q0SyIMfZb2dJ6_Mcz7az9RQhB8rXKwH7I3_ajNuCvker0ZCYHfQM-4OaM56RUqGEJkgJy5YPZ7uYOwgdwV7xlgvKTy9d8zR1oOCmG7NTYjoK40Mmaq0"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<h4 class="font-title-md text-body-lg truncate">Coffee &amp; Ink</h4>
+<p class="font-body-sm text-on-surface-variant truncate">Jazzy Junes</p>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">4:10</span>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="more_vert">more_vert</span>
+</div>
+<!-- More items for scrolling -->
+<div class="flex items-center gap-md p-sm bg-surface rounded-xl hover:shadow-sm transition-all group active:scale-[0.98]">
+<span class="material-symbols-outlined text-outline-variant cursor-grab" data-icon="drag_indicator">drag_indicator</span>
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container-high border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="A microphone sketched with thick charcoal lines on a cream background with soft teal paint splatters. Digital notebook aesthetic." src="https://lh3.googleusercontent.com/aida/AP1WRLsYPWoBndMCr4sEUukkRnEmlXUf4GI9I5Zw8-L34BU63KW-DJZFINYzTDs7jf_0H73CUf2r2xThsBq6nusWP3Lr_uQ2KSHofM0JlEqFk5Ty320zAGVAtay2wPK89jFchur5MGhzy3ysJQ3V7DmbRNJ2fF_M5rzr5X4y66uhEDAAzhSRJ5o2sCbBPY26xV56vzmrcDG5lAGWwnTE5uS-SQ7ATMO-NmNYRFwsu6pRBLfLck0sFLTHAhYFsf_H"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<h4 class="font-title-md text-body-lg truncate">Rainy Window</h4>
+<p class="font-body-sm text-on-surface-variant truncate">Atmosphere Collective</p>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">3:55</span>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Persistent Mini Player -->
+<div class="fixed bottom-[88px] left-4 right-4 z-40 bg-surface/90 backdrop-blur-2xl rounded-2xl border border-outline-variant/30 shadow-xl p-2 flex items-center gap-sm transition-all duration-500 hover:shadow-2xl" id="mini-player">
+<div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Thumbnail for currently playing lo-fi track with neon bokeh effect." src="https://lh3.googleusercontent.com/aida/ADBb0ujEY7wE7lg99bXIBiRCpdbRHwzq1cd_0g72OGjtNBd91MnUUTmswREXT_8qZ8Un1_ECccQLU0gLU1P4I0ctF7rMmBYEADpg2nZMgxQDXg3I1UUk4eFuGJDF7lqYehcFWOPjBPJvruaJGxO70sPRnmXZYP9RtqQfo7TMj9y1Qp2bnWWBH1sOZELXIpj_NynZ42CF2i-1koPPZoFWLN_DpWzb8tneyoNO7Frr85Bhk8gzaRe_JH5WZA7-dQds"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="font-title-md text-body-sm truncate leading-tight">Midnight Scribbles</p>
+<p class="text-[10px] font-label-caps text-primary uppercase">Now Playing</p>
+</div>
+<div class="flex items-center gap-xs px-2">
+<button class="material-symbols-outlined text-on-surface p-1 active:scale-90" data-icon="skip_previous">skip_previous</button>
+<button class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center sketch-border active:scale-90">
+<span class="material-symbols-outlined" data-icon="pause" data-weight="fill">pause</span>
+</button>
+<button class="material-symbols-outlined text-on-surface p-1 active:scale-90" data-icon="skip_next">skip_next</button>
+</div>
+<!-- Progress Bar (Subtle Line) -->
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-surface-container rounded-b-2xl overflow-hidden">
+<div class="w-[65%] h-full bg-primary transition-all duration-1000"></div>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface/40 dark:bg-surface-container-highest/40 backdrop-blur-2xl border-t border-outline-variant/50 rounded-t-xl shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-caps text-label-caps">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-primary-fixed rounded-full px-4 py-1 animate-pulse scale-100 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="library_music">library_music</span>
+<span class="font-label-caps text-label-caps">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-caps text-label-caps">Favs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-primary-fixed/20 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+<script>
+        // Scroll interaction for header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('top-bar');
+            const scrollThreshold = 100;
+            
+            if (window.scrollY > scrollThreshold) {
+                header.classList.add('sticky-header-shadow');
+            } else {
+                header.classList.remove('sticky-header-shadow');
+            }
+            
+            // Subtle parallax/fade for the artwork header
+            const artworkHeader = document.getElementById('playlist-header');
+            const opacity = 1 - (window.scrollY / 400);
+            const scale = 1 - (window.scrollY / 1000);
+            
+            if (opacity > 0) {
+                artworkHeader.style.opacity = opacity;
+                artworkHeader.style.transform = `scale(${Math.max(0.8, scale)})`;
+            }
+        });
+
+        // Click interaction for play button
+        const playBtn = document.querySelector('.bg-primary-container');
+        playBtn.addEventListener('mousedown', () => {
+            playBtn.style.transform = 'scaleY(0.95)';
+        });
+        playBtn.addEventListener('mouseup', () => {
+            playBtn.style.transform = 'scaleY(1)';
+        });
+
+        // Simple Drag visual feedback simulation
+        const draggables = document.querySelectorAll('.cursor-grab');
+        draggables.forEach(handle => {
+            handle.addEventListener('mousedown', () => {
+                handle.parentElement.classList.add('shadow-lg', 'scale-[1.02]', 'z-20');
+            });
+            handle.addEventListener('mouseup', () => {
+                handle.parentElement.classList.remove('shadow-lg', 'scale-[1.02]', 'z-20');
+            });
+        });
+    </script>
+</body></html>

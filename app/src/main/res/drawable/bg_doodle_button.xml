@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Primary doodle button — peach fill, 1.5px charcoal ink border, and a hard
+    4dp offset "drop shadow" in peach (the signature notebook-sticker look).
+    Layered so the shadow peeks out at the bottom-right corner.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Hard offset shadow (peeks bottom + right) -->
+    <item
+        android:left="4dp"
+        android:top="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/doodle_shadow" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+    <!-- Foreground button (top-left aligned, leaving the shadow visible) -->
+    <item
+        android:right="4dp"
+        android:bottom="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/doodle_peach" />
+            <corners android:radius="16dp" />
+            <stroke
+                android:width="1.5dp"
+                android:color="@color/doodle_ink" />
+        </shape>
+    </item>
+
+</layer-list>

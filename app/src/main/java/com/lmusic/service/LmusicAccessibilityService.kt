@@ -9,14 +9,13 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.lmusic.LmusicApp
 import com.lmusic.R
+import com.lmusic.data.Settings
 import com.lmusic.youtube.YouTubeDetector
 
 class LmusicAccessibilityService : AccessibilityService() {
 
     companion object {
-        // How long both keys must be held simultaneously to trigger
-        private const val HOLD_DURATION_MS = 250L
-        private const val STATUS_NOTIF_ID = 9001
+        private const val NOTIF_STAGE_ERROR = 9003
 
         @Volatile
         var instance: LmusicAccessibilityService? = null
@@ -55,10 +54,14 @@ class LmusicAccessibilityService : AccessibilityService() {
 
         when (event.action) {
             KeyEvent.ACTION_DOWN -> {
-                // Ignore key repeats from long-press
+                // Ignore key repeats from long-press.
+                // Consume repeats whenever EITHER key is currently held: this prevents
+                // volume from drifting while the user is in the process of pressing the
+                // second key for the gesture. Trade-off: continuous long-press volume
+                // change is limited to one step per initial key-down; a second press is
+                // needed for each additional step.
                 if (event.repeatCount > 0) {
-                    // If both already held, keep consuming so volume doesn't drift
-                    return volUpDownTime > 0L && volDownDownTime > 0L
+                    return volUpDownTime > 0L || volDownDownTime > 0L
                 }
 
                 if (code == KeyEvent.KEYCODE_VOLUME_UP) volUpDownTime = now
@@ -66,9 +69,9 @@ class LmusicAccessibilityService : AccessibilityService() {
 
                 if (volUpDownTime > 0L && volDownDownTime > 0L) {
                     // Both keys now down — schedule trigger and consume this event
-                    // (consuming the 2nd key's down prevents its volume action)
+                    val hold = Settings(this).holdDurationMs
                     handler.removeCallbacks(triggerRunnable)
-                    handler.postDelayed(triggerRunnable, HOLD_DURATION_MS)
+                    handler.postDelayed(triggerRunnable, hold)
                     return true
                 }
                 // Only one key held so far — let system process volume change as normal
@@ -100,27 +103,38 @@ class LmusicAccessibilityService : AccessibilityService() {
 
     private fun onCombinationHeld() {
         Thread {
-            val url = YouTubeDetector(applicationContext).getCurrentVideoUrl()
-            if (url != null) {
-                DownloadService.startDownload(applicationContext, url)
-            } else {
-                postStatusNotification(
-                    title = "Lmusic — nothing to download",
-                    text = "Open YouTube, play a song, then hold both volume keys"
+            try {
+                val url = YouTubeDetector(applicationContext).getCurrentVideoUrl()
+                if (url != null) {
+                    com.lmusic.download.DownloadRunner.start(applicationContext, url)
+                } else {
+                    postNotif(
+                        NOTIF_STAGE_ERROR,
+                        "Lmusic — nothing to download",
+                        "Open YouTube, play a song, then hold both volume keys."
+                    )
+                }
+            } catch (t: Throwable) {
+                com.lmusic.util.CrashLogger.logNonFatal(applicationContext, "trigger", t)
+                postNotif(
+                    NOTIF_STAGE_ERROR,
+                    "Lmusic — couldn't start",
+                    "${t.javaClass.simpleName}: ${(t.message ?: "").take(180)}"
                 )
             }
         }.start()
     }
 
-    private fun postStatusNotification(title: String, text: String) {
+    private fun postNotif(id: Int, title: String, text: String) {
         val notif = NotificationCompat.Builder(this, LmusicApp.CHANNEL_STATUS)
             .setSmallIcon(R.drawable.ic_download)
             .setContentTitle(title)
             .setContentText(text)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(text))
             .setAutoCancel(true)
             .build()
         try {
-            NotificationManagerCompat.from(this).notify(STATUS_NOTIF_ID, notif)
+            NotificationManagerCompat.from(this).notify(id, notif)
         } catch (_: SecurityException) {}
     }
 

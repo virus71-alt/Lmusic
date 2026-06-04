@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <string-array name="exo_controls_playback_speeds">
+    <item>0.25x</item>
+    <item>0.5x</item>
+    <item>0.75x</item>
+    <item>عام</item>
+    <item>1.25x</item>
+    <item>1.5x</item>
+    <item>2X</item>
+  </string-array>
+    <plurals name="exo_controls_fastforward_by_amount_description">
+    <item quantity="one">%d سیکنڈ تیزی سے فارورڈ کریں</item>
+    <item quantity="other">%d سیکنڈز تیزی سے فارورڈ کریں</item>
+  </plurals>
+    <plurals name="exo_controls_rewind_by_amount_description">
+    <item quantity="one">%d سیکنڈ ریوائنڈ کریں</item>
+    <item quantity="other">%d سیکنڈز ریوائنڈ کریں</item>
+  </plurals>
     <plurals name="mtrl_badge_content_description">
     <item quantity="one">%d نئی اطلاع</item>
     <item quantity="other">%d نئی اطلاعات</item>
@@ -31,6 +48,7 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"اس کے ساتھ اشتراک کریں"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"<ns1:g id="APPLICATION_NAME">%s</ns1:g> کے ساتھ اشتراک کریں"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"سکیڑیں"</string>
+    <string name="authentication_required">توثیق مطلوب ہے</string>
     <string name="bottomsheet_action_collapse">نیچے کی شیٹ کو سکیڑیں</string>
     <string name="bottomsheet_action_expand">نیچے کی شیٹ کو پھیلائیں</string>
     <string name="bottomsheet_action_expand_halfway">نصف تک پھیلائیں</string>
@@ -46,8 +64,63 @@
     <string name="character_counter_content_description">%2$d میں سے %1$d حروف درج کیے گئے</string>
     <string name="character_counter_overflowed_content_description">حروف کی تعداد کی حد %2$d سے %1$d پہنچ گئی</string>
     <string name="clear_text_end_icon_content_description">ٹیکسٹ صاف کریں</string>
+    <string msgid="6083905920877235314" name="copy">"کاپی کریں"</string>
+    <string name="default_notification_channel_name">ابھی چل رہا ہے</string>
     <string name="error_a11y_label">خرابی: غلط</string>
     <string name="error_icon_content_description">خرابی</string>
+    <string name="exo_controls_cc_disabled_description">سب ٹائٹلز کو فعال کریں</string>
+    <string name="exo_controls_cc_enabled_description">سب ٹائٹلز کو غیر فعال کریں</string>
+    <string name="exo_controls_fastforward_description">تیزی سے فارورڈ کریں</string>
+    <string name="exo_controls_fullscreen_enter_description">پوری اسکرین میں داخل ہوں</string>
+    <string name="exo_controls_fullscreen_exit_description">پوری اسکرین سے باہر نکلیں</string>
+    <string name="exo_controls_hide">پلیئر کنٹرولز چھپائیں</string>
+    <string name="exo_controls_next_description">آگے</string>
+    <string name="exo_controls_overflow_hide_description">اضافی ترتیبات چھپائیں</string>
+    <string name="exo_controls_overflow_show_description">اضافی ترتیبات دکھائیں</string>
+    <string name="exo_controls_pause_description">موقوف کریں</string>
+    <string name="exo_controls_play_description">چلائیں</string>
+    <string name="exo_controls_playback_speed">رفتار</string>
+    <string name="exo_controls_previous_description">پیچھے</string>
+    <string name="exo_controls_repeat_all_description">موجودہ موڈ: سبھی دہرائیں۔ رپیٹ موڈ ٹوگل کریں۔</string>
+    <string name="exo_controls_repeat_off_description">موجودہ موڈ: کچھ نہ دہرائیں۔ رپیٹ موڈ ٹوگل کریں۔</string>
+    <string name="exo_controls_repeat_one_description">موجودہ موڈ: ایک دہرائیں۔ رپیٹ موڈ ٹوگل کریں۔</string>
+    <string name="exo_controls_rewind_description">ریوائینڈ کریں</string>
+    <string name="exo_controls_seek_bar_description">پلے بیک کی پیش رفت</string>
+    <string name="exo_controls_settings_description">ترتیبات</string>
+    <string name="exo_controls_show">پلیئر کنٹرولز دکھائیں</string>
+    <string name="exo_controls_shuffle_off_description">شفل موڈ کو فعال کریں</string>
+    <string name="exo_controls_shuffle_on_description">شفل موڈ کو غیر فعال کریں</string>
+    <string name="exo_controls_stop_description">روکیں</string>
+    <string name="exo_controls_vr_description">VR موڈ</string>
+    <string name="exo_download_completed">ڈاؤن لوڈ مکمل ہو گیا</string>
+    <string name="exo_download_description">ڈاؤن لوڈ کریں</string>
+    <string name="exo_download_downloading">ڈاؤن لوڈ ہو رہا ہے</string>
+    <string name="exo_download_failed">ڈاؤن لوڈ ناکام ہو گیا</string>
+    <string name="exo_download_notification_channel_name">ڈاؤن لوڈز</string>
+    <string name="exo_download_paused">ڈاؤن لوڈز موقوف ہو گئے</string>
+    <string name="exo_download_paused_for_network">ڈاؤن لوڈز نیٹ ورک کے منتظر ہیں</string>
+    <string name="exo_download_paused_for_wifi">ڈاؤن لوڈز WiFi کے منتظر ہیں</string>
+    <string name="exo_download_removing">ڈاؤن لوڈز کو ہٹایا جا رہا ہے</string>
+    <string name="exo_item_list">%1$s، %2$s</string>
+    <string name="exo_track_bitrate">%1$.2f Mbps</string>
+    <string name="exo_track_mono">مونو</string>
+    <string name="exo_track_resolution">%1$d × %2$d</string>
+    <string name="exo_track_role_alternate">متبادل</string>
+    <string name="exo_track_role_closed_captions">سب ٹائٹلز</string>
+    <string name="exo_track_role_commentary">تبصرہ</string>
+    <string name="exo_track_role_supplementary">اضافی</string>
+    <string name="exo_track_selection_auto">خودکار</string>
+    <string name="exo_track_selection_none">کوئی نہیں</string>
+    <string name="exo_track_selection_title_audio">آڈیو</string>
+    <string name="exo_track_selection_title_text">متن</string>
+    <string name="exo_track_selection_title_video">ویڈیو</string>
+    <string name="exo_track_stereo">اسٹیریو</string>
+    <string name="exo_track_surround">محیط آواز</string>
+    <string name="exo_track_surround_5_point_1">5.1 محیط آواز</string>
+    <string name="exo_track_surround_7_point_1">7.1 محیط آواز</string>
+    <string name="exo_track_unknown">نامعلوم</string>
+    <string name="exo_track_unknown_name">نامعلوم (%1$s)</string>
+    <string msgid="2427401033573778270" name="expand_button_title">"جدید ترین"</string>
     <string name="exposed_dropdown_menu_content_description">ڈراپ ڈاؤن مینیو دکھائیں</string>
     <string name="icon_content_description">ڈائیلاگ کا آئیکن</string>
     <string name="item_view_role_description">ٹیب</string>
@@ -64,6 +137,12 @@
     <string name="material_timepicker_pm">رات</string>
     <string name="material_timepicker_select_time">وقت منتخب کریں</string>
     <string name="material_timepicker_text_input_mode_description">وقت ان پٹ کے لیے ٹیکسٹ ان پٹ وضع پر سوئچ کریں۔</string>
+    <string name="media3_controls_pause_description">روکیں</string>
+    <string name="media3_controls_play_description">چلائیں</string>
+    <string name="media3_controls_seek_back_description">واپس جائیں</string>
+    <string name="media3_controls_seek_forward_description">آگے جائیں</string>
+    <string name="media3_controls_seek_to_next_description">اگلے آئٹم پر جائیں</string>
+    <string name="media3_controls_seek_to_previous_description">پچھلے آئٹم پر جائیں</string>
     <string name="mtrl_badge_numberless_content_description">نئی اطلاع</string>
     <string name="mtrl_checkbox_state_description_checked">نشان زد ہو گیا</string>
     <string name="mtrl_checkbox_state_description_indeterminate">جزوی طور پر نشان زد</string>
@@ -109,10 +188,15 @@
     <string name="mtrl_picker_toggle_to_year_selection">سال کے منظر پر سوئچ کرنے کے لیے تھپتھپائیں</string>
     <string name="mtrl_timepicker_cancel">منسوخ کریں</string>
     <string name="mtrl_timepicker_confirm">ٹھیک ہے</string>
+    <string msgid="6573031135582639649" name="not_set">"سیٹ نہیں ہے"</string>
     <string name="password_toggle_content_description">پاس ورڈ دکھائیں</string>
+    <string msgid="6685851473431805375" name="preference_copied">"\"<ns1:g id="SUMMARY">%1$s</ns1:g>\" کلپ بورڈ میں کاپی ہو گیا۔"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"تلاش کریں"</string>
     <string name="searchview_clear_text_content_description">ٹیکسٹ صاف کریں</string>
     <string name="searchview_navigation_content_description">واپس جائیں</string>
     <string name="side_sheet_accessibility_pane_title">سائیڈ شیٹ</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"+999"</string>
+    <string msgid="9167775378838880170" name="summary_collapsed_preference_list">"<ns1:g id="CURRENT_ITEMS">%1$s</ns1:g>، <ns1:g id="ADDED_ITEMS">%2$s</ns1:g>"</string>
+    <string msgid="3140233346420563315" name="v7_preference_off">"آف ہے"</string>
+    <string msgid="89551595707643515" name="v7_preference_on">"آن"</string>
 </resources>
