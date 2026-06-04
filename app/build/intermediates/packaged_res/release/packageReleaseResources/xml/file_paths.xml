@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path name="external_storage" path="." />
+    <external-files-path name="external_files" path="." />
+    <!-- Backup files live in filesDir/backups/ — served via FileProvider for share intents -->
+    <files-path name="internal_files" path="." />
+</paths>

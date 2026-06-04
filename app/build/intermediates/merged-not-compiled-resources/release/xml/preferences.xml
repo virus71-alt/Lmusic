@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Downloads">
+        <ListPreference
+            app:key="pref_quality"
+            app:title="Audio quality"
+            app:summary="%s"
+            app:defaultValue="best"
+            app:entries="@array/quality_entries"
+            app:entryValues="@array/quality_values" />
+
+        <SwitchPreferenceCompat
+            app:key="pref_wifi_only"
+            app:title="Wi-Fi only"
+            app:summary="Don't use mobile data for downloads"
+            app:defaultValue="false" />
+
+        <SwitchPreferenceCompat
+            app:key="pref_strip_noise"
+            app:title="Clean up song titles"
+            app:summary="Remove (Official Video), [Lyrics], etc."
+            app:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+            app:key="pref_convert_mp3"
+            app:title="Save with .mp3 extension"
+            app:summary="Saves the original AAC audio under a .mp3 filename. Most players auto-detect the format. Turn off to keep the original .m4a extension."
+            app:defaultValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Gesture">
+        <ListPreference
+            app:key="pref_hold_duration"
+            app:title="Hold duration"
+            app:summary="%s"
+            app:defaultValue="250"
+            app:entries="@array/hold_entries"
+            app:entryValues="@array/hold_values" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Plugins">
+        <Preference
+            app:key="pref_plugins"
+            app:title="Stream plugins"
+            app:summary="Manage how Lmusic resolves YouTube audio streams" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Backup &amp; Restore">
+        <Preference
+            app:key="pref_backup_export"
+            app:title="Export backup"
+            app:summary="Save your full download history as a .lmusicbackup file" />
+        <Preference
+            app:key="pref_backup_import"
+            app:title="Import &amp; restore"
+            app:summary="Load a backup file — Lmusic will re-download every track automatically" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Troubleshooting">
+        <Preference
+            app:key="pref_view_crash_log"
+            app:title="View crash log"
+            app:summary="See the most recent error if the app crashed" />
+        <Preference
+            app:key="pref_clear_crash_log"
+            app:title="Clear crash log" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

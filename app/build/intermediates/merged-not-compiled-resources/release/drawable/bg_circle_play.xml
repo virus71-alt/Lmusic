@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Large circular play/pause button — peach fill with charcoal ink ring and a
+    hard offset shadow, the hero control on the player screen.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="4dp" android:top="4dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/doodle_shadow" />
+        </shape>
+    </item>
+    <item android:right="4dp" android:bottom="4dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/doodle_peach" />
+            <stroke android:width="2dp" android:color="@color/doodle_ink" />
+        </shape>
+    </item>
+</layer-list>

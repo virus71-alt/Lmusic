@@ -1,121 +1,117 @@
 # 🎵 Lmusic
 
-> Download YouTube audio with a hardware-button gesture. No menus. No copy-paste. No foreground app required.
+> Download, stream, and play YouTube audio — straight from your phone, no copy-paste, no menus, no third-party server.
 
-Play any video in the YouTube app, hold **Volume-Up + Volume-Down together** for a quarter second, and the audio is saved straight to your Music folder. 🎧
+Lmusic turns your Android phone into a one-gesture music collector. Open YouTube, hear something you love, and **hold both volume buttons together for a quarter second** — the audio is saved to your Music folder before the song even ends.
 
-Built as a native Android app in Kotlin. Uses NewPipeExtractor to resolve YouTube streams — no external binaries, no server. ✨
-
----
-
-## ⚡ How it works
-
-```
-🎮 Hold Vol-Up + Vol-Down for 250ms
-        |
-        v
-🛡️ AccessibilityService detects the combo and fires a trigger
-        |
-        v
-🔍 YouTubeDetector finds what's playing:
-   • NotificationListener cache (exact URL if YouTube exposes it)
-   • MediaSession metadata fallback (title + artist)
-        |
-        v
-🧩 NewPipeExtractor resolves to a video and extracts stream URLs
-        |
-        v
-📥 Foreground DownloadService streams audio to /Music/Lmusic/
-   • Prefers audio-only (m4a / webm)
-   • Falls back to progressive mp4 if audio-only is restricted
-        |
-        v
-🔔 Notification shows progress, then completion
-💾 Room database records the download for the in-app history
-```
+It's also a full local music player: search YouTube, stream tracks instantly, build your favorites, browse a weekly listening rhythm, and control playback from the lock screen or a home-screen widget.
 
 ---
 
-## 🚀 Setup
+## ✨ Features
 
-1. 📦 Clone the repo and open in Android Studio (Hedgehog or later).
-2. ⏳ Let Gradle sync. The first sync builds NewPipeExtractor from a JitPack snapshot and can take several minutes.
-3. 📱 Plug in an Android phone (API 26+, ARM64) and hit Run.
-
-No yt-dlp binary, no FFmpeg, no native dependencies. Everything runs in-process on the JVM. 🪶
+- 🎮 **One-gesture downloads** — hold Vol-Up + Vol-Down while any track is playing in YouTube
+- 🔍 **In-app search & streaming** — type any song name and play it instantly
+- 📚 **Library** — sort, filter, group by artist, search your downloaded tracks
+- ❤️ **Favorites** — heart any track, see your top picks in Profile
+- 📊 **Listener insights** — hours of music, top artists, weekly download chart
+- ▶️ **Full-screen Now Playing** — circular vinyl art, sleep timer, queue sheet, shuffle & repeat
+- 🏠 **Home-screen widget** — play / pause / skip without opening the app
+- 💾 **Backup & restore** — export your library as a single file, re-download everything on a new phone with one tap
+- 🔌 **Plugin system** — swap the stream extractor for an external plugin if YouTube changes
+- 🌑 **Premium Doodle theme** — warm dark palette with hand-drawn-style edges
 
 ---
 
-## 🔐 Permissions
+## 📥 Installing
 
-The app shows a guided 4-step setup on first launch. Grant in order:
+1. Download the latest APK from the **[Releases](../../releases)** page.
+2. Open it on your Android phone (Android 8.0 / API 26 or newer).
+3. Tap **Install** — you may need to allow installs from your browser / file manager.
 
-| 🧩 Permission | 💡 What it does | 📍 Where to grant |
+> The app is offered as a free APK — no Play Store listing required.
+
+---
+
+## 🔐 First-launch setup
+
+The app walks you through four short steps on first open:
+
+| Permission | What it's for | Where to grant |
 |---|---|---|
-| 🔔 Notification Access | Reads YouTube's media notification to find the video URL | Settings → Notifications → Special access |
-| ♿ Accessibility Service | Detects the Vol-Up + Vol-Down combo | Settings → Accessibility |
-| 📢 Notifications | Posts download progress | System dialog on first launch |
-| 💾 Storage | Only required on Android 9 and below | Auto-granted on Android 10+ via MediaStore |
+| 🔔 Notification Access | Reads YouTube's media notification to find the current track | Settings → Notifications → Special access |
+| ♿ Accessibility Service | Detects the Vol-Up + Vol-Down gesture | Settings → Accessibility |
+| 📢 Notifications | Posts download progress | System dialog on launch |
+| 💾 Storage | Only on Android 9 and below | Auto-granted on Android 10+ |
 
-> 🛡️ **Privacy:** The accessibility service only reads volume key events. It does not read screen content, intercept other keys, or interact with other apps.
-
----
-
-## 🎯 Usage
-
-1. ▶️ Play any song or video in the YouTube or YouTube Music app.
-2. 🎮 Hold **Vol-Up + Vol-Down together** for about a quarter second.
-3. ⏬ Wait for the "Downloaded" notification.
-4. 📂 Find the file under `/Music/Lmusic/`.
-
-Files are saved in their original format — usually `.m4a` (AAC), occasionally `.webm` (Opus), or `.mp4` for restricted videos. All three play in every modern Android music player. 🎶
+> 🛡️ **Privacy first.** The accessibility service only watches the two volume keys. It never reads screen content, never touches other apps, and never phones home.
 
 ---
 
-## 🛠️ Tech stack
+## 🎯 How to use
 
-- 🟣 **Kotlin** with Android Views (no Compose; ViewBinding for layouts)
-- 🧪 **NewPipeExtractor** (master-SNAPSHOT via JitPack) for YouTube stream resolution
-- 🌐 **OkHttp** for the HTTP layer (both NewPipe's downloader and the file fetch)
-- 🗄️ **Room** for the download history
-- 🔁 **WorkManager** for retry on transient failures
-- ⚙️ **Coroutines** for the foreground service work
+### Download with the volume gesture
+
+1. Play any song or video in **YouTube** or **YouTube Music**.
+2. Hold **Vol-Up + Vol-Down together** for ~ a quarter second.
+3. Wait for the "Downloaded" notification.
+4. The file lands in `/Music/Lmusic/` — playable in every modern Android music player.
+
+### Search and stream
+
+1. Tap the **Search** tab at the bottom.
+2. Type a song name or pick a mood chip (Lofi, Pop, Hip Hop, …).
+3. Tap **▶** on any result to stream, or **↓** to download for offline listening.
+4. The next few tracks are pre-queued automatically — Shuffle and Next just work.
+
+### Add to favorites
+
+Tap the heart on any row in **Library** or **Now Playing**. Your top picks show up on the **Favs** tab and the **Profile** screen.
+
+### Control from anywhere
+
+- 🔒 **Lock screen / shade** — the media notification has play, pause, skip
+- 🏠 **Home screen widget** — long-press home → Widgets → drop "Lmusic" anywhere on the screen
+- 🎧 **Bluetooth headphones** — standard play / pause / skip buttons are honoured
+
+### Back up your library
+
+Open **Settings → Backup & Restore → Export backup** to save a single `.lmusicbackup` file (just titles + YouTube URLs, tiny). On a new phone, import the same file and Lmusic re-downloads every track in the background.
 
 ---
 
-## 📁 Project layout
+## ⚙️ Settings worth knowing
 
-```
-app/src/main/java/com/lmusic/
-  LmusicApp.kt                  🚪 Application class, notification channels
-  MainActivity.kt               🏠 Hosts the setup wizard or download history
-  service/
-    LmusicAccessibilityService  🎮 Vol-Up + Vol-Down combo detection
-    LmusicNotificationListener  🔔 Caches YouTube's current video URL/title
-    DownloadService             📥 Foreground service running the download
-  youtube/YouTubeDetector       🔍 Resolves the playing video URL
-  download/
-    NewPipeDownloaderImpl       🌐 OkHttp-backed HTTP layer for NewPipe
-    YouTubeDownloader           🧩 Stream extraction + file download
-  data/                         🗄️ Room entity, DAO, database
-  ui/                           🎨 Permission wizard + history fragments
-```
+- **Wi-Fi only** — skip downloads on mobile data
+- **Audio quality** — best vs. smaller file size
+- **Clean up song titles** — strips "(Official Video)", "[Lyrics]" etc.
+- **Hold duration** — make the volume gesture more or less twitchy
+- **Stream plugins** — swap the extractor without rebuilding the app
+- **Download notifications** — silence them entirely if you prefer
 
 ---
 
 ## ⚠️ Known limitations
 
-- 🏗️ **ARM64 only in practice.** Tested on `arm64-v8a` devices; should also work on x86_64 since there are no native binaries, but untested.
-- 🔄 **YouTube changes frequently.** When YouTube updates its player obfuscation, the `master-SNAPSHOT` NewPipeExtractor build picks up fixes within days. If extraction breaks, re-sync Gradle to pull the latest snapshot.
-- 🎼 **Output format follows YouTube.** Files are saved in whatever container YouTube serves. There is no MP3 transcoding step (would require shipping FFmpeg, ~30 MB).
-- 🔎 **Search fallback may pick the wrong video** when the YouTube notification doesn't expose the exact URL. The first search result for the song title is almost always correct, but lyric videos and live versions can occasionally win over the official audio.
+- 🔄 **YouTube changes often.** When YouTube updates their player, extraction can break for a few days until the underlying library catches up.
+- 🎼 **Files keep YouTube's container.** Tracks land as `.m4a` or `.webm` (occasionally `.mp4`) — Lmusic does no transcoding to keep the APK small.
+- 🔎 **Search-based detection isn't perfect.** When the YouTube notification doesn't expose an exact URL, Lmusic searches by song title. Live versions or lyric videos occasionally win over the official audio.
 
 ---
 
-## ❤️ Acknowledgments
+## 🐛 Reporting bugs
 
-- 🧩 [NewPipeExtractor](https://github.com/TeamNewPipe/NewPipeExtractor) — the YouTube stream extraction engine.
-- 🛠️ [yt-dlp](https://github.com/yt-dlp/yt-dlp) — originally bundled, removed once it became clear no Linux yt-dlp build runs on Android's bionic libc.
+Open an [issue](../../issues) with:
+
+- The screen / action that triggered the bug
+- Any crash text from **Settings → View crash log**
+- Your Android version + device model
+
+---
+
+## ❤️ Credits
+
+Built with love for music nerds who hate menus. Open-source extraction powered by the **NewPipeExtractor** community.
 
 ---
 

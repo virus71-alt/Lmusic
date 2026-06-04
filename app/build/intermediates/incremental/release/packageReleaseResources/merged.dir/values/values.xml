@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="hold_entries">
+        <item>Fast (150ms)</item>
+        <item>Normal (250ms)</item>
+        <item>Slow (400ms)</item>
+        <item>Very slow (600ms)</item>
+    </string-array>
+    <string-array name="hold_values">
+        <item>150</item>
+        <item>250</item>
+        <item>400</item>
+        <item>600</item>
+    </string-array>
+    <string-array name="quality_entries">
+        <item>Best quality</item>
+        <item>Smaller file size</item>
+    </string-array>
+    <string-array name="quality_values">
+        <item>best</item>
+        <item>smaller</item>
+    </string-array>
+    <color name="accent">#EBBD9F</color>
+    <color name="accent_dim">#D4A684</color>
+    <color name="accent_soft">#3D2A1C</color>
+    <color name="background">#15110D</color>
+    <color name="card_bg">#1F1813</color>
+    <color name="colorOnPrimary">#2E1503</color>
+    <color name="colorPrimary">#EBBD9F</color>
+    <color name="colorPrimaryVariant">#D4A684</color>
+    <color name="divider">#4D3D31</color>
+    <color name="doodle_blue">#1A4E50</color>
+    <color name="doodle_ink">#E4E2E1</color>
+    <color name="doodle_peach">#C99372</color>
+    <color name="doodle_peach_fixed">#A87553</color>
+    <color name="doodle_rose">#623C40</color>
+    <color name="doodle_shadow">#A87553</color>
+    <color name="error">#FFB4AB</color>
+    <color name="on_doodle_blue">#B9ECEE</color>
+    <color name="on_doodle_peach">#2E1503</color>
+    <color name="on_doodle_rose">#F9C3C7</color>
+    <color name="success">#9ECFD1</color>
+    <color name="surface">#1F1813</color>
+    <color name="surface_elevated">#332921</color>
+    <color name="surface_variant">#2A211B</color>
+    <color name="text_primary">#F3E8DD</color>
+    <color name="text_secondary">#C5B5A6</color>
+    <color name="text_tertiary">#8A7B6E</color>
+    <string name="accessibility_service_description">Lmusic uses this permission only to detect when you hold both volume buttons together. It does not read your screen or interact with other apps.</string>
+    <string name="app_name">Lmusic</string>
+    <string name="widget_description">Play, pause, and skip Lmusic tracks from your home screen.</string>
+    <style name="LmusicDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/surface_elevated</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorPrimary">@color/accent</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/LmusicDialog.Title</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/LmusicDialog.Body</item>
+        <item name="buttonBarPositiveButtonStyle">@style/LmusicDialog.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/LmusicDialog.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/LmusicDialog.Button</item>
+        <item name="shapeAppearanceOverlay">@style/LmusicDialog.Shape</item>
+    </style>
+    <style name="LmusicDialog.Body" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="LmusicDialog.Button" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="LmusicDialog.Shape">
+        <item name="cornerSize">18dp</item>
+    </style>
+    <style name="LmusicDialog.Title" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="ProfileLinkChevron">
+        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">22dp</item>
+        <item name="android:src">@drawable/ic_chevron_right</item>
+        <item name="android:contentDescription">@null</item>
+    </style>
+    <style name="ProfileLinkLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="ProfileLinkRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_card</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">16dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+    <style name="SleepTimerLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    <style name="SleepTimerRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/bg_card</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+    <style name="SleepTimerSub">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+    <style name="Theme.Lmusic" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/accent_dim</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    <style name="Theme.Lmusic.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/colorPrimary</item>
+        <item name="postSplashScreenTheme">@style/Theme.Lmusic</item>
+    </style>
+    <style name="WeekdayLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textColor">@color/text_tertiary</item>
+    </style>
+</resources>

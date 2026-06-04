@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Sleep-timer picker — replaces the system AlertDialog with a doodle-styled
+    bottom sheet (warm surface, peach pill buttons, cream ink edges).
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingTop="14dp"
+    android:paddingBottom="24dp"
+    android:paddingHorizontal="20dp">
+
+    <View
+        android:layout_width="44dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/divider" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Sleep timer"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary" />
+
+    <TextView
+        android:id="@+id/tv_sleep_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="20dp"
+        android:text="Stop playback after…"
+        android:textSize="13sp"
+        android:textColor="@color/text_secondary" />
+
+    <!-- Duration options -->
+    <LinearLayout
+        android:id="@+id/option_15"
+        style="@style/SleepTimerRow">
+        <TextView style="@style/SleepTimerLabel" android:text="15 minutes" />
+        <TextView style="@style/SleepTimerSub"   android:text="A quick power nap" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/option_30"
+        style="@style/SleepTimerRow">
+        <TextView style="@style/SleepTimerLabel" android:text="30 minutes" />
+        <TextView style="@style/SleepTimerSub"   android:text="One short album" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/option_45"
+        style="@style/SleepTimerRow">
+        <TextView style="@style/SleepTimerLabel" android:text="45 minutes" />
+        <TextView style="@style/SleepTimerSub"   android:text="Light drift" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/option_60"
+        style="@style/SleepTimerRow">
+        <TextView style="@style/SleepTimerLabel" android:text="60 minutes" />
+        <TextView style="@style/SleepTimerSub"   android:text="One full album" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/option_90"
+        style="@style/SleepTimerRow">
+        <TextView style="@style/SleepTimerLabel" android:text="90 minutes" />
+        <TextView style="@style/SleepTimerSub"   android:text="Deep sleep" />
+    </LinearLayout>
+
+    <!-- Cancel button -->
+    <TextView
+        android:id="@+id/btn_sleep_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center"
+        android:layout_marginTop="14dp"
+        android:text="Cancel"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_tertiary" />
+
+</LinearLayout>

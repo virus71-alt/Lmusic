@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.lmusic.app-mergeReleaseResources-52:/values-hdpi-v4/values-hdpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Rahul Singh\\.gradle\\caches\\8.9\\transforms\\5d14d9be1c2dab7c9d02259bf233f2dd\\transformed\\appcompat-1.7.0\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "327"
+                    }
+                }
+            ]
+        }
+    ]
+}

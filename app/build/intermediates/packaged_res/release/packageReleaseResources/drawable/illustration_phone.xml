@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="280dp"
+    android:viewportWidth="200"
+    android:viewportHeight="280">
+
+    <!-- Phone body -->
+    <path
+        android:pathData="M40,20 L160,20 Q175,20 175,40 L175,240 Q175,260 160,260 L40,260 Q25,260 25,240 L25,40 Q25,20 40,20 Z"
+        android:strokeWidth="3"
+        android:strokeColor="@color/accent"
+        android:fillColor="@color/surface_variant" />
+
+    <!-- Screen area -->
+    <path
+        android:pathData="M40,45 L160,45 L160,235 L40,235 Z"
+        android:fillColor="@color/background" />
+
+    <!-- Music note inside screen -->
+    <path
+        android:pathData="M88,110 L88,160 C88,168 81,172 77,168 C73,165 75,159 81,159 L84,158 L84,118 L116,112 L116,148 C116,156 109,160 105,156 C101,153 103,147 109,147 L112,146 L112,108 Z"
+        android:fillColor="@color/accent"
+        android:fillAlpha="0.85" />
+
+    <!-- Volume up button (left side, top) -->
+    <path
+        android:pathData="M22,90 L25,90 L25,118 L22,118 Z"
+        android:fillColor="@color/text_secondary" />
+
+    <!-- Volume down button (left side, middle) -->
+    <path
+        android:pathData="M22,128 L25,128 L25,156 L22,156 Z"
+        android:fillColor="@color/text_secondary" />
+
+    <!-- Volume up highlight (animated via alpha) -->
+    <path
+        android:pathData="M19,90 L25,90 L25,118 L19,118 Z"
+        android:fillColor="@color/accent" />
+
+    <!-- Volume down highlight (animated via alpha) -->
+    <path
+        android:pathData="M19,128 L25,128 L25,156 L19,156 Z"
+        android:fillColor="@color/accent" />
+
+    <!-- Pulse ring around left side -->
+    <path
+        android:pathData="M0,123 Q0,93 22,93 L22,153 Q0,153 0,123 Z"
+        android:strokeWidth="2"
+        android:strokeColor="@color/accent"
+        android:fillColor="@android:color/transparent"
+        android:fillAlpha="0" />
+
+</vector>
