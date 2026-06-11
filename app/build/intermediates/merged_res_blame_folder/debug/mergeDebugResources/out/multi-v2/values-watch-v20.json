@@ -4,7 +4,7 @@
             "outputFile": "com.lmusic.app-mergeDebugResources-52:/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Rahul Singh\\.gradle\\caches\\8.9\\transforms\\5d14d9be1c2dab7c9d02259bf233f2dd\\transformed\\appcompat-1.7.0\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "source": "C:\\Users\\Rahul Singh\\.gradle\\caches\\8.9\\transforms\\2b6d84264e8453f643518d58b0e8eeaa\\transformed\\appcompat-1.7.0\\res\\values-watch-v20\\values-watch-v20.xml",
                     "from": {
                         "startLines": "2,5,8",
                         "startColumns": "4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Rahul Singh\\.gradle\\caches\\8.9\\transforms\\38ec737df979d5c6bac4fd6b45e51bd8\\transformed\\core-splashscreen-1.0.1\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "source": "C:\\Users\\Rahul Singh\\.gradle\\caches\\8.9\\transforms\\e0029f6c7b066427ecaaa9696cd9a660\\transformed\\core-splashscreen-1.0.1\\res\\values-watch-v20\\values-watch-v20.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",

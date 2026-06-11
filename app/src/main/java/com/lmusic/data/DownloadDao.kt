@@ -31,4 +31,7 @@ interface DownloadDao {
     /** All records as a plain list (used by backup export). */
     @Query("SELECT * FROM downloads ORDER BY downloadedAt DESC")
     suspend fun getAll(): List<DownloadRecord>
+
+    @Query("UPDATE downloads SET thumbnailPath = :path WHERE id = :id")
+    suspend fun updateThumbnailPath(id: Int, path: String)
 }

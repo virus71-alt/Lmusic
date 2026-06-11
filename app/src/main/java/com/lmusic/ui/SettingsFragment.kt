@@ -11,11 +11,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreferenceCompat
 import com.lmusic.R
 import com.lmusic.data.BackupManager
 import com.lmusic.data.DownloadDatabase
 import com.lmusic.util.CrashLogger
 import com.lmusic.worker.BatchRestoreWorker
+import com.lmusic.worker.ThumbnailSyncWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -51,6 +53,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 .commit()
             true
         }
+
+        findPreference<SwitchPreferenceCompat>("pref_auto_sync_thumbnails")
+            ?.setOnPreferenceChangeListener { _, newValue ->
+                val enabled = newValue as Boolean
+                if (enabled) {
+                    ThumbnailSyncWorker.schedule(requireContext())
+                } else {
+                    ThumbnailSyncWorker.cancel(requireContext())
+                }
+                true
+            }
 
         findPreference<Preference>("pref_backup_export")?.setOnPreferenceClickListener {
             exportBackup(); true

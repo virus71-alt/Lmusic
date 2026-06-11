@@ -92,16 +92,43 @@ class YouTubeDownloader(private val ctx: Context) {
             val cacheTemp = File(ctx.cacheDir, "lmusic_dl.${chosen.extension}")
             cacheTemp.delete()
             val downloadOk = downloadToFile(chosen.url, cacheTemp, chosen.headers) { p ->
-                onProgress(p * 0.90f)
+                onProgress(p * 0.80f)
             }
             if (!downloadOk) return DownloadResult.Failure("Download from CDN failed")
 
-            // ── 7. Save to Music folder ────────────────────────────────────
+            // ── 7. Convert to MP3 ─────────────────────────────────────────
+            val wantMp3 = settings.convertToMp3
+            val finalFile: File
+            val finalExtension: String
+            val finalMime: String
+
+            if (wantMp3 && chosen.extension != "mp3") {
+                onStage("Converting to MP3…")
+                onProgress(82f)
+                val conv = Mp3Converter.convert(cacheTemp)
+                if (conv.success && conv.outputFile != null) {
+                    cacheTemp.delete()
+                    finalFile = conv.outputFile
+                    finalExtension = "mp3"
+                    finalMime = "audio/mpeg"
+                } else {
+                    Log.w(TAG, "MP3 conversion failed, saving original: ${conv.error}")
+                    finalFile = cacheTemp
+                    finalExtension = chosen.extension
+                    finalMime = chosen.mimeType
+                }
+            } else {
+                finalFile = cacheTemp
+                finalExtension = chosen.extension
+                finalMime = chosen.mimeType
+            }
+
+            // ── 8. Save to Music folder ────────────────────────────────────
             onStage("Saving to Music folder…")
             onProgress(92f)
-            val outFilename = "$safeFile.${chosen.extension}"
-            val savedUri = saveToMusicFolder(cacheTemp, outFilename, chosen.mimeType)
-            cacheTemp.delete()
+            val outFilename = "$safeFile.$finalExtension"
+            val savedUri = saveToMusicFolder(finalFile, outFilename, finalMime)
+            finalFile.delete()
             if (savedUri == null) return DownloadResult.Failure("Could not save to Music folder")
             onProgress(100f)
 

@@ -8,6 +8,7 @@ import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
+import androidx.room.SharedSQLiteStatement;
 import androidx.room.util.CursorUtil;
 import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
@@ -35,6 +36,8 @@ public final class DownloadDao_Impl implements DownloadDao {
   private final EntityInsertionAdapter<DownloadRecord> __insertionAdapterOfDownloadRecord;
 
   private final EntityDeletionOrUpdateAdapter<DownloadRecord> __deletionAdapterOfDownloadRecord;
+
+  private final SharedSQLiteStatement __preparedStmtOfUpdateThumbnailPath;
 
   public DownloadDao_Impl(@NonNull final RoomDatabase __db) {
     this.__db = __db;
@@ -89,6 +92,14 @@ public final class DownloadDao_Impl implements DownloadDao {
         statement.bindLong(1, entity.getId());
       }
     };
+    this.__preparedStmtOfUpdateThumbnailPath = new SharedSQLiteStatement(__db) {
+      @Override
+      @NonNull
+      public String createQuery() {
+        final String _query = "UPDATE downloads SET thumbnailPath = ? WHERE id = ?";
+        return _query;
+      }
+    };
   }
 
   @Override
@@ -141,6 +152,34 @@ public final class DownloadDao_Impl implements DownloadDao {
           return Unit.INSTANCE;
         } finally {
           __db.endTransaction();
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
+  public Object updateThumbnailPath(final int id, final String path,
+      final Continuation<? super Unit> $completion) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      @NonNull
+      public Unit call() throws Exception {
+        final SupportSQLiteStatement _stmt = __preparedStmtOfUpdateThumbnailPath.acquire();
+        int _argIndex = 1;
+        _stmt.bindString(_argIndex, path);
+        _argIndex = 2;
+        _stmt.bindLong(_argIndex, id);
+        try {
+          __db.beginTransaction();
+          try {
+            _stmt.executeUpdateDelete();
+            __db.setTransactionSuccessful();
+            return Unit.INSTANCE;
+          } finally {
+            __db.endTransaction();
+          }
+        } finally {
+          __preparedStmtOfUpdateThumbnailPath.release(_stmt);
         }
       }
     }, $completion);

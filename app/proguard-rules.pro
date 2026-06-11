@@ -59,6 +59,10 @@
 -keep class * extends androidx.work.CoroutineWorker
 -keep class com.lmusic.worker.** { *; }
 
+# ── FFmpeg-Kit ───────────────────────────────────────────────────────────────
+-keep class com.antonkarpenko.ffmpegkit.** { *; }
+-dontwarn com.antonkarpenko.ffmpegkit.**
+
 # ── Coil ─────────────────────────────────────────────────────────────────────
 -dontwarn coil.**
 

@@ -4,7 +4,7 @@
             "outputFile": "com.lmusic.app-mergeDebugResources-52:/values-v27/values-v27.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Rahul Singh\\.gradle\\caches\\8.9\\transforms\\38ec737df979d5c6bac4fd6b45e51bd8\\transformed\\core-splashscreen-1.0.1\\res\\values-v27\\values-v27.xml",
+                    "source": "C:\\Users\\Rahul Singh\\.gradle\\caches\\8.9\\transforms\\e0029f6c7b066427ecaaa9696cd9a660\\transformed\\core-splashscreen-1.0.1\\res\\values-v27\\values-v27.xml",
                     "from": {
                         "startLines": "2,3,4,7",
                         "startColumns": "4,4,4,4",

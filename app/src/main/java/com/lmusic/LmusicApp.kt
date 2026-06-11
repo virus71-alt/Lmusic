@@ -9,6 +9,7 @@ import com.lmusic.data.Settings
 import com.lmusic.plugin.PluginManager
 import com.lmusic.util.CrashLogger
 import com.lmusic.worker.BatchRestoreWorker
+import com.lmusic.worker.ThumbnailSyncWorker
 
 class LmusicApp : Application() {
 
@@ -21,6 +22,10 @@ class LmusicApp : Application() {
         // Re-enqueue any restore that was interrupted by process death.
         if (BackupManager.hasPendingRestore(this)) {
             BatchRestoreWorker.enqueue(this)
+        }
+
+        if (Settings(this).autoSyncThumbnails) {
+            ThumbnailSyncWorker.schedule(this)
         }
     }
 

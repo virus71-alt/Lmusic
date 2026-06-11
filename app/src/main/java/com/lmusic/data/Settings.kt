@@ -63,6 +63,10 @@ class Settings(ctx: Context) {
         get() = prefs.getBoolean(KEY_NOTIFICATIONS, true)
         set(value) { prefs.edit().putBoolean(KEY_NOTIFICATIONS, value).apply() }
 
+    var autoSyncThumbnails: Boolean
+        get() = prefs.getBoolean(KEY_AUTO_SYNC_THUMBNAILS, true)
+        set(value) { prefs.edit().putBoolean(KEY_AUTO_SYNC_THUMBNAILS, value).apply() }
+
     companion object {
         const val KEY_QUALITY = "pref_quality"
         const val KEY_HOLD_DURATION = "pref_hold_duration"
@@ -73,5 +77,6 @@ class Settings(ctx: Context) {
         const val KEY_ONBOARDING = "pref_seen_onboarding"
         const val KEY_GROUP_BY_ARTIST = "pref_group_by_artist"
         const val KEY_NOTIFICATIONS   = "pref_notifications"
+        const val KEY_AUTO_SYNC_THUMBNAILS = "pref_auto_sync_thumbnails"
     }
 }

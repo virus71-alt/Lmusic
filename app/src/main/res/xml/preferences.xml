@@ -24,8 +24,14 @@
 
         <SwitchPreferenceCompat
             app:key="pref_convert_mp3"
-            app:title="Save with .mp3 extension"
-            app:summary="Saves the original AAC audio under a .mp3 filename. Most players auto-detect the format. Turn off to keep the original .m4a extension."
+            app:title="Convert to MP3"
+            app:summary="Converts downloaded audio to MP3 format (192 kbps). Turn off to keep the original format (m4a/webm)."
+            app:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+            app:key="pref_auto_sync_thumbnails"
+            app:title="Auto sync thumbnails"
+            app:summary="Periodically fetch missing cover art for downloaded tracks"
             app:defaultValue="true" />
     </PreferenceCategory>
 

@@ -15,6 +15,7 @@ coil = "2.7.0"
 preference = "1.2.1"
 media3 = "1.3.1"
 splashscreen = "1.0.1"
+ffmpegkit = "2.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +36,8 @@ media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", versi
 media3-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "media3" }
 media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "media3" }
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
+# Maintained fork of the retired arthenica ffmpeg-kit (FFmpeg 8.0), on Maven Central
+ffmpegkit-audio = { group = "com.antonkarpenko", name = "ffmpeg-kit-audio", version.ref = "ffmpegkit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

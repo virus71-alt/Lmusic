@@ -97,4 +97,5 @@ dependencies {
     implementation(libs.media3.ui)
     implementation(libs.media3.session)
     implementation(libs.core.splashscreen)
+    implementation(libs.ffmpegkit.audio)
 }
