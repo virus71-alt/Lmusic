@@ -2,7 +2,6 @@ package com.lmusic.download
 
 import android.app.Notification
 import android.content.Context
-import android.content.Intent
 import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -14,7 +13,9 @@ import com.lmusic.data.DownloadDatabase
 import com.lmusic.data.DownloadRecord
 import com.lmusic.util.CrashLogger
 import kotlinx.coroutines.runBlocking
-import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentLinkedQueue
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Synchronous downloader that runs in whatever thread you start it from.
@@ -23,60 +24,90 @@ import java.util.concurrent.atomic.AtomicBoolean
  * block FGS starts from AccessibilityService callbacks. We rely on the calling
  * AccessibilityService process staying alive (it does — it's bound to the system).
  *
- * Use [start] from anywhere; it spins its own thread and returns immediately.
+ * Supports multiple simultaneous downloads: up to [MAX_CONCURRENT] run in
+ * parallel, additional requests are queued and started as slots free up.
+ * The same URL is de-duplicated while it is queued or in flight.
+ *
+ * Use [start] from anywhere; it returns immediately.
  */
 object DownloadRunner {
 
     private const val TAG = "DownloadRunner"
-    private const val NOTIF_PROGRESS = 1001
-    private const val NOTIF_DONE = 1002
-    private const val NOTIF_ERROR = 1003
+    private const val MAX_CONCURRENT = 3
 
-    // AtomicBoolean so the check-and-set in start() is a single atomic operation,
-    // closing the TOCTOU window where two rapid callers both see false and both
-    // launch threads that write to the same cache-dir temp file.
-    private val _running = AtomicBoolean(false)
-    val isRunning: Boolean get() = _running.get()
+    /** Base for per-download notification IDs; each download claims 3 slots. */
+    private const val NOTIF_BASE = 1100
+
+    private val activeCount = AtomicInteger(0)
+    private val queue = ConcurrentLinkedQueue<String>()
+    private val urlsInFlight: MutableSet<String> = ConcurrentHashMap.newKeySet()
+    private val notifSeq = AtomicInteger(0)
+
+    val isRunning: Boolean get() = activeCount.get() > 0
 
     fun start(ctx: Context, url: String) {
-        if (!_running.compareAndSet(false, true)) {
-            Log.d(TAG, "Already downloading — ignoring: $url")
+        if (!urlsInFlight.add(url)) {
+            Log.d(TAG, "Already queued/downloading — ignoring duplicate: $url")
             return
         }
-        val appCtx = ctx.applicationContext
+        queue.add(url)
+        fillSlots(ctx.applicationContext)
+    }
+
+    /** Launch worker threads until all slots are busy or the queue is drained. */
+    private fun fillSlots(appCtx: Context) {
+        while (true) {
+            val cur = activeCount.get()
+            if (cur >= MAX_CONCURRENT) return
+            if (!activeCount.compareAndSet(cur, cur + 1)) continue
+            val url = queue.poll()
+            if (url == null) {
+                activeCount.decrementAndGet()
+                return
+            }
+            launchWorker(appCtx, url)
+        }
+    }
+
+    private fun launchWorker(appCtx: Context, url: String) {
+        // Cycle through 100 ID groups so concurrent + recent notifications never clash.
+        val notifId = NOTIF_BASE + (notifSeq.getAndIncrement() % 100) * 3
         Thread({
             val pm = appCtx.getSystemService(Context.POWER_SERVICE) as PowerManager
             val wake = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Lmusic:download")
             wake.setReferenceCounted(false)
             wake.acquire(10 * 60 * 1000L /* 10 minutes max */)
             try {
-                runOnce(appCtx, url)
+                runOnce(appCtx, url, notifId)
             } catch (t: Throwable) {
                 Log.e(TAG, "Download crashed", t)
                 CrashLogger.logNonFatal(appCtx, "DownloadRunner", t)
-                showError(appCtx, "Crashed: ${t.javaClass.simpleName}: ${(t.message ?: "").take(200)}", "")
+                showError(appCtx, notifId, "Crashed: ${t.javaClass.simpleName}: ${(t.message ?: "").take(200)}", "")
             } finally {
                 try { if (wake.isHeld) wake.release() } catch (_: Throwable) {}
-                _running.set(false)
+                urlsInFlight.remove(url)
+                activeCount.decrementAndGet()
+                // A slot just freed up — pull the next queued URL if any.
+                fillSlots(appCtx)
             }
         }, "Lmusic-Download").start()
     }
 
-    private fun runOnce(ctx: Context, url: String) {
+    private fun runOnce(ctx: Context, url: String, notifId: Int) {
         // Wi-Fi only check
         if (Settings(ctx).wifiOnly && !isOnWifi(ctx)) {
-            showError(ctx, "Wi-Fi only mode is on. Connect to Wi-Fi or change in Settings.", "wifi check")
+            showError(ctx, notifId, "Wi-Fi only mode is on. Connect to Wi-Fi or change in Settings.", "wifi check")
             return
         }
 
-        showProgress(ctx, "Starting…", 0)
+        showProgress(ctx, notifId, "Starting…", 0)
 
         val downloader = YouTubeDownloader(ctx)
         var stage = "starting"
         val result = downloader.download(
             input = url,
-            onProgress = { p -> showProgress(ctx, "$stage  (${p.toInt()}%)", p.toInt()) },
-            onStage = { s -> stage = s; showProgress(ctx, "$s  (0%)", 0) }
+            onProgress = { p -> showProgress(ctx, notifId, "$stage  (${p.toInt()}%)", p.toInt()) },
+            onStage = { s -> stage = s; showProgress(ctx, notifId, "$s  (0%)", 0) }
         )
 
         // Persist to history
@@ -94,7 +125,7 @@ object DownloadRunner {
                             fileUri = result.fileUri
                         )
                     )
-                    showDone(ctx, result.displayTitle)
+                    showDone(ctx, notifId, result.displayTitle)
                     Log.d(TAG, "Done: ${result.filename}")
                 }
                 is DownloadResult.Failure -> {
@@ -106,39 +137,42 @@ object DownloadRunner {
                             errorMessage = result.error.take(300)
                         )
                     )
-                    showError(ctx, result.error, stage)
+                    showError(ctx, notifId, result.error, stage)
                     Log.e(TAG, "Failed at '$stage': ${result.error}")
                 }
             }
         }
 
-        // Clear the persistent progress notification
-        NotificationManagerCompat.from(ctx).cancel(NOTIF_PROGRESS)
+        // Clear this download's persistent progress notification
+        NotificationManagerCompat.from(ctx).cancel(notifId)
     }
 
     // -----------------------------------------------------------------------
-    // Notifications
+    // Notifications — each download owns 3 IDs: notifId (progress),
+    // notifId+1 (done), notifId+2 (error), so parallel downloads don't clash.
     // -----------------------------------------------------------------------
 
     /** True iff the user has not disabled download notifications in Profile. */
     private fun notifsAllowed(ctx: Context): Boolean =
         Settings(ctx).downloadNotifications
 
-    private fun showProgress(ctx: Context, text: String, progress: Int) {
+    private fun showProgress(ctx: Context, notifId: Int, text: String, progress: Int) {
         if (!notifsAllowed(ctx)) return
+        val active = activeCount.get()
+        val title = if (active > 1) "Lmusic — Downloading ($active active)" else "Lmusic — Downloading"
         val notif: Notification = NotificationCompat.Builder(ctx, LmusicApp.CHANNEL_DOWNLOAD)
             .setSmallIcon(R.drawable.ic_download)
-            .setContentTitle("Lmusic — Downloading")
+            .setContentTitle(title)
             .setContentText(text)
             .setProgress(100, progress, progress == 0)
             .setOngoing(true)
             .setSilent(true)
             .build()
-        try { NotificationManagerCompat.from(ctx).notify(NOTIF_PROGRESS, notif) }
+        try { NotificationManagerCompat.from(ctx).notify(notifId, notif) }
         catch (_: SecurityException) {}
     }
 
-    private fun showDone(ctx: Context, filename: String) {
+    private fun showDone(ctx: Context, notifId: Int, filename: String) {
         if (!notifsAllowed(ctx)) return
         val notif = NotificationCompat.Builder(ctx, LmusicApp.CHANNEL_STATUS)
             .setSmallIcon(R.drawable.ic_download)
@@ -146,11 +180,11 @@ object DownloadRunner {
             .setContentText(filename)
             .setAutoCancel(true)
             .build()
-        try { NotificationManagerCompat.from(ctx).notify(NOTIF_DONE, notif) }
+        try { NotificationManagerCompat.from(ctx).notify(notifId + 1, notif) }
         catch (_: SecurityException) {}
     }
 
-    private fun showError(ctx: Context, error: String, stage: String) {
+    private fun showError(ctx: Context, notifId: Int, error: String, stage: String) {
         if (!notifsAllowed(ctx)) return
         val notif = NotificationCompat.Builder(ctx, LmusicApp.CHANNEL_STATUS)
             .setSmallIcon(R.drawable.ic_download)
@@ -163,7 +197,7 @@ object DownloadRunner {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .build()
-        try { NotificationManagerCompat.from(ctx).notify(NOTIF_ERROR, notif) }
+        try { NotificationManagerCompat.from(ctx).notify(notifId + 2, notif) }
         catch (_: SecurityException) {}
     }
 

@@ -143,7 +143,7 @@
     <style name="Theme.Lmusic.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/background</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
-        <item name="windowSplashScreenIconBackgroundColor">@color/colorPrimary</item>
+        <item name="windowSplashScreenIconBackgroundColor">#241552</item>
         <item name="postSplashScreenTheme">@style/Theme.Lmusic</item>
     </style>
     <style name="WeekdayLabel">

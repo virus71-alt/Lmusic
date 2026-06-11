@@ -89,7 +89,8 @@ class YouTubeDownloader(private val ctx: Context) {
 
             // ── 6. Audio download ──────────────────────────────────────────
             onStage("Downloading audio…")
-            val cacheTemp = File(ctx.cacheDir, "lmusic_dl.${chosen.extension}")
+            // Unique name per download so parallel downloads never share a temp file.
+            val cacheTemp = File(ctx.cacheDir, "lmusic_dl_${System.nanoTime()}.${chosen.extension}")
             cacheTemp.delete()
             val downloadOk = downloadToFile(chosen.url, cacheTemp, chosen.headers) { p ->
                 onProgress(p * 0.80f)

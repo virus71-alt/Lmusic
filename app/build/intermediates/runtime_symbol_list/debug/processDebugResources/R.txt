@@ -3254,6 +3254,7 @@ int drawable ic_favorite 0x7f080101
 int drawable ic_favorite_border 0x7f080102
 int drawable ic_home 0x7f080103
 int drawable ic_keyboard_black_24dp 0x7f080104
+int drawable ic_launcher_background 0x7f08017a
 int drawable ic_launcher_foreground 0x7f080105
 int drawable ic_library 0x7f080106
 int drawable ic_m3_chip_check 0x7f080107

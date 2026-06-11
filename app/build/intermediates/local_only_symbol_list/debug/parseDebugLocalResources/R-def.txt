@@ -72,6 +72,7 @@ drawable ic_expand_down
 drawable ic_favorite
 drawable ic_favorite_border
 drawable ic_home
+drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_library
 drawable ic_music_note
