@@ -10,6 +10,7 @@ import com.lmusic.plugin.PluginManager
 import com.lmusic.util.CrashLogger
 import com.lmusic.worker.BatchRestoreWorker
 import com.lmusic.worker.ThumbnailSyncWorker
+import com.lmusic.worker.WeeklyMixWorker
 
 class LmusicApp : Application() {
 
@@ -26,6 +27,10 @@ class LmusicApp : Application() {
 
         if (Settings(this).autoSyncThumbnails) {
             ThumbnailSyncWorker.schedule(this)
+        }
+
+        if (Settings(this).weeklyMix) {
+            WeeklyMixWorker.schedule(this)
         }
     }
 

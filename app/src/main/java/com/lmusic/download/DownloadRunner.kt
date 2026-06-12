@@ -122,7 +122,10 @@ object DownloadRunner {
                             channel = result.channel,
                             durationSeconds = result.durationSeconds,
                             thumbnailPath = result.thumbnailPath,
-                            fileUri = result.fileUri
+                            fileUri = result.fileUri,
+                            category = com.lmusic.data.MusicCategorizer.categorize(
+                                result.displayTitle, result.channel
+                            )
                         )
                     )
                     showDone(ctx, notifId, result.displayTitle)

@@ -67,6 +67,11 @@ class Settings(ctx: Context) {
         get() = prefs.getBoolean(KEY_AUTO_SYNC_THUMBNAILS, true)
         set(value) { prefs.edit().putBoolean(KEY_AUTO_SYNC_THUMBNAILS, value).apply() }
 
+    /** Weekly auto-mix: download ~10 recommended songs weekly, keep them 7 days. */
+    var weeklyMix: Boolean
+        get() = prefs.getBoolean(KEY_WEEKLY_MIX, true)
+        set(value) { prefs.edit().putBoolean(KEY_WEEKLY_MIX, value).apply() }
+
     companion object {
         const val KEY_QUALITY = "pref_quality"
         const val KEY_HOLD_DURATION = "pref_hold_duration"
@@ -78,5 +83,6 @@ class Settings(ctx: Context) {
         const val KEY_GROUP_BY_ARTIST = "pref_group_by_artist"
         const val KEY_NOTIFICATIONS   = "pref_notifications"
         const val KEY_AUTO_SYNC_THUMBNAILS = "pref_auto_sync_thumbnails"
+        const val KEY_WEEKLY_MIX = "pref_weekly_mix"
     }
 }

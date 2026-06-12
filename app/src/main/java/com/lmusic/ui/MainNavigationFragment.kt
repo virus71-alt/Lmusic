@@ -14,13 +14,13 @@ import com.lmusic.databinding.FragmentMainNavigationBinding
 import com.lmusic.player.MiniPlayerController
 
 /**
- * Premium-Doodle navigation host with a 4-tab bottom bar — every tab is its own
- * real fragment:
+ * Premium-Doodle navigation host with a 4-tab bottom bar (YT Music layout) —
+ * every tab is its own real fragment:
  *
- *   Search  → ExploreFragment         (YouTube search + genre chips, default tab)
+ *   Home    → HomeFragment            (weekly mix · listen again · for-you shelves, default)
+ *   Search  → ExploreFragment         (YouTube search + genre chips)
  *   Library → DownloadHistoryFragment (downloaded tracks)
  *   Favs    → FavoritesFragment       (hearted tracks)
- *   Profile → ProfileFragment         (stats · settings links)
  *
  * Tabs are kept alive via show()/hide() so their state survives tab switches.
  * A single global [MiniPlayerController] lives here so only ONE controller binds
@@ -32,14 +32,14 @@ class MainNavigationFragment : Fragment() {
     private val binding get() = _binding!!
 
     // ── Lazy fragment creation ──────────────────────────────────────────────
-    // Library is the default landing tab, eagerly instantiated.  Search is
-    // also eager since it owns the search EditText (warming the IME path).
-    // Favs + Profile are deferred to first visit.
-    private val libraryFragment = DownloadHistoryFragment()
+    // Home is the default landing tab, eagerly instantiated.  Search is also
+    // eager since it owns the search EditText (warming the IME path).
+    // Library + Favs are deferred to first visit.
+    private val homeFragment    = HomeFragment()
     private val exploreFragment = ExploreFragment()
 
+    private val libraryFragment   by lazy(LazyThreadSafetyMode.NONE) { DownloadHistoryFragment() }
     private val favoritesFragment by lazy(LazyThreadSafetyMode.NONE) { FavoritesFragment() }
-    private val profileFragment   by lazy(LazyThreadSafetyMode.NONE) { ProfileFragment() }
 
     /** Tracks which lazy fragments have already been attached to the host. */
     private val attached = mutableSetOf<Dest>()
@@ -48,11 +48,11 @@ class MainNavigationFragment : Fragment() {
     val globalMiniPlayer: MiniPlayerController? get() = _miniPlayer
 
     /**
-     * Bottom-bar destinations in display order: Library · Search · Favs · Profile.
-     * Library is the default.
+     * Bottom-bar destinations in display order: Home · Search · Library · Favs.
+     * Home is the default (YT Music layout).
      */
-    enum class Dest { LIBRARY, SEARCH, FAVS, PROFILE }
-    private var activeDest = Dest.LIBRARY
+    enum class Dest { HOME, SEARCH, LIBRARY, FAVS }
+    private var activeDest = Dest.HOME
 
     private data class NavItem(val root: View, val icon: ImageView, val label: TextView, val dest: Dest)
     private val navItems = mutableListOf<NavItem>()
@@ -69,10 +69,10 @@ class MainNavigationFragment : Fragment() {
         val tag = tagFor(dest)
         childFragmentManager.findFragmentByTag(tag)?.let { return it }
         return when (dest) {
-            Dest.LIBRARY -> libraryFragment
+            Dest.HOME    -> homeFragment
             Dest.SEARCH  -> exploreFragment
+            Dest.LIBRARY -> libraryFragment
             Dest.FAVS    -> favoritesFragment
-            Dest.PROFILE -> profileFragment
         }
     }
 
@@ -124,9 +124,12 @@ class MainNavigationFragment : Fragment() {
         // produced the "Library blank on first launch" symptom.
         val tx = childFragmentManager.beginTransaction()
 
-        if (Dest.LIBRARY !in attached) {
-            tx.add(R.id.nav_content, libraryFragment, "library")
-            attached += Dest.LIBRARY
+        // Drop a stale Profile fragment restored from a pre-3-tab saved state.
+        childFragmentManager.findFragmentByTag("profile")?.let { tx.remove(it) }
+
+        if (Dest.HOME !in attached) {
+            tx.add(R.id.nav_content, homeFragment, "home")
+            attached += Dest.HOME
         }
         if (Dest.SEARCH !in attached) {
             tx.add(R.id.nav_content, exploreFragment, "search")
@@ -161,10 +164,10 @@ class MainNavigationFragment : Fragment() {
         val inflater = LayoutInflater.from(requireContext())
 
         val defs = listOf(
-            Triple(Dest.LIBRARY, "Library", R.drawable.ic_library),
+            Triple(Dest.HOME,    "Home",    R.drawable.ic_home),
             Triple(Dest.SEARCH,  "Search",  R.drawable.ic_search),
-            Triple(Dest.FAVS,    "Favs",    R.drawable.ic_favorite),
-            Triple(Dest.PROFILE, "Profile", R.drawable.ic_person)
+            Triple(Dest.LIBRARY, "Library", R.drawable.ic_library),
+            Triple(Dest.FAVS,    "Favs",    R.drawable.ic_favorite)
         )
 
         for ((dest, label, iconRes) in defs) {
@@ -208,10 +211,10 @@ class MainNavigationFragment : Fragment() {
     }
 
     private fun tagFor(d: Dest): String = when (d) {
+        Dest.HOME    -> "home"
         Dest.SEARCH  -> "search"
         Dest.LIBRARY -> "library"
         Dest.FAVS    -> "favs"
-        Dest.PROFILE -> "profile"
     }
 
     /** Cached previously-active dest so we only animate the two changed items. */

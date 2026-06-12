@@ -147,7 +147,10 @@ class MusicLibrary(private val ctx: Context) {
             downloadRecordId = id,
             status          = status,
             errorMessage    = errorMessage,
-            youtubeUrl      = youtubeUrl
+            youtubeUrl      = youtubeUrl,
+            category        = category,
+            isAutoDownload  = isAutoDownload,
+            expiresAt       = expiresAt
         )
 
         /** Builds the deprecated-but-still-functional album-art URI for a MediaStore album id. */

@@ -1,8 +1,10 @@
 package com.lmusic.ui
 
+import android.animation.ObjectAnimator
 import android.content.ComponentName
 import android.net.Uri
 import android.os.Bundle
+import android.view.animation.LinearInterpolator
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -33,6 +35,12 @@ class NowPlayingFragment : Fragment() {
     private val handler = Handler(Looper.getMainLooper())
     private var isUserScrubbing = false
 
+    /** Continuous vinyl rotation; paused while playback is paused. */
+    private var vinylSpin: ObjectAnimator? = null
+
+    /** Selectable playback speeds, cycled by tapping the speed chip. */
+    private val speedSteps = floatArrayOf(0.75f, 1.0f, 1.25f, 1.5f, 2.0f)
+
     /** Backs the heart button in the top bar. */
     private val favorites by lazy {
         com.lmusic.data.FavoritesStore(requireContext())
@@ -62,6 +70,8 @@ class NowPlayingFragment : Fragment() {
         }
         override fun onShuffleModeEnabledChanged(enabled: Boolean) = updateShuffleIcon(enabled)
         override fun onRepeatModeChanged(mode: Int) = updateRepeatIcon(mode)
+        override fun onPlaybackParametersChanged(params: androidx.media3.common.PlaybackParameters) =
+            updateSpeedChip(params.speed)
     }
 
     private fun updateCoverPulse(isPlaying: Boolean) {
@@ -71,6 +81,23 @@ class NowPlayingFragment : Fragment() {
             v.animate().scaleX(1.04f).scaleY(1.04f).setDuration(450).start()
         } else {
             v.animate().scaleX(0.92f).scaleY(0.92f).setDuration(380).start()
+        }
+        updateVinylSpin(isPlaying)
+    }
+
+    /** Spins the circular cover like a record while playing; pauses with playback. */
+    private fun updateVinylSpin(isPlaying: Boolean) {
+        val v = _binding?.npCover ?: return
+        val anim = vinylSpin ?: ObjectAnimator.ofFloat(v, View.ROTATION, 0f, 360f).apply {
+            duration = 14_000L
+            interpolator = LinearInterpolator()
+            repeatCount = ObjectAnimator.INFINITE
+        }.also { vinylSpin = it }
+
+        if (isPlaying) {
+            if (anim.isPaused) anim.resume() else if (!anim.isStarted) anim.start()
+        } else if (anim.isRunning) {
+            anim.pause()
         }
     }
 
@@ -101,6 +128,10 @@ class NowPlayingFragment : Fragment() {
             updateLikeIcon(controller?.currentMediaItem)
         }
 
+        binding.btnLyrics.setOnClickListener {
+            LyricsBottomSheet().show(parentFragmentManager, "lyrics")
+        }
+
         binding.btnSleepTimer.setOnClickListener { showSleepTimerDialog() }
         updateSleepTimerButton()
 
@@ -121,6 +152,15 @@ class NowPlayingFragment : Fragment() {
                     else -> Player.REPEAT_MODE_OFF
                 }
             }
+        }
+
+        // Cycle playback speed: 0.75x → 1x → 1.25x → 1.5x → 2x → …
+        binding.npSpeed.setOnClickListener {
+            val c = controller ?: return@setOnClickListener
+            val current = c.playbackParameters.speed
+            val idx = speedSteps.indexOfFirst { kotlin.math.abs(it - current) < 0.01f }
+            val next = speedSteps[(idx + 1).mod(speedSteps.size)]
+            c.setPlaybackSpeed(next)
         }
 
         binding.npSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -149,6 +189,7 @@ class NowPlayingFragment : Fragment() {
                 updateCoverPulse(it.isPlaying)
                 updateShuffleIcon(it.shuffleModeEnabled)
                 updateRepeatIcon(it.repeatMode)
+                updateSpeedChip(it.playbackParameters.speed)
                 updateSeekUI()
             }
         }, MoreExecutors.directExecutor())
@@ -242,6 +283,19 @@ class NowPlayingFragment : Fragment() {
         }
     }
 
+    /** Shows the current playback speed; accent-tinted when not 1x. */
+    private fun updateSpeedChip(speed: Float) {
+        val b = _binding ?: return
+        b.npSpeed.text = "${speed}x"   // floats print as 0.75 / 1.0 / 1.25 / 1.5 / 2.0
+        val normal = kotlin.math.abs(speed - 1.0f) < 0.01f
+        b.npSpeed.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                if (normal) R.color.text_secondary else R.color.accent
+            )
+        )
+    }
+
     private fun updateSeekUI() {
         val c = controller ?: return
         val dur = c.duration.coerceAtLeast(0L)
@@ -294,6 +348,8 @@ class NowPlayingFragment : Fragment() {
 
     override fun onDestroyView() {
         handler.removeCallbacks(progressUpdater)
+        vinylSpin?.cancel()
+        vinylSpin = null
         controller?.removeListener(listener)
         controller?.release()
         controller = null

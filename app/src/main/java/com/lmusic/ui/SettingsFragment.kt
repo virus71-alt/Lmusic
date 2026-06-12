@@ -18,6 +18,7 @@ import com.lmusic.data.DownloadDatabase
 import com.lmusic.util.CrashLogger
 import com.lmusic.worker.BatchRestoreWorker
 import com.lmusic.worker.ThumbnailSyncWorker
+import com.lmusic.worker.WeeklyMixWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -61,6 +62,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     ThumbnailSyncWorker.schedule(requireContext())
                 } else {
                     ThumbnailSyncWorker.cancel(requireContext())
+                }
+                true
+            }
+
+        findPreference<SwitchPreferenceCompat>("pref_weekly_mix")
+            ?.setOnPreferenceChangeListener { _, newValue ->
+                if (newValue as Boolean) {
+                    WeeklyMixWorker.schedule(requireContext())
+                } else {
+                    WeeklyMixWorker.cancel(requireContext())
                 }
                 true
             }

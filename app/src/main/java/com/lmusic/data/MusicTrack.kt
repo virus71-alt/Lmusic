@@ -17,7 +17,12 @@ data class MusicTrack(
     val downloadRecordId: Int? = null,   // present iff this came from Lmusic Room DB (used for delete)
     val status: String = DownloadRecord.STATUS_OK,
     val errorMessage: String? = null,
-    val youtubeUrl: String? = null
+    val youtubeUrl: String? = null,
+    val category: String? = null,
+    /** True for weekly-mix auto-downloads (shown with an "auto" badge). */
+    val isAutoDownload: Boolean = false,
+    /** Epoch ms when an auto-download will be removed; null for permanent tracks. */
+    val expiresAt: Long? = null
 ) {
     enum class Source { LMUSIC, DEVICE }
 }

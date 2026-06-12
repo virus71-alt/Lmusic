@@ -29,9 +29,21 @@
             app:defaultValue="true" />
 
         <SwitchPreferenceCompat
+            app:key="pref_notifications"
+            app:title="Download notifications"
+            app:summary="Show progress in the notification shade while downloading"
+            app:defaultValue="true" />
+
+        <SwitchPreferenceCompat
             app:key="pref_auto_sync_thumbnails"
             app:title="Auto sync thumbnails"
             app:summary="Periodically fetch missing cover art for downloaded tracks"
+            app:defaultValue="true" />
+
+        <SwitchPreferenceCompat
+            app:key="pref_weekly_mix"
+            app:title="Weekly Mix"
+            app:summary="Automatically download 10 songs picked from your favorite artists every week. Kept offline for 7 days — heart a song to keep it forever."
             app:defaultValue="true" />
     </PreferenceCategory>
 

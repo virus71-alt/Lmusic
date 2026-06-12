@@ -14,7 +14,13 @@ data class DownloadRecord(
     val fileUri: String? = null,
     val status: String = STATUS_OK,  // "ok" | "failed"
     val errorMessage: String? = null,
-    val downloadedAt: Long = System.currentTimeMillis()
+    val downloadedAt: Long = System.currentTimeMillis(),
+    /** Genre/mood bucket assigned by [MusicCategorizer]. Null = uncategorized. */
+    val category: String? = null,
+    /** True if this track was fetched automatically by the weekly-mix worker. */
+    val isAutoDownload: Boolean = false,
+    /** For auto-downloads: epoch ms after which the track is cleaned up. Null = keep forever. */
+    val expiresAt: Long? = null
 ) {
     companion object {
         const val STATUS_OK = "ok"

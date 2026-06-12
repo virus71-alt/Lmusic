@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Square cover card used in Home's horizontal shelves (YT Music style). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="140dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginEnd="12dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <FrameLayout
+        android:layout_width="140dp"
+        android:layout_height="140dp">
+
+        <ImageView
+            android:id="@+id/iv_card_art"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_thumbnail_placeholder"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
+            android:contentDescription="Cover art" />
+
+        <!-- Download action (recommendation cards only) -->
+        <ImageButton
+            android:id="@+id/btn_card_download"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="6dp"
+            android:src="@drawable/ic_download"
+            android:background="@drawable/bg_icon_circle"
+            android:padding="7dp"
+            android:visibility="gone"
+            android:contentDescription="Download" />
+
+        <!-- "Expires" badge (weekly-mix cards only) -->
+        <TextView
+            android:id="@+id/tv_card_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="6dp"
+            android:background="@drawable/bg_tab_active"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="3dp"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            android:textColor="@color/on_doodle_peach"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_card_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+    <TextView
+        android:id="@+id/tv_card_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textSize="11sp"
+        android:textColor="@color/text_tertiary"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+</LinearLayout>

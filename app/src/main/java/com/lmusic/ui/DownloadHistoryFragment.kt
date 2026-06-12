@@ -61,6 +61,9 @@ class DownloadHistoryFragment : Fragment() {
     private var allTracks: List<MusicTrack> = emptyList()
     private var searchQuery: String = ""
 
+    /** Active category filter; null = All. */
+    private var categoryFilter: String? = null
+
     // Selection state (by MusicTrack.id which is stable across rebuilds)
     private val selectedIds = mutableSetOf<String>()
     private val selectionMode get() = selectedIds.isNotEmpty()
@@ -85,7 +88,17 @@ class DownloadHistoryFragment : Fragment() {
             onDelete     = { track -> confirmDelete(track) },
             onRetry      = { track -> retryDownload(track) },
             onToggleFav  = { track ->
-                favorites.toggle(track.id)
+                val nowFav = favorites.toggle(track.id)
+                // Hearting a weekly-mix track keeps it forever (no 7-day expiry).
+                val recordId = track.downloadRecordId
+                if (nowFav && track.isAutoDownload && recordId != null) {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        DownloadDatabase.get(requireContext())
+                            .downloadDao().promoteToPermanent(recordId)
+                        Snackbar.make(binding.root,
+                            "Saved to your library — won't expire", Snackbar.LENGTH_SHORT).show()
+                    }
+                }
                 // Rebind only this row instead of the whole list.
                 val pos = adapter.currentList.indexOfFirst {
                     it is Row.Item && it.track.id == track.id
@@ -149,6 +162,7 @@ class DownloadHistoryFragment : Fragment() {
                 selectedIds.retainAll(tracks.map { it.id }.toSet())
                 applyFilterAndSort()
                 updateSubtitle(tracks)
+                rebuildLibraryChips()
             }
         }
     }
@@ -224,9 +238,12 @@ class DownloadHistoryFragment : Fragment() {
     private fun currentVisibleRecords(): List<MusicTrack> {
         val settings = Settings(requireContext())
         val q = searchQuery.trim()
-        val filtered = if (q.isEmpty()) allTracks else allTracks.filter {
+        var filtered = if (q.isEmpty()) allTracks else allTracks.filter {
             it.title.contains(q, ignoreCase = true)
                     || it.artist?.contains(q, ignoreCase = true) == true
+        }
+        categoryFilter?.let { cat ->
+            filtered = filtered.filter { trackCategory(it) == cat }
         }
         return when (settings.sortOrder) {
             Settings.SortOrder.NEWEST -> filtered.sortedByDescending { it.downloadedAt }
@@ -299,7 +316,28 @@ class DownloadHistoryFragment : Fragment() {
                 { s.groupByArtist = !s.groupByArtist; applyFilterAndSort(); rebuildLibraryChips() }
         )
 
-        for (c in chips) {
+        // ── Category filter chips (All + every category present) ──────────
+        val presentCategories = allTracks
+            .filter { it.status == DownloadRecord.STATUS_OK }
+            .groupingBy { trackCategory(it) }
+            .eachCount()
+            .entries
+            .sortedByDescending { it.value }
+            .map { it.key }
+        val categoryChips = buildList {
+            if (presentCategories.size > 1) {
+                add(ChipDef("All", categoryFilter == null)
+                    { categoryFilter = null; applyFilterAndSort(); rebuildLibraryChips() })
+                for (cat in presentCategories) {
+                    add(ChipDef(cat, categoryFilter == cat) {
+                        categoryFilter = if (categoryFilter == cat) null else cat
+                        applyFilterAndSort(); rebuildLibraryChips()
+                    })
+                }
+            }
+        }
+
+        for (c in categoryChips + chips) {
             val v = inflater.inflate(R.layout.view_genre_chip, row, false) as android.widget.TextView
             v.text = c.label
             v.setBackgroundResource(
@@ -314,6 +352,10 @@ class DownloadHistoryFragment : Fragment() {
             row.addView(v)
         }
     }
+
+    /** Stored category, falling back to a live keyword categorization. */
+    private fun trackCategory(t: MusicTrack): String =
+        t.category ?: com.lmusic.data.MusicCategorizer.categorize(t.title, t.artist)
 
     private fun showSortMenu(anchor: View) {
         val s = Settings(requireContext())
@@ -394,7 +436,10 @@ class DownloadHistoryFragment : Fragment() {
                     fileUri = track.uri,
                     status = track.status,
                     errorMessage = track.errorMessage,
-                    downloadedAt = track.downloadedAt
+                    downloadedAt = track.downloadedAt,
+                    category = track.category,
+                    isAutoDownload = track.isAutoDownload,
+                    expiresAt = track.expiresAt
                 ).also { dao.delete(it) }
             } else null
 
@@ -491,6 +536,7 @@ private class DownloadAdapter(
             val parts = mutableListOf<String>()
             if (track.durationSeconds > 0) parts += formatDuration(track.durationSeconds)
             parts += dateFmt.format(Date(track.downloadedAt))
+            if (track.isAutoDownload) parts += "Weekly Mix"
             tvMeta.text = parts.joinToString("  ·  ")
 
             // ── Reset the thumbnail slot before every bind ──────────────────

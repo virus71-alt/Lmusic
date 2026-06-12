@@ -29,6 +29,9 @@ public final class FragmentNowPlayingBinding implements ViewBinding {
   public final ImageButton btnLike;
 
   @NonNull
+  public final ImageButton btnLyrics;
+
+  @NonNull
   public final ImageButton btnQueue;
 
   @NonNull
@@ -59,6 +62,9 @@ public final class FragmentNowPlayingBinding implements ViewBinding {
   public final ImageButton npShuffle;
 
   @NonNull
+  public final TextView npSpeed;
+
+  @NonNull
   public final TextView npTimeElapsed;
 
   @NonNull
@@ -68,15 +74,16 @@ public final class FragmentNowPlayingBinding implements ViewBinding {
   public final TextView npTitle;
 
   private FragmentNowPlayingBinding(@NonNull ScrollView rootView, @NonNull ImageButton btnCollapse,
-      @NonNull ImageButton btnLike, @NonNull ImageButton btnQueue,
+      @NonNull ImageButton btnLike, @NonNull ImageButton btnLyrics, @NonNull ImageButton btnQueue,
       @NonNull ImageButton btnSleepTimer, @NonNull TextView npArtist, @NonNull ImageView npCover,
       @NonNull ImageButton npNext, @NonNull ImageButton npPlayPause, @NonNull ImageButton npPrev,
       @NonNull ImageButton npRepeat, @NonNull SeekBar npSeek, @NonNull ImageButton npShuffle,
-      @NonNull TextView npTimeElapsed, @NonNull TextView npTimeRemaining,
+      @NonNull TextView npSpeed, @NonNull TextView npTimeElapsed, @NonNull TextView npTimeRemaining,
       @NonNull TextView npTitle) {
     this.rootView = rootView;
     this.btnCollapse = btnCollapse;
     this.btnLike = btnLike;
+    this.btnLyrics = btnLyrics;
     this.btnQueue = btnQueue;
     this.btnSleepTimer = btnSleepTimer;
     this.npArtist = npArtist;
@@ -87,6 +94,7 @@ public final class FragmentNowPlayingBinding implements ViewBinding {
     this.npRepeat = npRepeat;
     this.npSeek = npSeek;
     this.npShuffle = npShuffle;
+    this.npSpeed = npSpeed;
     this.npTimeElapsed = npTimeElapsed;
     this.npTimeRemaining = npTimeRemaining;
     this.npTitle = npTitle;
@@ -128,6 +136,12 @@ public final class FragmentNowPlayingBinding implements ViewBinding {
       id = R.id.btn_like;
       ImageButton btnLike = ViewBindings.findChildViewById(rootView, id);
       if (btnLike == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_lyrics;
+      ImageButton btnLyrics = ViewBindings.findChildViewById(rootView, id);
+      if (btnLyrics == null) {
         break missingId;
       }
 
@@ -191,6 +205,12 @@ public final class FragmentNowPlayingBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.np_speed;
+      TextView npSpeed = ViewBindings.findChildViewById(rootView, id);
+      if (npSpeed == null) {
+        break missingId;
+      }
+
       id = R.id.np_time_elapsed;
       TextView npTimeElapsed = ViewBindings.findChildViewById(rootView, id);
       if (npTimeElapsed == null) {
@@ -209,9 +229,9 @@ public final class FragmentNowPlayingBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentNowPlayingBinding((ScrollView) rootView, btnCollapse, btnLike, btnQueue,
-          btnSleepTimer, npArtist, npCover, npNext, npPlayPause, npPrev, npRepeat, npSeek,
-          npShuffle, npTimeElapsed, npTimeRemaining, npTitle);
+      return new FragmentNowPlayingBinding((ScrollView) rootView, btnCollapse, btnLike, btnLyrics,
+          btnQueue, btnSleepTimer, npArtist, npCover, npNext, npPlayPause, npPrev, npRepeat, npSeek,
+          npShuffle, npSpeed, npTimeElapsed, npTimeRemaining, npTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

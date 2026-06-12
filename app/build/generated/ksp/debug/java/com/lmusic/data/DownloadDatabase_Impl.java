@@ -31,12 +31,12 @@ public final class DownloadDatabase_Impl extends DownloadDatabase {
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(3) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(4) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS `downloads` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `youtubeUrl` TEXT NOT NULL, `title` TEXT NOT NULL, `channel` TEXT, `durationSeconds` INTEGER NOT NULL, `thumbnailPath` TEXT, `fileUri` TEXT, `status` TEXT NOT NULL, `errorMessage` TEXT, `downloadedAt` INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `downloads` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `youtubeUrl` TEXT NOT NULL, `title` TEXT NOT NULL, `channel` TEXT, `durationSeconds` INTEGER NOT NULL, `thumbnailPath` TEXT, `fileUri` TEXT, `status` TEXT NOT NULL, `errorMessage` TEXT, `downloadedAt` INTEGER NOT NULL, `category` TEXT, `isAutoDownload` INTEGER NOT NULL, `expiresAt` INTEGER)");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '51f7acd94eeb7ca406869bd1a46d99bc')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1e300a344c82d1a794f8b124520d44a4')");
       }
 
       @Override
@@ -85,7 +85,7 @@ public final class DownloadDatabase_Impl extends DownloadDatabase {
       @NonNull
       public RoomOpenHelper.ValidationResult onValidateSchema(
           @NonNull final SupportSQLiteDatabase db) {
-        final HashMap<String, TableInfo.Column> _columnsDownloads = new HashMap<String, TableInfo.Column>(10);
+        final HashMap<String, TableInfo.Column> _columnsDownloads = new HashMap<String, TableInfo.Column>(13);
         _columnsDownloads.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsDownloads.put("youtubeUrl", new TableInfo.Column("youtubeUrl", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsDownloads.put("title", new TableInfo.Column("title", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
@@ -96,6 +96,9 @@ public final class DownloadDatabase_Impl extends DownloadDatabase {
         _columnsDownloads.put("status", new TableInfo.Column("status", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsDownloads.put("errorMessage", new TableInfo.Column("errorMessage", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsDownloads.put("downloadedAt", new TableInfo.Column("downloadedAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsDownloads.put("category", new TableInfo.Column("category", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsDownloads.put("isAutoDownload", new TableInfo.Column("isAutoDownload", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsDownloads.put("expiresAt", new TableInfo.Column("expiresAt", "INTEGER", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysDownloads = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesDownloads = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoDownloads = new TableInfo("downloads", _columnsDownloads, _foreignKeysDownloads, _indicesDownloads);
@@ -107,7 +110,7 @@ public final class DownloadDatabase_Impl extends DownloadDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "51f7acd94eeb7ca406869bd1a46d99bc", "1294dae42b62e0587f50736b7ef44391");
+    }, "1e300a344c82d1a794f8b124520d44a4", "acf4fe3cccaf5f4e250e3d196d05f512");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;

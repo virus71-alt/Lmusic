@@ -66,6 +66,9 @@ class PlaybackService : MediaSessionService() {
                 /* handleAudioFocus = */ true
             )
             .setHandleAudioBecomingNoisy(true) // pause on headphone unplug
+            // Hold CPU + Wi-Fi awake while playing so long tracks and resolved
+            // network streams don't stall when the screen turns off.
+            .setWakeMode(C.WAKE_MODE_NETWORK)
             .build()
         player.addListener(widgetListener)
 
